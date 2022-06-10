@@ -7,7 +7,7 @@ namespace EventManagementFPT.Utils.Repository.Interface
 {
     public interface IRepository<T> where T : class
     {
-        T Get(string key);
+        T GetByID(string key);
 
         void AddAsync(T entity);
         void AddRangeAsync(ICollection<T> entities);

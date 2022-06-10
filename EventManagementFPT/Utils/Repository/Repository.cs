@@ -32,7 +32,7 @@ namespace EventManagementFPT.Utils.Repository
             _db.SaveChanges();
         }
 
-        public T Get(string key)
+        public T GetByID(string key)
         {
             return DbSet.Find(key);
         }
