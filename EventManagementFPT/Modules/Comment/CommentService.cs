@@ -14,7 +14,7 @@ namespace EventManagementFPT.Modules.Comment
 
         public async Task RemoveAndItsChildComment(string commentId)
         {
-            var commentRemoved = await _commentRepository.GetById(commentId);
+            var commentRemoved = await _commentRepository.GetByIdAsync(commentId);
             
             if (commentRemoved == null) return; //wait for define pop up error message
 
