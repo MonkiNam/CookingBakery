@@ -1,27 +1,33 @@
-﻿using EventManagementFPT.Model;
+﻿using System.Linq;
+using EventManagementFPT.Model;
 using EventManagementFPT.Modules.Comment.Interface;
 using EventManagementFPT.Utils.Repository;
-using System.Collections.Generic;
-using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace EventManagementFPT.Modules.Comment
 {
-    public class CommentRepository : Repository<TblComment>, ICommentRepository
+    public class CommentRepository : Repository<Model.Comment>, ICommentRepository
     {
-        private readonly EventManagementContext Db;
+        private readonly EventManagementContext _db;
+
         public CommentRepository(EventManagementContext db) : base(db)
         {
-            this.Db = db;
+            _db = db;
         }
-        public void RemoveAndItsChildComment(TblComment comment)
+
+        public async void RemoveAndItsChildComment(Model.Comment comment)
         {
-            List<TblComment> comments = this.Db.TblComments.Where(item => item.ParentId == comment.CommentId).ToList();            
+            var comments = await _db.Comments
+                .Where(item => item.ParentId == comment.CommentId)
+                .ToListAsync();
+            
             if (comments.Count > 0)
             {
-                this.Db.TblComments.RemoveRange(comments);
+                _db.Comments.RemoveRange(comments);
             }
-            this.Db.TblComments.Remove(comment);
-            this.Db.SaveChanges();
+
+            _db.Comments.Remove(comment);
+            await _db.SaveChangesAsync();
         }
     }
 }

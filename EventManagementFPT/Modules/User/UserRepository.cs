@@ -1,48 +1,57 @@
-﻿using EventManagementFPT.Model;
+﻿using System.Linq;
+using EventManagementFPT.Model;
 using EventManagementFPT.Modules.User.Interface;
 using EventManagementFPT.Utils.Repository;
-using System.Linq;
 
 namespace EventManagementFPT.Modules.User
 {
-    public class UserRepository : Repository<TblUser>, IUserRepository
+    public class UserRepository : Repository<Model.User>, IUserRepository
     {
-        private readonly EventManagementContext Db;
+        private readonly EventManagementContext _db;
+
         public UserRepository(EventManagementContext db) : base(db)
         {
-            this.Db = db;
+            _db = db;
         }
-        public void FollowEvent(TblUser user, TblEvent followingEvent)
+
+        public void FollowEvent(Model.User user, Model.Event followingEvent)
         {
-            TblFollowEvent followInfo = new TblFollowEvent()
+            var followInfo = new FollowEvent
             {
                 EventId = followingEvent.EventId,
                 UserId = user.UserId
             };
-            this.Db.TblFollowEvents.Add(followInfo);
-            this.Db.SaveChanges();
+            _db.FollowEvents.Add(followInfo);
+            _db.SaveChanges();
         }
-        public void UnfollowEvent(TblUser user, TblEvent followingEvent)
+
+        public void UnfollowEvent(Model.User user, Model.Event followingEvent)
         {
-            TblFollowEvent followInfo = this.Db.TblFollowEvents.FirstOrDefault(item => item.EventId.Equals(followingEvent.EventId) && item.UserId.Equals(user.UserId));
-            this.Db.TblFollowEvents.Remove(followInfo);
-            this.Db.SaveChanges();
+            var followInfo = _db.FollowEvents.FirstOrDefault(
+                item => item.EventId.Equals(followingEvent.EventId) && item.UserId.Equals(user.UserId)
+            );
+            if (followInfo != null) _db.FollowEvents.Remove(followInfo);
+            _db.SaveChanges();
         }
-        public void LikeEvent(TblUser user, TblEvent followingEvent)
+
+        public void LikeEvent(Model.User user, Model.Event followingEvent)
         {
-            TblEventLike likeInfo = new TblEventLike()
+            var likeInfo = new EventLike
             {
                 EventId = followingEvent.EventId,
                 UserId = user.UserId
             };
-            this.Db.TblEventLikes.Add(likeInfo);
-            this.Db.SaveChanges();
+            _db.EventLikes.Add(likeInfo);
+            _db.SaveChanges();
         }
-        public void UnlikeEvent(TblUser user, TblEvent followingEvent)
+
+        public void UnlikeEvent(Model.User user, Model.Event followingEvent)
         {
-            TblEventLike likeInfo = this.Db.TblEventLikes.FirstOrDefault(item => item.EventId.Equals(followingEvent.EventId) && item.UserId.Equals(user.UserId));
-            this.Db.TblEventLikes.Remove(likeInfo);
-            this.Db.SaveChanges();
+            var likeInfo = _db.EventLikes.FirstOrDefault(
+                item => item.EventId.Equals(followingEvent.EventId) && item.UserId.Equals(user.UserId)
+            );
+            if (likeInfo != null) _db.EventLikes.Remove(likeInfo);
+            _db.SaveChanges();
         }
     }
 }
