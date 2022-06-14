@@ -1,8 +1,8 @@
-﻿using System.IO;
+﻿#nullable disable
+
+using System.IO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-
-#nullable disable
 
 namespace EventManagementFPT.Model
 {
@@ -12,38 +12,36 @@ namespace EventManagementFPT.Model
         {
         }
 
-        public EventManagementContext(DbContextOptions<EventManagementContext> options)
-            : base(options)
+        public EventManagementContext(DbContextOptions<EventManagementContext> options) : base(options)
         {
         }
 
-        public virtual DbSet<TblCategory> TblCategories { get; set; }
-        public virtual DbSet<TblComment> TblComments { get; set; }
-        public virtual DbSet<TblEvent> TblEvents { get; set; }
-        public virtual DbSet<TblEventLike> TblEventLikes { get; set; }
-        public virtual DbSet<TblFollowEvent> TblFollowEvents { get; set; }
-        public virtual DbSet<TblReport> TblReports { get; set; }
-        public virtual DbSet<TblUser> TblUsers { get; set; }
-        public virtual DbSet<TblUserEvent> TblUserEvents { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Comment> Comments { get; set; }
+        public virtual DbSet<Event> Events { get; set; }
+        public virtual DbSet<EventLike> EventLikes { get; set; }
+        public virtual DbSet<FollowEvent> FollowEvents { get; set; }
+        public virtual DbSet<Report> Reports { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<UserEvent> UserEvents { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                var configuration = new ConfigurationBuilder()
-                    .SetBasePath(Directory.GetCurrentDirectory())
-                    .AddJsonFile("appsettings.json")
-                    .Build();
-                var connectionString = configuration.GetConnectionString("DefaultConnection");
-                optionsBuilder.UseSqlServer(connectionString);
-            }
+            if (optionsBuilder.IsConfigured) return;
+
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json")
+                .Build();
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
+            optionsBuilder.UseSqlServer(connectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
 
-            modelBuilder.Entity<TblCategory>(entity =>
+            modelBuilder.Entity<Category>(entity =>
             {
                 entity.HasKey(e => e.CategoryId);
 
@@ -58,7 +56,7 @@ namespace EventManagementFPT.Model
                     .HasMaxLength(50);
             });
 
-            modelBuilder.Entity<TblComment>(entity =>
+            modelBuilder.Entity<Comment>(entity =>
             {
                 entity.HasKey(e => e.CommentId);
 
@@ -96,7 +94,7 @@ namespace EventManagementFPT.Model
                     .HasConstraintName("FK_tblComment_tblUser");
             });
 
-            modelBuilder.Entity<TblEvent>(entity =>
+            modelBuilder.Entity<Event>(entity =>
             {
                 entity.HasKey(e => e.EventId);
 
@@ -129,9 +127,9 @@ namespace EventManagementFPT.Model
                     .HasConstraintName("FK_tblEvent_tblCategory");
             });
 
-            modelBuilder.Entity<TblEventLike>(entity =>
+            modelBuilder.Entity<EventLike>(entity =>
             {
-                entity.HasKey(e => new { e.EventId, e.UserId });
+                entity.HasKey(e => new {e.EventId, e.UserId});
 
                 entity.ToTable("tblEventLike");
 
@@ -154,9 +152,9 @@ namespace EventManagementFPT.Model
                     .HasConstraintName("FK_tblEventLike_tblUser");
             });
 
-            modelBuilder.Entity<TblFollowEvent>(entity =>
+            modelBuilder.Entity<FollowEvent>(entity =>
             {
-                entity.HasKey(e => new { e.EventId, e.UserId });
+                entity.HasKey(e => new {e.EventId, e.UserId});
 
                 entity.ToTable("tblFollowEvent");
 
@@ -177,7 +175,7 @@ namespace EventManagementFPT.Model
                     .HasConstraintName("FK_tblFollowEvent_tblUser");
             });
 
-            modelBuilder.Entity<TblReport>(entity =>
+            modelBuilder.Entity<Report>(entity =>
             {
                 entity.HasKey(e => e.ReportId);
 
@@ -208,7 +206,7 @@ namespace EventManagementFPT.Model
                     .HasConstraintName("FK_tblReport_tblEvent");
             });
 
-            modelBuilder.Entity<TblUser>(entity =>
+            modelBuilder.Entity<User>(entity =>
             {
                 entity.HasKey(e => e.UserId);
 
@@ -243,9 +241,9 @@ namespace EventManagementFPT.Model
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<TblUserEvent>(entity =>
+            modelBuilder.Entity<UserEvent>(entity =>
             {
-                entity.HasKey(e => new { e.UserId, e.EventId });
+                entity.HasKey(e => new {e.EventId, e.UserId});
 
                 entity.ToTable("tblUserEvent");
 
