@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿#nullable disable
 
-#nullable disable
+using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EventManagementFPT.Model
 {
-    public partial class TblReport
+    [Table("tblReport")]
+    public partial class Report
     {
         public Guid ReportId { get; set; }
         public string Name { get; set; }
@@ -15,7 +16,7 @@ namespace EventManagementFPT.Model
         public Guid? Author { get; set; }
         public Guid? EventId { get; set; }
 
-        public virtual TblUser AuthorNavigation { get; set; }
-        public virtual TblEvent Event { get; set; }
+        public virtual User AuthorNavigation { get; set; }
+        public virtual Event Event { get; set; }
     }
 }

@@ -1,5 +1,4 @@
-﻿using EventManagementFPT.Model;
-using EventManagementFPT.Modules.Event.Interface;
+﻿using EventManagementFPT.Modules.Event.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,14 +7,25 @@ namespace EventManagementFPT.Modules.Event
 {
     public class EventService : IEventService
     {
-        IEventRepository eventRepository;
-        public EventService(IEventRepository _eventRepository)
+        private readonly IEventRepository _eventRepository;
+
+        public EventService(IEventRepository eventRepository)
         {
-            eventRepository = _eventRepository;
+            _eventRepository = eventRepository;
         }
-        public ICollection<TblEvent> GetEventsByName(string name, Func<IQueryable<TblEvent>, ICollection<TblEvent>> options = null,
-            string includeProperties = null) => eventRepository.GetEventsBy(x => string.Equals(x.Name, name, StringComparison.OrdinalIgnoreCase), options, includeProperties);
-        public ICollection<TblEvent> GetEventsByVenue(string venue) => eventRepository.GetEventsBy(x => string.Equals(x.Venue, venue, StringComparison.OrdinalIgnoreCase));
-        public ICollection<TblEvent> GetAll() => eventRepository.GetAll();
+
+        public ICollection<Model.Event> GetEventsByName(string name)
+        {
+            return _eventRepository.GetEventsBy(
+                x => string.Equals(x.Name, name, StringComparison.OrdinalIgnoreCase)
+            );
+        }
+
+        public ICollection<Model.Event> GetEventsByVenue(string venue)
+        {
+            return _eventRepository.GetEventsBy(
+                x => string.Equals(x.Venue, venue, StringComparison.OrdinalIgnoreCase)
+            );
+        }
     }
 }

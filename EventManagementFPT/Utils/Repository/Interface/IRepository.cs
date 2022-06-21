@@ -2,34 +2,36 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace EventManagementFPT.Utils.Repository.Interface
 {
     public interface IRepository<T> where T : class
     {
-        T GetByID(string key);
+        Task<T> GetByIdAsync(string key);
 
-        void AddAsync(T entity);
-        void AddRangeAsync(ICollection<T> entities);
+        Task AddAsync(T entity);
+        
+        Task AddRangeAsync(IEnumerable<T> entities);
 
         ICollection<T> GetAll(
             Func<IQueryable<T>, ICollection<T>> options = null,
             string includeProperties = null
-            );
+        );
 
-        T GetFirstOrDefault(
+        Task<T> GetFirstOrDefaultAsync(
             Expression<Func<T, bool>> filter = null,
             string includeProperties = null
-            );
+        );
 
-        void Update(T entity);
-        void UpdateRange(ICollection<T> entities);
+        Task UpdateAsync(T entity);
+        
+        Task UpdateRangeAsync(IEnumerable<T> entities);
 
-        void Remove(string key);
+        Task RemoveAsync(string key);
 
-        void Remove(T entity);
+        Task RemoveAsync(T entity);
 
-        void RemoveRange(ICollection<T> entities);
-
+        Task RemoveRangeAsync(IEnumerable<T> entities);
     }
 }

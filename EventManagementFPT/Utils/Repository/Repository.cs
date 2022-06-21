@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using EventManagementFPT.Model;
 using EventManagementFPT.Utils.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +13,7 @@ namespace EventManagementFPT.Utils.Repository
     {
 
         private readonly EventManagementContext _db;
-        internal DbSet<T> DbSet;
+        internal readonly DbSet<T> DbSet;
 
         public Repository(EventManagementContext db)
         {
@@ -20,29 +21,30 @@ namespace EventManagementFPT.Utils.Repository
             DbSet = _db.Set<T>();
         }
 
-        public void AddAsync(T entity)
+        public async Task AddAsync(T entity)
         {
-            DbSet.AddAsync(entity);
-            _db.SaveChanges();
+            await DbSet.AddAsync(entity);
+            await _db.SaveChangesAsync();
         }
 
-        public void AddRangeAsync(ICollection<T> entities)
+        public async Task AddRangeAsync(IEnumerable<T> entities)
         {
-            DbSet.AddRangeAsync(entities);
-            _db.SaveChanges();
+            await DbSet.AddRangeAsync(entities);
+            await _db.SaveChangesAsync();
         }
 
-        public T GetByID(string key)
+        public async Task<T> GetByIdAsync(string key)
         {
-            return DbSet.Find(key);
+            return await DbSet.FindAsync(key);
         }
 
         public ICollection<T> GetAll(Func<IQueryable<T>, ICollection<T>> options = null, string includeProperties = null)
         {
             IQueryable<T> query = DbSet;
+            
             if (includeProperties != null)
             {
-                foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                foreach (var includeProp in includeProperties.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                 {
                     query = query.Include(includeProp);
                 }
@@ -56,7 +58,7 @@ namespace EventManagementFPT.Utils.Repository
             return query.ToList();
         }
 
-        public T GetFirstOrDefault(Expression<Func<T, bool>> filter = null, string includeProperties = null)
+        public Task<T> GetFirstOrDefaultAsync(Expression<Func<T, bool>> filter = null, string includeProperties = null)
         {
             IQueryable<T> query = DbSet;
             if (filter != null)
@@ -72,38 +74,38 @@ namespace EventManagementFPT.Utils.Repository
                 }
             }
 
-            return query.FirstOrDefault();
+            return query.FirstOrDefaultAsync();
         }
 
-        public void Remove(string key)
+        public async Task RemoveAsync(string key)
         {
-            var entity = DbSet.Find(key);
+            var entity = await DbSet.FindAsync(key);
             DbSet.Remove(entity);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
         }
 
-        public void Remove(T entity)
+        public async Task RemoveAsync(T entity)
         {
             DbSet.Remove(entity);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
         }
 
-        public void RemoveRange(ICollection<T> entities)
+        public async Task RemoveRangeAsync(IEnumerable<T> entities)
         {
             DbSet.RemoveRange(entities);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
         }
 
-        public void Update(T entity)
+        public async Task UpdateAsync(T entity)
         {
             DbSet.Update(entity);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
         }
 
-        public void UpdateRange(ICollection<T> entities)
+        public async Task UpdateRangeAsync(IEnumerable<T> entities)
         {
             DbSet.UpdateRange(entities);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
         }
     }
 }
