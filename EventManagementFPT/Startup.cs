@@ -1,6 +1,16 @@
+using EventManagementFPT.Model;
+using EventManagementFPT.Modules.Comment;
+using EventManagementFPT.Modules.Comment.Interface;
+using EventManagementFPT.Modules.Event;
+using EventManagementFPT.Modules.Event.Interface;
+using EventManagementFPT.Modules.User;
+using EventManagementFPT.Modules.User.Interface;
+using EventManagementFPT.Utils.Repository;
+using EventManagementFPT.Utils.Repository.Interface;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,6 +34,16 @@ namespace EventManagementFPT
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            services.AddSession();
+            //Add scope and dependency injection
+            //User Module
+            services.AddScoped<IUserRepository, UserRepository>();
+            //Event Module
+            services.AddScoped<IEventRepository, EventRepository>();
+            services.AddScoped<IEventService, EventService>();
+            //Comment Module
+            services.AddScoped<ICommentRepository, CommentRepository>();
+            services.AddScoped<ICommentService, CommentService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
