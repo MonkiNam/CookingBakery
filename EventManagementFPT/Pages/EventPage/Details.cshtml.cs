@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using EventManagementFPT.Model;
 
-namespace EventManagementFPT.Pages.Event
+namespace EventManagementFPT.Pages.EventPage
 {
     public class DetailsModel : PageModel
     {
@@ -18,7 +18,7 @@ namespace EventManagementFPT.Pages.Event
             _context = context;
         }
 
-        public TblEvent TblEvent { get; set; }
+        public Event Event { get; set; }
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
@@ -27,10 +27,10 @@ namespace EventManagementFPT.Pages.Event
                 return NotFound();
             }
 
-            TblEvent = await _context.TblEvents
-                .Include(t => t.CategoryNavigation).FirstOrDefaultAsync(m => m.EventId == id);
+            Event = await _context.Events
+                .FirstOrDefaultAsync(m => m.EventId == id);
 
-            if (TblEvent == null)
+            if (Event == null)
             {
                 return NotFound();
             }

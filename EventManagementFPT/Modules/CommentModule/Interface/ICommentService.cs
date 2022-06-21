@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace EventManagementFPT.Modules.Comment.Interface
+namespace EventManagementFPT.Modules.CommentModule.Interface
 {
     public interface ICommentService
     {

@@ -1,11 +1,11 @@
 ﻿using System.Linq;
 using EventManagementFPT.Model;
-using EventManagementFPT.Modules.User.Interface;
+using EventManagementFPT.Modules.UserModule.Interface;
 using EventManagementFPT.Utils.Repository;
 
-namespace EventManagementFPT.Modules.User
+namespace EventManagementFPT.Modules.UserModule
 {
-    public class UserRepository : Repository<Model.User>, IUserRepository
+    public class UserRepository : Repository<User>, IUserRepository
     {
         private readonly EventManagementContext _db;
 
@@ -14,7 +14,7 @@ namespace EventManagementFPT.Modules.User
             _db = db;
         }
 
-        public void FollowEvent(Model.User user, Model.Event followingEvent)
+        public void FollowEvent(User user, Event followingEvent)
         {
             var followInfo = new FollowEvent
             {
@@ -25,7 +25,7 @@ namespace EventManagementFPT.Modules.User
             _db.SaveChanges();
         }
 
-        public void UnfollowEvent(Model.User user, Model.Event followingEvent)
+        public void UnfollowEvent(User user, Event followingEvent)
         {
             var followInfo = _db.FollowEvents.FirstOrDefault(
                 item => item.EventId.Equals(followingEvent.EventId) && item.UserId.Equals(user.UserId)
@@ -34,7 +34,7 @@ namespace EventManagementFPT.Modules.User
             _db.SaveChanges();
         }
 
-        public void LikeEvent(Model.User user, Model.Event followingEvent)
+        public void LikeEvent(User user, Event followingEvent)
         {
             var likeInfo = new EventLike
             {
@@ -45,7 +45,7 @@ namespace EventManagementFPT.Modules.User
             _db.SaveChanges();
         }
 
-        public void UnlikeEvent(Model.User user, Model.Event followingEvent)
+        public void UnlikeEvent(User user, Event followingEvent)
         {
             var likeInfo = _db.EventLikes.FirstOrDefault(
                 item => item.EventId.Equals(followingEvent.EventId) && item.UserId.Equals(user.UserId)

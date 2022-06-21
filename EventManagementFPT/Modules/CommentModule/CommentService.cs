@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using EventManagementFPT.Modules.Comment.Interface;
+using EventManagementFPT.Modules.CommentModule.Interface;
 
-namespace EventManagementFPT.Modules.Comment
+namespace EventManagementFPT.Modules.CommentModule
 {
     public class CommentService : ICommentService
     {
@@ -15,7 +15,7 @@ namespace EventManagementFPT.Modules.Comment
         public async Task RemoveAndItsChildComment(string commentId)
         {
             var commentRemoved = await _commentRepository.GetByIdAsync(commentId);
-            
+
             if (commentRemoved == null) return; //wait for define pop up error message
 
             _commentRepository.RemoveAndItsChildComment(commentRemoved);

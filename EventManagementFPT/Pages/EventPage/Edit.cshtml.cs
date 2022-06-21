@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EventManagementFPT.Model;
 
-namespace EventManagementFPT.Pages.Event
+namespace EventManagementFPT.Pages.EventPage
 {
     public class EditModel : PageModel
     {
@@ -20,7 +20,7 @@ namespace EventManagementFPT.Pages.Event
         }
 
         [BindProperty]
-        public TblEvent TblEvent { get; set; }
+        public Event Event { get; set; }
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
@@ -29,14 +29,14 @@ namespace EventManagementFPT.Pages.Event
                 return NotFound();
             }
 
-            TblEvent = await _context.TblEvents
-                .Include(t => t.CategoryNavigation).FirstOrDefaultAsync(m => m.EventId == id);
+            Event = await _context.Events
+                .FirstOrDefaultAsync(m => m.EventId == id);
 
-            if (TblEvent == null)
+            if (Event == null)
             {
                 return NotFound();
             }
-           ViewData["Category"] = new SelectList(_context.TblCategories, "CategoryId", "Name");
+           ViewData["Category"] = new SelectList(_context.Categories, "CategoryId", "Name");
             return Page();
         }
 
@@ -49,7 +49,7 @@ namespace EventManagementFPT.Pages.Event
                 return Page();
             }
 
-            _context.Attach(TblEvent).State = EntityState.Modified;
+            _context.Attach(Event).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +57,7 @@ namespace EventManagementFPT.Pages.Event
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TblEventExists(TblEvent.EventId))
+                if (!EventExists(Event.EventId))
                 {
                     return NotFound();
                 }
@@ -70,9 +70,9 @@ namespace EventManagementFPT.Pages.Event
             return RedirectToPage("./Index");
         }
 
-        private bool TblEventExists(Guid id)
+        private bool EventExists(Guid id)
         {
-            return _context.TblEvents.Any(e => e.EventId == id);
+            return _context.Events.Any(e => e.EventId == id);
         }
     }
 }

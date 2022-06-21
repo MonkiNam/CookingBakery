@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using EventManagementFPT.Model;
 
-namespace EventManagementFPT.Pages.Event
+namespace EventManagementFPT.Pages.EventPage
 {
     public class DeleteModel : PageModel
     {
@@ -19,7 +19,7 @@ namespace EventManagementFPT.Pages.Event
         }
 
         [BindProperty]
-        public TblEvent TblEvent { get; set; }
+        public Event Event { get; set; }
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
@@ -28,10 +28,10 @@ namespace EventManagementFPT.Pages.Event
                 return NotFound();
             }
 
-            TblEvent = await _context.TblEvents
-                .Include(t => t.CategoryNavigation).FirstOrDefaultAsync(m => m.EventId == id);
+            Event = await _context.Events
+                .FirstOrDefaultAsync(m => m.EventId == id);
 
-            if (TblEvent == null)
+            if (Event == null)
             {
                 return NotFound();
             }
@@ -45,11 +45,11 @@ namespace EventManagementFPT.Pages.Event
                 return NotFound();
             }
 
-            TblEvent = await _context.TblEvents.FindAsync(id);
+            Event = await _context.Events.FindAsync(id);
 
-            if (TblEvent != null)
+            if (Event != null)
             {
-                _context.TblEvents.Remove(TblEvent);
+                _context.Events.Remove(Event);
                 await _context.SaveChangesAsync();
             }
 

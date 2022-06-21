@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using EventManagementFPT.Model;
 
-namespace EventManagementFPT.Pages.Event
+namespace EventManagementFPT.Pages.EventPage
 {
     public class CreateModel : PageModel
     {
@@ -20,12 +20,12 @@ namespace EventManagementFPT.Pages.Event
 
         public IActionResult OnGet()
         {
-        ViewData["Category"] = new SelectList(_context.TblCategories, "CategoryId", "Name");
+        ViewData["Category"] = new SelectList(_context.Categories, "CategoryId", "Name");
             return Page();
         }
 
         [BindProperty]
-        public TblEvent TblEvent { get; set; }
+        public Event Event { get; set; }
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
@@ -35,7 +35,7 @@ namespace EventManagementFPT.Pages.Event
                 return Page();
             }
 
-            _context.TblEvents.Add(TblEvent);
+            _context.Events.Add(Event);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

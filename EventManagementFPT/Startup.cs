@@ -1,20 +1,16 @@
 using EventManagementFPT.Model;
-using EventManagementFPT.Modules.Comment;
-using EventManagementFPT.Modules.Comment.Interface;
-using EventManagementFPT.Modules.Event;
-using EventManagementFPT.Modules.Event.Interface;
-using EventManagementFPT.Modules.User;
-using EventManagementFPT.Modules.User.Interface;
-using EventManagementFPT.Utils.Repository;
-using EventManagementFPT.Utils.Repository.Interface;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.EntityFrameworkCore;
+using EventManagementFPT.Modules.CommentModule.Interface;
+using EventManagementFPT.Modules.CommentModule;
+using EventManagementFPT.Modules.EventModule.Interface;
+using EventManagementFPT.Modules.EventModule;
+using EventManagementFPT.Modules.UserModule.Interface;
+using EventManagementFPT.Modules.UserModule;
 
 namespace EventManagementFPT
 {
