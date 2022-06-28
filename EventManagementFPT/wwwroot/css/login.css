@@ -1,0 +1,24 @@
+#login-form {
+    min-width: 375px;
+}
+
+.login-icon {
+    font-size: 120px;
+    position: absolute;
+    top: -60px;
+    right: 126px;
+}
+
+hr {
+    text-align: center;
+}
+
+hr::after {
+    content: 'OR';
+    font-size: 12px;
+    position: relative;
+    top: -14px;
+    padding: 0px 5px;
+    background-color: #fff;
+    color: #00000080;
+}

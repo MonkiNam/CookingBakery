@@ -1,0 +1,24 @@
+.search-bar {
+    min-width: 350px;
+}
+
+.input-group.search-bar {
+    width: 100%;
+}
+
+.dropdown-menu .dropdown-item {
+    margin: 5px 0px 5px 0px;
+}
+
+.card.event {
+    transition: all .5s;
+}
+
+.card.event:hover {
+    transform: scale(1.02);
+    box-shadow: rgba(24, 144, 255, 0.2) 0px 7px 29px 0px;
+}
+
+.event-time, .event-people {
+    color: rgb(24, 144, 255);
+}
