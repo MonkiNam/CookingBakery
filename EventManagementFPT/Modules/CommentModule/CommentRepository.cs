@@ -1,4 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using EventManagementFPT.Model;
 using EventManagementFPT.Modules.CommentModule.Interface;
 using EventManagementFPT.Utils.Repository;
@@ -15,7 +18,7 @@ namespace EventManagementFPT.Modules.CommentModule
             _db = db;
         }
 
-        public async void RemoveAndItsChildComment(Comment comment)
+        public async Task RemoveAndItsChildComment(Comment comment)
         {
             var comments = await _db.Comments
                 .Where(item => item.ParentId == comment.CommentId)
@@ -28,6 +31,10 @@ namespace EventManagementFPT.Modules.CommentModule
 
             _db.Comments.Remove(comment);
             await _db.SaveChangesAsync();
+        }
+        public ICollection<Comment> GetListSubComment(Guid? oriCommentID)
+        {
+            return _db.Comments.Where(item => item.ParentId.Equals(oriCommentID)).ToList();
         }
     }
 }

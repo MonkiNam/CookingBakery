@@ -1,4 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using EventManagementFPT.Model;
 using EventManagementFPT.Modules.CommentModule.Interface;
 
 namespace EventManagementFPT.Modules.CommentModule
@@ -12,13 +15,25 @@ namespace EventManagementFPT.Modules.CommentModule
             _commentRepository = commentRepository;
         }
 
-        public async Task RemoveAndItsChildComment(string commentId)
+        public async Task RemoveAndItsChildComment(Guid? commentId)
         {
-            var commentRemoved = await _commentRepository.GetByIdAsync(commentId);
+            var commentRemoved = await _commentRepository.GetFirstOrDefaultAsync(x => x.CommentId.Equals(commentId));
 
             if (commentRemoved == null) return; //wait for define pop up error message
 
-            _commentRepository.RemoveAndItsChildComment(commentRemoved);
+            await _commentRepository.RemoveAndItsChildComment(commentRemoved);
+        }
+        public ICollection<Comment> GetListSubComment(Guid? oriCommentID)
+        {
+            return _commentRepository.GetListSubComment(oriCommentID);
+        }
+        public async Task AddNewComment(Comment newComment)
+        {
+            await _commentRepository.AddAsync(newComment);
+        }
+        public async Task UpdateComment(Comment commentUpdate)
+        {
+            await _commentRepository.UpdateAsync(commentUpdate);
         }
     }
 }

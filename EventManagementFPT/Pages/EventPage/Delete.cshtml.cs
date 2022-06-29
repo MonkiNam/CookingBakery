@@ -6,16 +6,18 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using EventManagementFPT.Model;
+using EventManagementFPT.Modules.EventModule.Interface;
 
 namespace EventManagementFPT.Pages.EventPage
 {
     public class DeleteModel : PageModel
     {
         private readonly EventManagementFPT.Model.EventManagementContext _context;
-
-        public DeleteModel(EventManagementFPT.Model.EventManagementContext context)
+        private readonly IEventService _eventService;
+        public DeleteModel(EventManagementFPT.Model.EventManagementContext context, IEventService eventService)
         {
             _context = context;
+            _eventService = eventService;
         }
 
         [BindProperty]
@@ -45,13 +47,7 @@ namespace EventManagementFPT.Pages.EventPage
                 return NotFound();
             }
 
-            Event = await _context.Events.FindAsync(id);
-
-            if (Event != null)
-            {
-                _context.Events.Remove(Event);
-                await _context.SaveChangesAsync();
-            }
+            await _eventService.DeleteEvent(id);
 
             return RedirectToPage("./Index");
         }

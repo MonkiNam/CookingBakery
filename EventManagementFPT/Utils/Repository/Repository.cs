@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using EventManagementFPT.Model;
 using EventManagementFPT.Utils.Repository.Interface;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace EventManagementFPT.Utils.Repository
@@ -25,6 +26,12 @@ namespace EventManagementFPT.Utils.Repository
         {
             await DbSet.AddAsync(entity);
             await _db.SaveChangesAsync();
+        }
+
+        public void Add(T entity)
+        {
+            DbSet.Add(entity);
+            _db.SaveChanges();
         }
 
         public async Task AddRangeAsync(IEnumerable<T> entities)

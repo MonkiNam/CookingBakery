@@ -5,9 +5,9 @@ namespace EventManagementFPT.Modules.UserModule.Interface
 {
     public interface IUserRepository : IRepository<User>
     {
-        public void FollowEvent(User user, Event followingEvent);
-        public void UnfollowEvent(User user, Event followingEvent);
-        public void LikeEvent(User user, Event followingEvent);
-        public void UnlikeEvent(User user, Event followingEvent);
+        public void FollowEvent(FollowEvent followingEvent);
+        public void UnfollowEvent(FollowEvent followingEvent);
+        public void LikeEvent(EventLike _event);
+        public void UnlikeEvent(EventLike _event);
     }
 }

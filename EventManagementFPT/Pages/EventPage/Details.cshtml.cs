@@ -6,16 +6,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using EventManagementFPT.Model;
+using EventManagementFPT.Modules.EventModule.Interface;
 
 namespace EventManagementFPT.Pages.EventPage
 {
     public class DetailsModel : PageModel
     {
         private readonly EventManagementFPT.Model.EventManagementContext _context;
+        private readonly IEventService _eventService;
 
-        public DetailsModel(EventManagementFPT.Model.EventManagementContext context)
+        public DetailsModel(EventManagementFPT.Model.EventManagementContext context, IEventService eventService)
         {
             _context = context;
+            _eventService = eventService;
         }
 
         public Event Event { get; set; }
@@ -27,8 +30,7 @@ namespace EventManagementFPT.Pages.EventPage
                 return NotFound();
             }
 
-            Event = await _context.Events
-                .FirstOrDefaultAsync(m => m.EventId == id);
+            Event = _eventService.GetEventByID(id);
 
             if (Event == null)
             {

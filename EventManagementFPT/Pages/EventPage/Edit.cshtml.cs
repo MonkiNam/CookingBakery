@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EventManagementFPT.Model;
+using EventManagementFPT.Modules.EventModule.Interface;
 
 namespace EventManagementFPT.Pages.EventPage
 {
     public class EditModel : PageModel
     {
         private readonly EventManagementFPT.Model.EventManagementContext _context;
+        private readonly IEventService _eventService;
 
-        public EditModel(EventManagementFPT.Model.EventManagementContext context)
+        public EditModel(EventManagementFPT.Model.EventManagementContext context, IEventService eventService)
         {
             _context = context;
+            _eventService = eventService;
         }
 
         [BindProperty]
@@ -49,23 +52,7 @@ namespace EventManagementFPT.Pages.EventPage
                 return Page();
             }
 
-            _context.Attach(Event).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!EventExists(Event.EventId))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await _eventService.UpdateEvent(_context.Attach(Event).Entity);
 
             return RedirectToPage("./Index");
         }

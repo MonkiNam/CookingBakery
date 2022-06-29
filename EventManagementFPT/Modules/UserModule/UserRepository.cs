@@ -14,43 +14,27 @@ namespace EventManagementFPT.Modules.UserModule
             _db = db;
         }
 
-        public void FollowEvent(User user, Event followingEvent)
+        public void FollowEvent(FollowEvent followInfo)
         {
-            var followInfo = new FollowEvent
-            {
-                EventId = followingEvent.EventId,
-                UserId = user.UserId
-            };
             _db.FollowEvents.Add(followInfo);
             _db.SaveChanges();
         }
 
-        public void UnfollowEvent(User user, Event followingEvent)
+        public void UnfollowEvent(FollowEvent followInfo)
         {
-            var followInfo = _db.FollowEvents.FirstOrDefault(
-                item => item.EventId.Equals(followingEvent.EventId) && item.UserId.Equals(user.UserId)
-            );
-            if (followInfo != null) _db.FollowEvents.Remove(followInfo);
+            _db.FollowEvents.Remove(followInfo);
             _db.SaveChanges();
         }
 
-        public void LikeEvent(User user, Event followingEvent)
+        public void LikeEvent(EventLike likeInfo)
         {
-            var likeInfo = new EventLike
-            {
-                EventId = followingEvent.EventId,
-                UserId = user.UserId
-            };
             _db.EventLikes.Add(likeInfo);
             _db.SaveChanges();
         }
 
-        public void UnlikeEvent(User user, Event followingEvent)
+        public void UnlikeEvent(EventLike likeInfo)
         {
-            var likeInfo = _db.EventLikes.FirstOrDefault(
-                item => item.EventId.Equals(followingEvent.EventId) && item.UserId.Equals(user.UserId)
-            );
-            if (likeInfo != null) _db.EventLikes.Remove(likeInfo);
+            _db.EventLikes.Remove(likeInfo);
             _db.SaveChanges();
         }
     }

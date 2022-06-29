@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace EventManagementFPT.Modules.EventModule.Interface
 {
@@ -11,5 +12,10 @@ namespace EventManagementFPT.Modules.EventModule.Interface
             string includeProperties = null);
         public ICollection<Event> GetEventsByVenue(string venue);
         public ICollection<Event> GetAll();
+        public ICollection<Event> GetEventsByCategory(Guid? categoryID);
+        public Event GetEventByID(Guid? ID);
+        public Task AddNewEvent(Event newEvent);
+        public Task UpdateEvent(Event eventUpdate);
+        public Task DeleteEvent(Guid? ID);
     }
 }

@@ -11,7 +11,9 @@ namespace EventManagementFPT.Utils.Repository.Interface
         Task<T> GetByIdAsync(string key);
 
         Task AddAsync(T entity);
-        
+
+        void Add(T entity);
+
         Task AddRangeAsync(IEnumerable<T> entities);
 
         ICollection<T> GetAll(

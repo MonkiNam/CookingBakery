@@ -11,6 +11,10 @@ using EventManagementFPT.Modules.EventModule.Interface;
 using EventManagementFPT.Modules.EventModule;
 using EventManagementFPT.Modules.UserModule.Interface;
 using EventManagementFPT.Modules.UserModule;
+using EventManagementFPT.Modules.CategoryModule.Interface;
+using EventManagementFPT.Modules.CategoryModule;
+using EventManagementFPT.Modules.EventLikeModule.Interface;
+using EventManagementFPT.Modules.EventLikeModule;
 
 namespace EventManagementFPT
 {
@@ -31,9 +35,16 @@ namespace EventManagementFPT
             //Add scope and dependency injection
             //User Module
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserService, UserService>();
+            //Category Module
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<ICategoryService, CategoryService>();
             //Event Module
             services.AddScoped<IEventRepository, EventRepository>();
             services.AddScoped<IEventService, EventService>();
+            //EventLike Module
+            services.AddScoped<IEventLikeRepository, EventLikeRepository>();
+            services.AddScoped<IEventLikeService, EventLikeService>();
             //Comment Module
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<ICommentService, CommentService>();

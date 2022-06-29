@@ -6,16 +6,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using EventManagementFPT.Model;
+using EventManagementFPT.Modules.EventModule.Interface;
 
 namespace EventManagementFPT.Pages.EventPage
 {
     public class CreateModel : PageModel
     {
         private readonly EventManagementFPT.Model.EventManagementContext _context;
+        private readonly IEventService _eventService;
 
-        public CreateModel(EventManagementFPT.Model.EventManagementContext context)
+        public CreateModel(EventManagementFPT.Model.EventManagementContext context , IEventService eventService)
         {
             _context = context;
+            _eventService = eventService;
         }
 
         public IActionResult OnGet()
@@ -35,8 +38,7 @@ namespace EventManagementFPT.Pages.EventPage
                 return Page();
             }
 
-            _context.Events.Add(Event);
-            await _context.SaveChangesAsync();
+             await _eventService.AddNewEvent(Event);
 
             return RedirectToPage("./Index");
         }
