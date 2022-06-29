@@ -1,15 +1,3 @@
-.search-bar {
-    min-width: 350px;
-}
-
-.input-group.search-bar {
-    width: 100%;
-}
-
-.dropdown-menu .dropdown-item {
-    margin: 5px 0px 5px 0px;
-}
-
 .card.event {
     transition: all .5s;
 }
@@ -20,5 +8,10 @@
 }
 
 .event-time, .event-people {
-    color: rgb(24, 144, 255);
+    color: #1890ff;
+}
+
+#location {
+    color: rgb(255, 0, 0);
+    border-color: red;
 }

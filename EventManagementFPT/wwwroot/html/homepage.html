@@ -5,8 +5,8 @@
     <title>Main page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../css/index.css" />
     <link rel="stylesheet" href="../css/shared.css" />
+    <link rel="stylesheet" href="../css/index.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
         integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 </head>
@@ -14,8 +14,8 @@
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-light bg-light sticky-top shadow">
-        <div class="container">
-            <a class="navbar-brand d-flex justify-content-center align-items-center" href="../index.html">
+        <div class="container-fluid pl-5 pr-5 ml-4 mr-4">
+            <a class="navbar-brand d-flex justify-content-center align-items-center" href="./homepage.html">
                 <ion-icon class="mr-2" size="large" name="library-outline"></ion-icon>
                 <span>Event Management</span>
             </a>
@@ -33,10 +33,14 @@
                 </div>
             </form>
             <div class="dropdown">
+                <a href="./createPost.html" class="btn btn-outline-primary mr-2 d-inline-flex align-items-center" id="create-button">
+                    <ion-icon class="mr-1" name="add-circle-outline"></ion-icon>
+                    <span class="mb-1">Create event</span>
+                </a>
                 <span href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                     <img src="../image/default.png" width="40" height="40" alt="avatar" />
                 </span>
-                <div class="dropdown-menu shadow-lg mt-2">
+                <div class="dropdown-menu dropdown-menu-right shadow-lg mt-2">
                     <a class="dropdown-item d-flex align-items-center" href="#">
                         <ion-icon name="person-circle-outline"></ion-icon>
                         <span class="ml-2">My profile</span>
@@ -47,7 +51,7 @@
                         <span class="ml-2">Change password</span>
                     </a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item d-flex align-items-center" href="#">
+                    <a class="dropdown-item d-flex align-items-center" href="./login.html">
                         <ion-icon class="ml-1" name="log-out-outline"></ion-icon>
                         <span class="ml-2">Logout</span>
                     </a>
@@ -59,7 +63,7 @@
 
     <!-- Main content -->
     <div class="container-fluid mt-5 pl-5 pr-5 mb-5">
-        <div class="row mr-5 ml-5">
+        <div class="row mr-4 ml-4">
             <div class="col-3">
                 <div class="border rounded shadow p-4">
                     <h3 class="text-center">
@@ -124,8 +128,29 @@
                                         <span class="tag d-flex align-items-center rounded" id="location">
                                             <ion-icon name="location-outline"></ion-icon>Ho Chi Minh
                                         </span>
-                                        <span class="tag d-flex align-items-center rounded" id="category">
-                                            <ion-icon name="pricetag-outline"></ion-icon>Ho Chi Minh
+                                    </div>
+                                </div>
+                                <a href="./detail.html" class="stretched-link"></a>
+                            </div>
+                            <div class="card event">
+                                <img src="../image/event.jpg" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title mb-4">Event's name</h5>
+                                    <div class="d-flex align-items-center mb-2">
+                                        <ion-icon class="event-time" name="time-outline"></ion-icon>
+                                        <span class="font-weight-bold ml-2 flex-grow-1">
+                                            29-Jun-2022 01:17 AM
+                                        </span>
+                                        <div class="d-flex align-items-center">
+                                            <ion-icon class="event-time" name="people-outline"></ion-icon>
+                                            <span class="font-weight-bold ml-2">
+                                                22 going
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="tag d-flex align-items-center rounded" id="location">
+                                            <ion-icon name="location-outline"></ion-icon>Ho Chi Minh
                                         </span>
                                     </div>
                                 </div>
@@ -150,36 +175,6 @@
                                     <div class="d-flex align-items-center">
                                         <span class="tag d-flex align-items-center rounded" id="location">
                                             <ion-icon name="location-outline"></ion-icon>Ho Chi Minh
-                                        </span>
-                                        <span class="tag d-flex align-items-center rounded" id="category">
-                                            <ion-icon name="pricetag-outline"></ion-icon>Ho Chi Minh
-                                        </span>
-                                    </div>
-                                </div>
-                                <a href="#" class="stretched-link"></a>
-                            </div>
-                            <div class="card event">
-                                <img src="../image/event.jpg" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title mb-4">Event's name</h5>
-                                    <div class="d-flex align-items-center mb-2">
-                                        <ion-icon class="event-time" name="time-outline"></ion-icon>
-                                        <span class="font-weight-bold ml-2 flex-grow-1">
-                                            29-Jun-2022 01:17 AM
-                                        </span>
-                                        <div class="d-flex align-items-center">
-                                            <ion-icon class="event-time" name="people-outline"></ion-icon>
-                                            <span class="font-weight-bold ml-2">
-                                                22 going
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                        <span class="tag d-flex align-items-center rounded" id="location">
-                                            <ion-icon name="location-outline"></ion-icon>Ho Chi Minh
-                                        </span>
-                                        <span class="tag d-flex align-items-center rounded" id="category">
-                                            <ion-icon name="pricetag-outline"></ion-icon>Ho Chi Minh
                                         </span>
                                     </div>
                                 </div>
@@ -210,9 +205,6 @@
                                             <span class="tag d-flex align-items-center rounded" id="location">
                                                 <ion-icon name="location-outline"></ion-icon>Ho Chi Minh
                                             </span>
-                                            <span class="tag d-flex align-items-center rounded" id="category">
-                                                <ion-icon name="pricetag-outline"></ion-icon>Ho Chi Minh
-                                            </span>
                                         </div>
                                     </div>
                                     <a href="#" class="stretched-link"></a>
@@ -239,9 +231,7 @@
                                             <span class="tag d-flex align-items-center rounded" id="location">
                                                 <ion-icon name="location-outline"></ion-icon>Ho Chi Minh
                                             </span>
-                                            <span class="tag d-flex align-items-center rounded" id="category">
-                                                <ion-icon name="pricetag-outline"></ion-icon>Ho Chi Minh
-                                            </span>
+                                            
                                         </div>
                                     </div>
                                     <a href="#" class="stretched-link"></a>
@@ -268,9 +258,7 @@
                                             <span class="tag d-flex align-items-center rounded" id="location">
                                                 <ion-icon name="location-outline"></ion-icon>Ho Chi Minh
                                             </span>
-                                            <span class="tag d-flex align-items-center rounded" id="category">
-                                                <ion-icon name="pricetag-outline"></ion-icon>Ho Chi Minh
-                                            </span>
+                                            
                                         </div>
                                     </div>
                                     <a href="#" class="stretched-link"></a>
@@ -297,9 +285,7 @@
                                             <span class="tag d-flex align-items-center rounded" id="location">
                                                 <ion-icon name="location-outline"></ion-icon>Ho Chi Minh
                                             </span>
-                                            <span class="tag d-flex align-items-center rounded" id="category">
-                                                <ion-icon name="pricetag-outline"></ion-icon>Ho Chi Minh
-                                            </span>
+                                            
                                         </div>
                                     </div>
                                     <a href="#" class="stretched-link"></a>
@@ -326,9 +312,7 @@
                                             <span class="tag d-flex align-items-center rounded" id="location">
                                                 <ion-icon name="location-outline"></ion-icon>Ho Chi Minh
                                             </span>
-                                            <span class="tag d-flex align-items-center rounded" id="category">
-                                                <ion-icon name="pricetag-outline"></ion-icon>Ho Chi Minh
-                                            </span>
+                                            
                                         </div>
                                     </div>
                                     <a href="#" class="stretched-link"></a>
@@ -355,9 +339,7 @@
                                             <span class="tag d-flex align-items-center rounded" id="location">
                                                 <ion-icon name="location-outline"></ion-icon>Ho Chi Minh
                                             </span>
-                                            <span class="tag d-flex align-items-center rounded" id="category">
-                                                <ion-icon name="pricetag-outline"></ion-icon>Ho Chi Minh
-                                            </span>
+                                            
                                         </div>
                                     </div>
                                     <a href="#" class="stretched-link"></a>

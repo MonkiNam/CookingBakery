@@ -16,7 +16,7 @@ ion-icon {
     display: inline-block;
     height: auto;
     margin: 0 8px 0 0;
-    padding: 3px 3px;
+    padding: 4px 4px;
     font-size: 12px;
     white-space: nowrap;
     background: #fafafa;
@@ -25,15 +25,32 @@ ion-icon {
     opacity: 1;
     transition: all .3s cubic-bezier(.78, .14, .15, .86);
     gap: 3px;
-
-}
-
-#location {
-    color: rgb(255, 0, 0);
-    border-color: red;
 }
 
 #category {
     color: #52c41a;
     border-color: #52c41a;
+}
+
+.tag ion-icon {
+    font-size: 16px;
+}
+
+.search-bar {
+    min-width: 350px;
+}
+
+.input-group.search-bar {
+    width: 100%;
+}
+
+.dropdown-menu .dropdown-item {
+    margin: 5px 0px 5px 0px;
+}
+
+/* for post create/update form */
+.image-holder {
+    height: 18rem;
+    border: 1px dashed rgb(63, 63, 63);
+    display: flex;
 }
