@@ -2,10 +2,9 @@
 <html lang="en">
 
 <head>
-    <title>Main page</title>
+    <title>Create page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="../css/index.css" />
+    <meta charset="utf-8" />    
     <link rel="stylesheet" href="../css/shared.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
         integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
@@ -34,7 +33,7 @@
             </form>
             
             <div class="dropdown">
-                <a href="#" class="btn btn-outline-primary mr-2 d-inline-flex align-items-center" id="create-button">
+                <a href="./createPost.html" class="btn btn-outline-primary mr-2 d-inline-flex align-items-center" id="create-button">
                     <ion-icon class="mr-1" name="add-circle-outline"></ion-icon>
                     <span class="mb-1">Create event</span>
                 </a>
@@ -52,15 +51,73 @@
                         <span class="ml-2">Change password</span>
                     </a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item d-flex align-items-center" href="#">
+                    <a class="dropdown-item d-flex align-items-center" href="./login.html">
                         <ion-icon class="ml-1" name="log-out-outline"></ion-icon>
                         <span class="ml-2">Logout</span>
                     </a>
                 </div>
             </div>
         </div>
-
     </nav>
+
+    <!-- Main content -->
+    <div class="container-fluid mt-5 pl-5 pr-5 mb-5">
+        <form>
+            <div class="row mr-4 ml-4">
+                <div class="col-8">
+                    <div class="border rounded shadow-sm p-4">
+                        <h4 class="font-weight-bold d-flex align-items-center justify-content-center"><ion-icon class="mt-1 mr-1" name="cube-outline"></ion-icon>Post's data</h3>
+                        <div class="form-group">
+                            <label class="font-weight-bold" for="title">Title of the post</label>
+                            <input type="text" class="form-control" id="title" placeholder="An eye-catching title..."/>
+                        </div>
+                        <div class="form-group">
+                            <label for="content" class="font-weight-bold">Content</label>
+                            <textarea rows="5" class="form-control" id="content"> </textarea>
+                        </div>
+                        <label class="font-weight-bold">Cover image</label>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="customFile">
+                            <label id="customFileLabel" class="custom-file-label" for="customFile">Choose file</label>
+                        </div>
+                        <div class="rounded shadow-sm image-holder justify-content-center align-items-center mt-3 font-weight-bold">Preview your image here</div>
+                        <img src="" class="img-fluid" id="preview-image">
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="border rounded shadow-sm p-4">
+                        <h4 class="font-weight-bold d-flex align-items-center justify-content-center">
+                            <ion-icon class="mt-1 mr-1"name="settings-outline"></ion-icon>Settings
+                        </h4>
+                        <div class="form-group">
+                            <label class="font-weight-bold" for="title">Date</label>
+                            <input type="datetime-local" class="form-control" id="date"/>
+                        </div>
+                        <div class="form-group">
+                            <label class="font-weight-bold" for="venue">Venue</label>
+                            <input type="text" class="form-control" id="venue" placeholder="Where will your event appear?"/>
+                        </div>
+                        <div class="form-group">
+                            <label class="font-weight-bold" for="venue">Number of attendance</label>
+                            <input type="number" class="form-control" id="venue" value="0"/>
+                        </div>
+                        <div class="form-group">
+                            <label class="font-weight-bold" for="category-select">Category</label>
+                            <select class="form-control" id="category-select">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                        </div>
+                        <hr>
+                        <button class="btn btn-outline-primary btn-block" type="submit">Create</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -100,6 +157,7 @@
         crossorigin="anonymous"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="../js/site.js" defer></script>
 </body>
 
 </html>
