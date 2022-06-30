@@ -24,6 +24,7 @@ namespace EventManagementFPT.Pages.EventPage
         public IActionResult OnGet()
         {
         ViewData["Category"] = new SelectList(_context.Categories, "CategoryId", "Name");
+            TempData["success"] = "Page loaded!";
             return Page();
         }
 

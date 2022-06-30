@@ -55,6 +55,7 @@ namespace EventManagementFPT.Pages.Authentication
                 TempData["success"] = "Welcome admin";
                 return RedirectToPage("../Index");
             }
+            TempData["error"] = "Invalid credentials, please try again later!";
             return RedirectToPage("./Index");
         }
     }
