@@ -26,6 +26,7 @@ namespace EventManagementFPT.Model
         public string Avatar { get; set; }
         public bool? IsBlocked { get; set; }
         public RoleEnum Role { get; set; }
+        public bool IsGoogleAuthenticate { get; set; }
 
         public virtual ICollection<Comment> TblComments { get; set; }
         public virtual ICollection<EventLike> TblEventLikes { get; set; }
