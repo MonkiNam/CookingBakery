@@ -27,14 +27,14 @@ namespace EventManagementFPT.Model
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (optionsBuilder.IsConfigured) return;
-
-            var configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
-                .Build();
-            var connectionString = configuration.GetConnectionString("DefaultConnection");
-            optionsBuilder.UseSqlServer(connectionString);
+            if (!optionsBuilder.IsConfigured)
+            {
+                var builder = new ConfigurationBuilder()
+                    .SetBasePath(Directory.GetCurrentDirectory())
+                    .AddJsonFile("appsettings.json");
+                var configuration = builder.Build();
+                optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -61,6 +61,12 @@ namespace EventManagementFPT.Model
                 entity.HasKey(e => e.CommentId);
 
                 entity.ToTable("tblComment");
+
+                entity.HasIndex(e => e.EventId, "IX_tblComment_EventID");
+
+                entity.HasIndex(e => e.ParentId, "IX_tblComment_ParentID");
+
+                entity.HasIndex(e => e.UserId, "IX_tblComment_UserID");
 
                 entity.Property(e => e.CommentId)
                     .ValueGeneratedNever()
@@ -100,6 +106,8 @@ namespace EventManagementFPT.Model
 
                 entity.ToTable("tblEvent");
 
+                entity.HasIndex(e => e.Category, "IX_tblEvent_Category");
+
                 entity.Property(e => e.EventId)
                     .ValueGeneratedNever()
                     .HasColumnName("EventID");
@@ -133,6 +141,8 @@ namespace EventManagementFPT.Model
 
                 entity.ToTable("tblEventLike");
 
+                entity.HasIndex(e => e.UserId, "IX_tblEventLike_UserID");
+
                 entity.Property(e => e.EventId).HasColumnName("EventID");
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
@@ -158,6 +168,8 @@ namespace EventManagementFPT.Model
 
                 entity.ToTable("tblFollowEvent");
 
+                entity.HasIndex(e => e.UserId, "IX_tblFollowEvent_UserID");
+
                 entity.Property(e => e.EventId).HasColumnName("EventID");
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
@@ -180,6 +192,10 @@ namespace EventManagementFPT.Model
                 entity.HasKey(e => e.ReportId);
 
                 entity.ToTable("tblReport");
+
+                entity.HasIndex(e => e.Author, "IX_tblReport_Author");
+
+                entity.HasIndex(e => e.EventId, "IX_tblReport_EventID");
 
                 entity.Property(e => e.ReportId)
                     .ValueGeneratedNever()
@@ -247,9 +263,11 @@ namespace EventManagementFPT.Model
 
                 entity.ToTable("tblUserEvent");
 
-                entity.Property(e => e.UserId).HasColumnName("UserID");
+                entity.HasIndex(e => e.UserId, "IX_tblUserEvent_UserID");
 
                 entity.Property(e => e.EventId).HasColumnName("EventID");
+
+                entity.Property(e => e.UserId).HasColumnName("UserID");
 
                 entity.HasOne(d => d.Event)
                     .WithMany(p => p.TblUserEvents)

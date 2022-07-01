@@ -28,6 +28,7 @@ namespace EventManagementFPT.Model
         public bool? Status { get; set; }
         public bool? CanComment { get; set; }
         public Guid? Category { get; set; }
+        public int Capacity { get; set; }
 
         public virtual Category CategoryNavigation { get; set; }
         public virtual ICollection<Comment> TblComments { get; set; }
