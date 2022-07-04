@@ -9,6 +9,7 @@ namespace EventManagementFPT.Model
     [Table("tblUser")]
     public partial class User
     {
+
         public User()
         {
             TblComments = new HashSet<Comment>();
@@ -16,6 +17,13 @@ namespace EventManagementFPT.Model
             TblFollowEvents = new HashSet<FollowEvent>();
             TblReports = new HashSet<Report>();
             TblUserEvents = new HashSet<UserEvent>();
+        }
+
+        public User(string name, string email, string avatar)
+        {
+            Name = name;
+            Email = email;
+            Avatar = avatar;
         }
 
         public Guid UserId { get; set; }

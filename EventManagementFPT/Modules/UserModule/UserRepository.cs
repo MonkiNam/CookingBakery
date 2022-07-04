@@ -37,5 +37,10 @@ namespace EventManagementFPT.Modules.UserModule
             _db.EventLikes.Remove(likeInfo);
             _db.SaveChanges();
         }
+
+        public bool isExist(string email)
+        {
+            return _db.Users.Any(u => u.Email == email);
+        }
     }
 }

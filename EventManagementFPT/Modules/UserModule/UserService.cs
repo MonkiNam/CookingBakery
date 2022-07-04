@@ -24,6 +24,7 @@ namespace EventManagementFPT.Modules.UserModule
         public User GetUserByUserID(Guid? ID) => _userRepository.GetFirstOrDefaultAsync(x => x.UserId.Equals(ID)).Result;
         public async Task AddNewUser(User newUser)
         {
+            newUser.UserId = Guid.NewGuid();
             await _userRepository.AddAsync(newUser);
         }
         public async Task UpdateUser(User userUpdate)
@@ -69,6 +70,11 @@ namespace EventManagementFPT.Modules.UserModule
                 item => item.EventId.Equals(_event.EventId) && item.UserId.Equals(user.UserId)
             ).Result;
             if (likeInfo != null) _userRepository.UnlikeEvent(likeInfo);
+        }
+
+        public bool isExist(string email)
+        {
+            return _userRepository.isExist(email);
         }
     }
 }

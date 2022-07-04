@@ -4,15 +4,16 @@
     Layout = "";
     ViewData["title"] = "Login";
 }
-
-@{
-    ViewData["Title"] = "Login";
-    Layout = "";
-}
+<!Doctype html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
+    <title>Login page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"]</title>
+    <meta charset="utf-8" />
+    <meta name="google-signin-client_id"
+          content="352453563794-m2rghllfstg46t78nji3huoi5urk0dvq.apps.googleusercontent.com" />
+    <link rel="stylesheet" href="~/css/login.css" />
+    <link rel="stylesheet" href="~/css/shared.css" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 </head>
 
@@ -24,13 +25,13 @@
 
 @if (TempData["noti"] != null)
 {
-    <div style="position: absolute; top: 20px; right: 20px; min-width: 200px; z-index: 1000;">
+    <div style="position: absolute; top: 20px; right: 20px; min-width: 300px; z-index: 1000;">
         <div class="toast shadow-lg" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
-            <div class="toast-header bg-warning text-dark">
+            <div class="toast-header bg-warning text-light">
                 <ion-icon name="settings-outline"></ion-icon>
                 <strong class="mr-auto ml-1">System</strong>
                 <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span class="text-light" aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="toast-body">
@@ -41,13 +42,13 @@
 }
 @if (TempData["success"] != null)
 {
-    <div style="position: absolute; top: 20px; right: 20px; min-width: 200px; z-index: 1000;">
+    <div style="position: absolute; top: 20px; right: 20px; min-width: 300px; z-index: 1000;">
         <div class="toast shadow-lg" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
-            <div class="toast-header bg-success text-dark">
+            <div class="toast-header bg-success text-light">
                 <ion-icon name="checkmark-circle-outline"></ion-icon>
                 <strong class="mr-auto ml-1">System</strong>
                 <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span class="text-light" aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="toast-body">
@@ -58,13 +59,13 @@
 }
 @if (TempData["error"] != null)
 {
-    <div style="position: absolute; top: 20px; right: 20px; min-width: 200px; z-index: 1000;">
+    <div style="position: absolute; top: 20px; right: 20px; min-width: 300px; z-index: 1000;">
         <div class="toast shadow-lg" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
-            <div class="toast-header bg-danger text-dark">
+            <div class="toast-header bg-danger text-light">
                 <ion-icon name="alert-circle-outline"></ion-icon>
                 <strong class="mr-auto ml-1">System</strong>
                 <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span class="text-light" aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="toast-body">
@@ -73,32 +74,41 @@
         </div>
     </div>
 }
-
-<div class="container-fluid d-flex align-items-center justify-content-center min-vh-100 bg-gradient-primary">
-    <div>
-
-        <form method="post" class="p-5 shadow rounded">
-            <h3 class="text-center mb-5 font-weight-bold">Shopping Website</h3>
-            <div class="input-group mb-4">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="email-icon"><ion-icon name="mail-outline"></ion-icon></span>
-                </div>
-                <input type="email" class="form-control" placeholder="Email" id="email" asp-for="email">
-            </div>
-
-            <div class="input-group mb-4">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="password-icon"><ion-icon name="lock-closed-outline"></ion-icon></span>
-                </div>
-                <input type="password" class="form-control" placeholder="Password" id="password" asp-for="password">
-            </div>
-
-            <button type="submit" class="btn btn-primary btn-block">Login</button>
-        </form>
-    </div>
-</div>
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-<script src="~/js/site.js" asp-append-version="true"></script>
+<body class="d-flex justify-content-center align-items-center">
+    <form method="post" class="rounded border p-5 position-relative" id="login-form">
+        <input type="hidden" asp-for="token" value="" id="token"/>
+        <h3 class="font-weight-bold text-center mt-3 mb-3">Welcome</h3>
+        <ion-icon class="login-icon" name="person-circle" style="color: #78d8ff;"></ion-icon>
+        <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" id="email" asp-for="email">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" asp-for="password">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Login</button>
+        <hr class="mt-4 mb-4">
+        <div id="g_id_onload"
+             data-client_id="352453563794-m2rghllfstg46t78nji3huoi5urk0dvq.apps.googleusercontent.com"
+             data-auto_prompt="false" data-callback="onSuccess">
+        </div>
+        <div class="g_id_signin" data-type="standard" data-size="large" data-theme="filled_blue" data-text="signin_with"
+             data-shape="rectangular" data-width="277" data-height="38" data-logo_alignment="left">
+        </div>
+    </form>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script>
+        function onSuccess(googleUser) {
+            var token = googleUser.credential;
+            document.getElementById("token").value = token;
+            document.getElementById("login-form").submit();
+        }
+    </script>
+</body>
+</html>
