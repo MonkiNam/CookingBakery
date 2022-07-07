@@ -55,6 +55,7 @@ namespace EventManagementFPT.Modules.EventModule
 
         public async Task AddNewEvent(Event newEvent)
         {
+            newEvent.EventId = Guid.NewGuid();
             await _eventRepository.AddAsync(newEvent);
         }
         public async Task UpdateEvent(Event eventUpdate)
