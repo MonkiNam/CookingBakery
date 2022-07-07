@@ -10,6 +10,8 @@ namespace EventManagementFPT.Model
     {
         public Guid UserId { get; set; }
         public Guid EventId { get; set; }
+        [NotMapped] 
+        public int Going { get; set; }
 
         public virtual Event Event { get; set; }
         public virtual User User { get; set; }
