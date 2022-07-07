@@ -16,8 +16,6 @@ using EventManagementFPT.Modules.CategoryModule.Interface;
 using EventManagementFPT.Modules.CategoryModule;
 using EventManagementFPT.Modules.EventLikeModule.Interface;
 using EventManagementFPT.Modules.EventLikeModule;
-using EventManagementFPT.Modules.FollowEventModule.Interface;
-using EventManagementFPT.Modules.FollowEventModule;
 
 namespace EventManagementFPT
 {
@@ -45,8 +43,6 @@ namespace EventManagementFPT
             //Event Module
             services.AddScoped<IEventRepository, EventRepository>();
             services.AddScoped<IEventService, EventService>();
-            //EventFollow Module
-            services.AddScoped<IFollowEventRepository, FollowEventRepository>();
             //EventLike Module
             services.AddScoped<IEventLikeRepository, EventLikeRepository>();
             services.AddScoped<IEventLikeService, EventLikeService>();

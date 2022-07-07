@@ -9,18 +9,18 @@ namespace EventManagementFPT.Pages.EventPage
 {
     public class IndexModel : PageModel
     {
-        private readonly IEventService eventService;
+        private readonly IEventService _eventService;
 
-        public IndexModel(IEventService _eventService)
+        public IndexModel(IEventService eventService)
         {
-            eventService = _eventService;
+            _eventService = eventService;
         }
 
         public IList<Event> Event { get;set; }
 
         public void OnGet()
         {
-            Event = (IList<Event>)eventService.GetAll();
+            Event = (IList<Event>)_eventService.GetAll();
         }
     }
 }
