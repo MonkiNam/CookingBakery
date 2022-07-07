@@ -32,6 +32,7 @@ namespace EventManagementFPT.Model
         public string Email { get; set; }
         public string Password { get; set; }
         public string PhoneNumber { get; set; }
+        [StringLength(int.MaxValue)]
         public string Avatar { get; set; }
         public bool? IsBlocked { get; set; }
         [Required]
