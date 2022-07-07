@@ -18,6 +18,8 @@ namespace EventManagementFPT.Model
 
         public string VenueName { get; set; }
 
+        public bool Status { get; set; }
+
         public virtual ICollection<Event> Events { get; set; }
     }
 }
