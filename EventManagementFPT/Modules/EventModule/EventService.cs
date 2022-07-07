@@ -29,11 +29,9 @@ namespace EventManagementFPT.Modules.EventModule
             );
         }
 
-        public ICollection<Event> GetEventsByVenue(string venue)
+        public ICollection<Event> GetEventsByVenue(Guid venueId)
         {
-            return _eventRepository.GetEventsBy(
-                x => string.Equals(x.Venue, venue, StringComparison.OrdinalIgnoreCase)
-            );
+            return _eventRepository.GetEventsBy(x => x.VenueId == venueId);
         }
 
         public ICollection<Event> GetEventsByCategory(Guid? categoryID)

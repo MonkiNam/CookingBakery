@@ -10,7 +10,7 @@ namespace EventManagementFPT.Modules.EventModule.Interface
     {
         public ICollection<Event> GetEventsByName(string name, Func<IQueryable<Event>, ICollection<Event>> options = null,
             string includeProperties = null);
-        public ICollection<Event> GetEventsByVenue(string venue);
+        public ICollection<Event> GetEventsByVenue(Guid venue);
         public ICollection<Event> GetAll();
         public ICollection<Event> GetEventsByCategory(Guid? categoryID);
         public Event GetEventByID(Guid? ID);

@@ -19,6 +19,7 @@ namespace EventManagementFPT.Model
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<Event> Events { get; set; }
+        public virtual DbSet<Venue> Venues { get; set; }
         public virtual DbSet<EventLike> EventLikes { get; set; }
         public virtual DbSet<Report> Reports { get; set; }
         public virtual DbSet<User> Users { get; set; }
@@ -107,6 +108,8 @@ namespace EventManagementFPT.Model
 
                 entity.HasIndex(e => e.Category, "IX_tblEvent_Category");
 
+                entity.HasIndex(e => e.VenueId, "IX_tblEvent_VenueId");
+
                 entity.Property(e => e.EventId)
                     .ValueGeneratedNever()
                     .HasColumnName("EventID");
@@ -117,21 +120,22 @@ namespace EventManagementFPT.Model
 
                 entity.Property(e => e.EndDate).HasColumnType("datetime");
 
+                entity.Property(e => e.ImageUrl).IsRequired();
+
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(50);
 
                 entity.Property(e => e.StartDate).HasColumnType("datetime");
 
-                entity.Property(e => e.Venue)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
                 entity.HasOne(d => d.CategoryNavigation)
                     .WithMany(p => p.TblEvents)
                     .HasForeignKey(d => d.Category)
                     .HasConstraintName("FK_tblEvent_tblCategory");
+
+                entity.HasOne(d => d.Venue)
+                    .WithMany(p => p.Events)
+                    .HasForeignKey(d => d.VenueId);
             });
 
             modelBuilder.Entity<EventLike>(entity =>
@@ -254,6 +258,15 @@ namespace EventManagementFPT.Model
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_tblUserEvent_tblUser");
+            });
+
+            modelBuilder.Entity<Venue>(entity =>
+            {
+                entity.HasKey(e => e.VenueId);
+
+                entity.ToTable("tblVenue");
+
+                entity.Property(e => e.VenueId).ValueGeneratedNever();
             });
 
             OnModelCreatingPartial(modelBuilder);

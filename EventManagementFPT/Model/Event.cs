@@ -32,7 +32,7 @@ namespace EventManagementFPT.Model
         [Required]
         public DateTime EndDate { get; set; }
         [Required]
-        public string Venue { get; set; }
+        public Guid VenueId { get; set; }
         public bool? Status { get; set; }
         public bool? CanComment { get; set; }
         public Guid? Category { get; set; }
@@ -40,6 +40,7 @@ namespace EventManagementFPT.Model
         public int Capacity { get; set; }
 
         public virtual Category CategoryNavigation { get; set; }
+        public virtual Venue Venue { get; set; }
         public virtual ICollection<Comment> TblComments { get; set; }
         public virtual ICollection<EventLike> TblEventLikes { get; set; }
         public virtual ICollection<Report> TblReports { get; set; }
