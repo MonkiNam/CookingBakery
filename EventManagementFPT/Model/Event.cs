@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EventManagementFPT.Model
@@ -17,17 +18,24 @@ namespace EventManagementFPT.Model
             TblReports = new HashSet<Report>();
             TblUserEvents = new HashSet<UserEvent>();
         }
-
+        [Required]
         public Guid EventId { get; set; }
+        [Required]
         public string Name { get; set; }
+        [Required]
         public string Description { get; set; }
+        [Required]
         public DateTime CreateDate { get; set; }
+        [Required]
         public DateTime StartDate { get; set; }
+        [Required]
         public DateTime EndDate { get; set; }
+        [Required]
         public string Venue { get; set; }
         public bool? Status { get; set; }
         public bool? CanComment { get; set; }
         public Guid? Category { get; set; }
+        [Required]
         public int Capacity { get; set; }
 
         public virtual Category CategoryNavigation { get; set; }

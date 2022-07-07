@@ -7,23 +7,23 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EventManagementFPT.Model;
-using EventManagementFPT.Modules.EventModule.Interface;
+using EventManagementFPT.Modules.UserModule.Interface;
 
-namespace EventManagementFPT.Pages.EventPage
+namespace EventManagementFPT.Pages.UserPage
 {
     public class EditModel : PageModel
     {
         private readonly EventManagementFPT.Model.EventManagementContext _context;
-        private readonly IEventService _eventService;
+        private IUserService _userService;
 
-        public EditModel(EventManagementFPT.Model.EventManagementContext context, IEventService eventService)
+        public EditModel(EventManagementFPT.Model.EventManagementContext context, IUserService userService)
         {
             _context = context;
-            _eventService = eventService;
+            _userService = userService;
         }
 
         [BindProperty]
-        public Event Event { get; set; }
+        public User User { get; set; }
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
@@ -32,13 +32,12 @@ namespace EventManagementFPT.Pages.EventPage
                 return NotFound();
             }
 
-            Event = _eventService.GetEventByID(id);
+            User = _userService.GetUserByUserID(id);
 
-            if (Event == null)
+            if (User == null)
             {
                 return NotFound();
             }
-            ViewData["Category"] = new SelectList(_context.Categories, "CategoryId", "Name");
             return Page();
         }
 
@@ -51,14 +50,10 @@ namespace EventManagementFPT.Pages.EventPage
                 return Page();
             }
 
-            await _eventService.UpdateEvent(_context.Attach(Event).Entity);
+            await _userService.UpdateUser(_context.Attach(User).Entity);
 
             return RedirectToPage("./Index");
         }
 
-        private bool EventExists(Guid id)
-        {
-            return _context.Events.Any(e => e.EventId == id);
-        }
     }
 }

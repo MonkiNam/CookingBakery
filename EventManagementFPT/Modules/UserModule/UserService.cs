@@ -53,6 +53,10 @@ namespace EventManagementFPT.Modules.UserModule
             ).Result;
             if (followInfo != null) _userRepository.UnfollowEvent(followInfo);
         }
+        public ICollection<User> GetAll()
+        {
+            return _userRepository.GetAll().ToList();
+        }
 
         public void LikeEvent(User user, Event _event)
         {

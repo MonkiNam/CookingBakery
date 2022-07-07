@@ -12,6 +12,7 @@ namespace EventManagementFPT.Modules.UserModule.Interface
         public Task AddNewUser(User newUser);
         public Task UpdateUser(User userUpdate);
         public Task DeleteUser(Guid? ID);
+        public ICollection<User> GetAll();
         public bool isExist(string email);
         public void FollowEvent(User user, Event followingEvent);
         public void UnfollowEvent(User user, Event followingEvent);
