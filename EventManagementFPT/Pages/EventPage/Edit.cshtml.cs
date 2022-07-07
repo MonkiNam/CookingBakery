@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using EventManagementFPT.Model;
 using EventManagementFPT.Modules.EventModule.Interface;
 
@@ -54,11 +51,6 @@ namespace EventManagementFPT.Pages.EventPage
             await _eventService.UpdateEvent(_context.Attach(Event).Entity);
 
             return RedirectToPage("./Index");
-        }
-
-        private bool EventExists(Guid id)
-        {
-            return _context.Events.Any(e => e.EventId == id);
         }
     }
 }

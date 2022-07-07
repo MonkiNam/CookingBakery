@@ -36,13 +36,16 @@ namespace EventManagementFPT.Modules.UserModule
 
         public async Task UpdateUser(User userUpdate)
         {
+            if (userUpdate.IsBlocked == true) return;
             await _userRepository.UpdateAsync(userUpdate);
         }
 
         public async Task DeleteUser(Guid? ID)
         {
-            User userDelete = _userRepository.GetFirstOrDefaultAsync(x => x.UserId.Equals(ID)).Result;
-            if (userDelete != null) await _userRepository.RemoveAsync(userDelete);
+            User userDelete = _userRepository.GetFirstOrDefaultAsync(x => x.UserId.Equals(ID) && x.IsBlocked == false).Result;
+            if (userDelete == null) return;
+            userDelete.IsBlocked = true;
+            await _userRepository.UpdateAsync(userDelete);
         }
 
         public void LikeEvent(User user, Event _event)

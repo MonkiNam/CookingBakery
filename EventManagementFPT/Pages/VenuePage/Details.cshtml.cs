@@ -6,20 +6,20 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using EventManagementFPT.Model;
-using EventManagementFPT.Modules.EventModule.Interface;
+using EventManagementFPT.Modules.VenueModule.Interface;
 
-namespace EventManagementFPT.Pages.EventPage
+namespace EventManagementFPT.Pages.VenuePage
 {
     public class DetailsModel : PageModel
     {
-        private readonly IEventService _eventService;
+        private readonly IVenueService _venueService;
 
-        public DetailsModel(IEventService eventService)
+        public DetailsModel(IVenueService venueService)
         {
-            _eventService = eventService;
+            _venueService = venueService;
         }
 
-        public Event Event { get; set; }
+        public Venue Venue { get; set; }
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
@@ -28,9 +28,9 @@ namespace EventManagementFPT.Pages.EventPage
                 return NotFound();
             }
 
-            Event = _eventService.GetEventByID(id);
+            Venue = _venueService.GetVenueByID(id);
 
-            if (Event == null)
+            if (Venue == null)
             {
                 return NotFound();
             }

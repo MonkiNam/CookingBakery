@@ -30,8 +30,14 @@ namespace EventManagementFPT.Modules.CategoryModule
         }
         public async Task DeleteCategory(Guid? id)
         {
-            Category categoryDelete = _categoryRepository.GetFirstOrDefaultAsync(x => x.CategoryId.Equals(id)).Result;
-            if (categoryDelete != null) await _categoryRepository.RemoveAsync(categoryDelete);
+            Category categoryDelete = _categoryRepository.GetFirstOrDefaultAsync(x => x.CategoryId.Equals(id) && x.Status == true).Result;
+            if (categoryDelete == null) return;
+            categoryDelete.Status = false;
+            await _categoryRepository.UpdateAsync(categoryDelete);
+        }
+        public Category GetCategoryByID(Guid? cateID)
+        {
+            return _categoryRepository.GetFirstOrDefaultAsync(x => x.CategoryId.Equals(cateID)).Result;
         }
     }
 }

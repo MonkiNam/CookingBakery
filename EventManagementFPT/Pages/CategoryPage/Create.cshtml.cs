@@ -6,20 +6,24 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using EventManagementFPT.Model;
+using EventManagementFPT.Modules.CategoryModule.Interface;
 
 namespace EventManagementFPT.Pages.CategoryPage
 {
     public class CreateModel : PageModel
     {
         private readonly EventManagementFPT.Model.EventManagementContext _context;
+        private readonly ICategoryService _categoryService;
 
-        public CreateModel(EventManagementFPT.Model.EventManagementContext context)
+        public CreateModel(EventManagementFPT.Model.EventManagementContext context, ICategoryService categoryService)
         {
             _context = context;
+            _categoryService = categoryService;
         }
 
         public IActionResult OnGet()
         {
+            TempData["success"] = "Page loaded!";
             return Page();
         }
 
@@ -34,8 +38,7 @@ namespace EventManagementFPT.Pages.CategoryPage
                 return Page();
             }
 
-            _context.Categories.Add(Category);
-            await _context.SaveChangesAsync();
+            await _categoryService.AddNewCategory(Category);
 
             return RedirectToPage("./Index");
         }

@@ -6,30 +6,27 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using EventManagementFPT.Model;
-using EventManagementFPT.Modules.EventModule.Interface;
+using EventManagementFPT.Modules.VenueModule.Interface;
 
-namespace EventManagementFPT.Pages.EventPage
+namespace EventManagementFPT.Pages.VenuePage
 {
     public class CreateModel : PageModel
     {
         private readonly EventManagementFPT.Model.EventManagementContext _context;
-        private readonly IEventService _eventService;
-
-        public CreateModel(EventManagementFPT.Model.EventManagementContext context , IEventService eventService)
+        private readonly IVenueService _venueService;
+        public CreateModel(EventManagementFPT.Model.EventManagementContext context, IVenueService venueService)
         {
             _context = context;
-            _eventService = eventService;
+            _venueService = venueService;
         }
 
         public IActionResult OnGet()
         {
-        ViewData["Category"] = new SelectList(_context.Categories, "CategoryId", "Name");
-            TempData["success"] = "Page loaded!";
             return Page();
         }
 
         [BindProperty]
-        public Event Event { get; set; }
+        public Venue Venue { get; set; }
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
@@ -38,11 +35,8 @@ namespace EventManagementFPT.Pages.EventPage
             {
                 return Page();
             }
-            if (DateTime.Compare(Event.StartDate,Event.EndDate) >= 0)
-            {
-                return Page();
-            }    
-            await _eventService.AddNewEvent(Event);
+
+            await _venueService.AddNewVenue(Venue);
 
             return RedirectToPage("./Index");
         }

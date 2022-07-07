@@ -6,23 +6,24 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using EventManagementFPT.Model;
+using EventManagementFPT.Modules.CategoryModule.Interface;
 
 namespace EventManagementFPT.Pages.CategoryPage
 {
     public class IndexModel : PageModel
     {
-        private readonly EventManagementFPT.Model.EventManagementContext _context;
+        private readonly ICategoryService _categoryService;
 
-        public IndexModel(EventManagementFPT.Model.EventManagementContext context)
+        public IndexModel(ICategoryService categoryService)
         {
-            _context = context;
+            _categoryService = categoryService;
         }
 
         public IList<Category> Category { get;set; }
 
-        public async Task OnGetAsync()
+        public void OnGet()
         {
-            Category = await _context.Categories.ToListAsync();
+            Category = _categoryService.GetAll().ToList();
         }
     }
 }

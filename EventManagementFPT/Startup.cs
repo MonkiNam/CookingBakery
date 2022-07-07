@@ -16,6 +16,10 @@ using EventManagementFPT.Modules.CategoryModule.Interface;
 using EventManagementFPT.Modules.CategoryModule;
 using EventManagementFPT.Modules.EventLikeModule.Interface;
 using EventManagementFPT.Modules.EventLikeModule;
+using EventManagementFPT.Modules.UserEventModule.Interface;
+using EventManagementFPT.Modules.UserEventModule;
+using EventManagementFPT.Modules.VenueModule.Interface;
+using EventManagementFPT.Modules.VenueModule;
 
 namespace EventManagementFPT
 {
@@ -40,6 +44,12 @@ namespace EventManagementFPT
             //Category Module
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ICategoryService, CategoryService>();
+            //UserEvent Module
+            services.AddScoped<IUserEventRepository, UserEventRepository>();
+            services.AddScoped<IUserEventService, UserEventService>();
+            //Venue Module
+            services.AddScoped<IVenueRepository, VenueRepository>();
+            services.AddScoped<IVenueService, VenueService>();
             //Event Module
             services.AddScoped<IEventRepository, EventRepository>();
             services.AddScoped<IEventService, EventService>();

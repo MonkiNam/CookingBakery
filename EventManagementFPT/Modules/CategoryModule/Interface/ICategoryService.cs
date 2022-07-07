@@ -12,5 +12,6 @@ namespace EventManagementFPT.Modules.CategoryModule.Interface
         public Task UpdateCategory(Category categoryUpdate);
         public Task DeleteCategory(Guid? ID);
         public ICollection<Category> GetAll();
+        public Category GetCategoryByID(Guid? cateID);
     }
 }

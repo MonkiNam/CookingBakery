@@ -23,6 +23,7 @@ namespace EventManagementFPT.Pages.Homepage
         public void OnGet()
         {
             //Lay 3 event moi nhat
+            _eventservice.GetNewestEvents(3);
 
             //Lay het
             EventList = (List<Event>)_eventservice.GetAll();

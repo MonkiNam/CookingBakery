@@ -7,23 +7,23 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EventManagementFPT.Model;
-using EventManagementFPT.Modules.CategoryModule.Interface;
+using EventManagementFPT.Modules.VenueModule.Interface;
 
-namespace EventManagementFPT.Pages.CategoryPage
+namespace EventManagementFPT.Pages.VenuePage
 {
     public class EditModel : PageModel
     {
         private readonly EventManagementFPT.Model.EventManagementContext _context;
-        private readonly ICategoryService _categoryService;
+        private readonly IVenueService _venueService;
 
-        public EditModel(EventManagementFPT.Model.EventManagementContext context, ICategoryService categoryService)
+        public EditModel(EventManagementFPT.Model.EventManagementContext context, IVenueService venueService)
         {
             _context = context;
-            _categoryService = categoryService;
+            _venueService = venueService;
         }
 
         [BindProperty]
-        public Category Category { get; set; }
+        public Venue Venue { get; set; }
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
@@ -32,9 +32,9 @@ namespace EventManagementFPT.Pages.CategoryPage
                 return NotFound();
             }
 
-            Category = _categoryService.GetCategoryByID(id);
+            Venue = _venueService.GetVenueByID(id);
 
-            if (Category == null)
+            if (Venue == null)
             {
                 return NotFound();
             }
@@ -50,14 +50,9 @@ namespace EventManagementFPT.Pages.CategoryPage
                 return Page();
             }
 
-            await _categoryService.UpdateCategory(_context.Attach(Category).Entity);
+            await _venueService.UpdateVenue(_context.Attach(Venue).Entity);
 
             return RedirectToPage("./Index");
-        }
-
-        private bool CategoryExists(Guid id)
-        {
-            return _context.Categories.Any(e => e.CategoryId == id);
         }
     }
 }

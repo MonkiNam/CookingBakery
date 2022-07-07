@@ -39,5 +39,11 @@ namespace EventManagementFPT.Modules.UserEventModule
             }
             return options != null ? options(query).ToList() : query.ToList();
         }
+
+        public async Task RemoveUserEvent(UserEvent userEvent)
+        {
+            _db.Remove(userEvent);
+            await _db.SaveChangesAsync();
+        }
     }
 }

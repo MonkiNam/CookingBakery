@@ -1,5 +1,7 @@
 ﻿using EventManagementFPT.Model;
+using EventManagementFPT.Modules.EventModule.Interface;
 using EventManagementFPT.Modules.UserEventModule.Interface;
+using EventManagementFPT.Modules.UserModule.Interface;
 using EventManagementFPT.Utils.Repository;
 using System;
 using System.Collections.Generic;
@@ -12,13 +14,40 @@ namespace EventManagementFPT.Modules.UserEventModule
     public class UserEventService : IUserEventService
     {
         private readonly IUserEventRepository _userEventRepository;
-        public UserEventService(IUserEventRepository userEventRepository)
+        private readonly IUserRepository _userRepository;
+        private readonly IEventRepository _eventRepository;
+        public UserEventService(IUserEventRepository userEventRepository, IUserRepository userRepository, IEventRepository eventRepository)
         {
             _userEventRepository = userEventRepository;
+            _userRepository = userRepository;
+            _eventRepository = eventRepository;
+        }
+        public UserEvent GetUserEvent(Guid userID, Guid eventID)
+        {
+            return _userEventRepository.GetFirstOrDefaultAsync(x => x.EventId.Equals(eventID) && x.UserId.Equals(userID)).Result;
         }
         public int GetCountNumberUserEvent(Guid eventID)
-        {            
+        {
+            if (_eventRepository.GetFirstOrDefaultAsync(x => x.EventId.Equals(eventID) && x.Status == true).Result == null) return 0;
             return _userEventRepository.GetUserEventsBy(x => x.EventId.Equals(eventID)).Count();
+        }
+        public async Task GoingAnEvent(Guid userID, Guid eventID)
+        {
+            if (_eventRepository.GetFirstOrDefaultAsync(x => x.EventId.Equals(eventID) && x.Status == true).Result == null) return;
+            if (_userRepository.GetFirstOrDefaultAsync(x => x.UserId.Equals(userID) && x.IsBlocked == false) == null) return;
+            await _userEventRepository.AddAsync(new UserEvent
+            {
+                UserId = userID,
+                EventId = eventID
+            });
+        }
+        public async Task NotGoingAnEvent(Guid userID, Guid eventID)
+        {
+            if (_eventRepository.GetFirstOrDefaultAsync(x => x.EventId.Equals(eventID) && x.Status == true).Result == null) return;
+            if (_userRepository.GetFirstOrDefaultAsync(x => x.UserId.Equals(userID) && x.IsBlocked == false) == null) return;
+            var userEvent = _userEventRepository.GetFirstOrDefaultAsync(x => x.EventId.Equals(eventID) && x.UserId.Equals(userID)).Result;
+            if (userEvent == null) return;
+            await _userEventRepository.RemoveUserEvent(userEvent);
         }
     }
 }

@@ -15,5 +15,6 @@ namespace EventManagementFPT.Modules.UserEventModule.Interface
             Func<IQueryable<UserEvent>, ICollection<UserEvent>> options = null,
             string includeProperties = null
         );
+        public Task RemoveUserEvent(UserEvent userEvent);
     }
 }

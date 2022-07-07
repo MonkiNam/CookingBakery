@@ -1,21 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 using EventManagementFPT.Model;
+using EventManagementFPT.Modules.CategoryModule.Interface;
 
 namespace EventManagementFPT.Pages.CategoryPage
 {
     public class DeleteModel : PageModel
     {
-        private readonly EventManagementFPT.Model.EventManagementContext _context;
+        private readonly ICategoryService _categoryService;
 
-        public DeleteModel(EventManagementFPT.Model.EventManagementContext context)
+        public DeleteModel(ICategoryService categoryService)
         {
-            _context = context;
+            _categoryService = categoryService;
         }
 
         [BindProperty]
@@ -28,7 +26,7 @@ namespace EventManagementFPT.Pages.CategoryPage
                 return NotFound();
             }
 
-            Category = await _context.Categories.FirstOrDefaultAsync(m => m.CategoryId == id);
+            Category = _categoryService.GetCategoryByID(id);
 
             if (Category == null)
             {
@@ -44,13 +42,7 @@ namespace EventManagementFPT.Pages.CategoryPage
                 return NotFound();
             }
 
-            Category = await _context.Categories.FindAsync(id);
-
-            if (Category != null)
-            {
-                _context.Categories.Remove(Category);
-                await _context.SaveChangesAsync();
-            }
+            await _categoryService.DeleteCategory(id);
 
             return RedirectToPage("./Index");
         }

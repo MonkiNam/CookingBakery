@@ -6,16 +6,17 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using EventManagementFPT.Model;
+using EventManagementFPT.Modules.CategoryModule.Interface;
 
 namespace EventManagementFPT.Pages.CategoryPage
 {
     public class DetailsModel : PageModel
     {
-        private readonly EventManagementFPT.Model.EventManagementContext _context;
+        private readonly ICategoryService _categoryService;
 
-        public DetailsModel(EventManagementFPT.Model.EventManagementContext context)
+        public DetailsModel(ICategoryService categoryService)
         {
-            _context = context;
+            _categoryService = categoryService;
         }
 
         public Category Category { get; set; }
@@ -27,7 +28,7 @@ namespace EventManagementFPT.Pages.CategoryPage
                 return NotFound();
             }
 
-            Category = await _context.Categories.FirstOrDefaultAsync(m => m.CategoryId == id);
+            Category = _categoryService.GetCategoryByID(id);
 
             if (Category == null)
             {
