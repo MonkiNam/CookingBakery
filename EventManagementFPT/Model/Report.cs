@@ -1,6 +1,7 @@
 ﻿#nullable disable
 
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EventManagementFPT.Model
@@ -8,12 +9,19 @@ namespace EventManagementFPT.Model
     [Table("tblReport")]
     public partial class Report
     {
+        [Required]
         public Guid ReportId { get; set; }
+        [Required]
         public string Name { get; set; }
+        [Required]
         public string Content { get; set; }
+        [Required]
         public DateTime CreateDate { get; set; }
+        [Required]
         public bool? Type { get; set; }
+        [Required]
         public Guid? Author { get; set; }
+        [Required]
         public Guid? EventId { get; set; }
 
         public virtual User AuthorNavigation { get; set; }
