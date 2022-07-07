@@ -20,7 +20,6 @@ namespace EventManagementFPT.Model
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<Event> Events { get; set; }
         public virtual DbSet<EventLike> EventLikes { get; set; }
-        public virtual DbSet<FollowEvent> FollowEvents { get; set; }
         public virtual DbSet<Report> Reports { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserEvent> UserEvents { get; set; }
@@ -137,7 +136,7 @@ namespace EventManagementFPT.Model
 
             modelBuilder.Entity<EventLike>(entity =>
             {
-                entity.HasKey(e => new {e.EventId, e.UserId});
+                entity.HasKey(e => new { e.EventId, e.UserId });
 
                 entity.ToTable("tblEventLike");
 
@@ -160,31 +159,6 @@ namespace EventManagementFPT.Model
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_tblEventLike_tblUser");
-            });
-
-            modelBuilder.Entity<FollowEvent>(entity =>
-            {
-                entity.HasKey(e => new {e.EventId, e.UserId});
-
-                entity.ToTable("tblFollowEvent");
-
-                entity.HasIndex(e => e.UserId, "IX_tblFollowEvent_UserID");
-
-                entity.Property(e => e.EventId).HasColumnName("EventID");
-
-                entity.Property(e => e.UserId).HasColumnName("UserID");
-
-                entity.HasOne(d => d.Event)
-                    .WithMany(p => p.TblFollowEvents)
-                    .HasForeignKey(d => d.EventId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_tblFollowEvent_tblEvent");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.TblFollowEvents)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_tblFollowEvent_tblUser");
             });
 
             modelBuilder.Entity<Report>(entity =>
@@ -259,7 +233,7 @@ namespace EventManagementFPT.Model
 
             modelBuilder.Entity<UserEvent>(entity =>
             {
-                entity.HasKey(e => new {e.EventId, e.UserId});
+                entity.HasKey(e => new { e.EventId, e.UserId });
 
                 entity.ToTable("tblUserEvent");
 

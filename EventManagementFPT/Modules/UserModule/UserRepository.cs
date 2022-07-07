@@ -14,18 +14,6 @@ namespace EventManagementFPT.Modules.UserModule
             _db = db;
         }
 
-        public void FollowEvent(FollowEvent followInfo)
-        {
-            _db.FollowEvents.Add(followInfo);
-            _db.SaveChanges();
-        }
-
-        public void UnfollowEvent(FollowEvent followInfo)
-        {
-            _db.FollowEvents.Remove(followInfo);
-            _db.SaveChanges();
-        }
-
         public void LikeEvent(EventLike likeInfo)
         {
             _db.EventLikes.Add(likeInfo);

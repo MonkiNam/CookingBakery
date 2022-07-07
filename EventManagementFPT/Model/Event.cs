@@ -13,7 +13,6 @@ namespace EventManagementFPT.Model
         {
             TblComments = new HashSet<Comment>();
             TblEventLikes = new HashSet<EventLike>();
-            TblFollowEvents = new HashSet<FollowEvent>();
             TblReports = new HashSet<Report>();
             TblUserEvents = new HashSet<UserEvent>();
         }
@@ -33,7 +32,6 @@ namespace EventManagementFPT.Model
         public virtual Category CategoryNavigation { get; set; }
         public virtual ICollection<Comment> TblComments { get; set; }
         public virtual ICollection<EventLike> TblEventLikes { get; set; }
-        public virtual ICollection<FollowEvent> TblFollowEvents { get; set; }
         public virtual ICollection<Report> TblReports { get; set; }
         public virtual ICollection<UserEvent> TblUserEvents { get; set; }
     }
