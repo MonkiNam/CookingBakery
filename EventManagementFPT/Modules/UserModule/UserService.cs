@@ -2,6 +2,8 @@
 using EventManagementFPT.Modules.EventLikeModule.Interface;
 using EventManagementFPT.Modules.UserModule.Interface;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace EventManagementFPT.Modules.UserModule
@@ -15,6 +17,10 @@ namespace EventManagementFPT.Modules.UserModule
         {
             _userRepository = userRepository;
             _eventLikeRepository = eventLikeRepository;
+        }
+        public ICollection<User> GetAll()
+        {
+            return _userRepository.GetAll().ToList();
         }
 
         public User GetUserByUserID(Guid? ID)
