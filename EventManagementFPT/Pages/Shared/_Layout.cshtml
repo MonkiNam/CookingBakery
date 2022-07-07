@@ -14,7 +14,7 @@
 </style>
 @if (TempData["noti"] != null)
 {
-    <div style="position: absolute; top: 20px; right: 20px; min-width: 300px; z-index: 1000;">
+    <div style="position: absolute; top: 20px; right: 20px; min-width: 300px; z-index: 2000;">
         <div class="toast shadow-lg" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
             <div class="toast-header bg-warning text-light">
                 <ion-icon name="settings-outline"></ion-icon>
@@ -31,7 +31,7 @@
 }
 @if (TempData["success"] != null)
 {
-    <div style="position: absolute; top: 20px; right: 20px; min-width: 300px; z-index: 1000;">
+    <div style="position: absolute; top: 20px; right: 20px; min-width: 300px; z-index: 2000;">
         <div class="toast shadow-lg" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
             <div class="toast-header bg-success text-light">
                 <ion-icon name="checkmark-circle-outline"></ion-icon>
@@ -48,7 +48,7 @@
 }
 @if (TempData["error"] != null)
 {
-    <div style="position: absolute; top: 20px; right: 20px; min-width: 300px; z-index: 1000;">
+    <div style="position: absolute; top: 20px; right: 20px; min-width: 300px; z-index: 2000;">
         <div class="toast shadow-lg" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
             <div class="toast-header bg-danger text-light">
                 <ion-icon name="alert-circle-outline"></ion-icon>
@@ -142,14 +142,16 @@
                 </div>
             </div>
         </div>
-                @RenderBody()
+    </div>
+        @RenderBody()
 
-        <script src="~/lib/jquery/dist/jquery.min.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
 
-        @await RenderSectionAsync("Scripts", required: false)
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
