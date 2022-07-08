@@ -15,7 +15,7 @@ namespace EventManagementFPT.Pages.EventPage
         private readonly EventManagementFPT.Model.EventManagementContext _context;
         private readonly IEventService _eventService;
 
-        public CreateModel(EventManagementFPT.Model.EventManagementContext context , IEventService eventService)
+        public CreateModel(EventManagementFPT.Model.EventManagementContext context, IEventService eventService)
         {
             _context = context;
             _eventService = eventService;
@@ -23,8 +23,10 @@ namespace EventManagementFPT.Pages.EventPage
 
         public IActionResult OnGet()
         {
-        ViewData["Category"] = new SelectList(_context.Categories, "CategoryId", "Name");
+            ViewData["Category"] = new SelectList(_context.Categories, "CategoryId", "Name");
+            ViewData["Venue"] = new SelectList(_context.Venues, "VenueId", "VenueName");
             TempData["success"] = "Page loaded!";
+
             return Page();
         }
 
@@ -38,10 +40,10 @@ namespace EventManagementFPT.Pages.EventPage
             {
                 return Page();
             }
-            if (DateTime.Compare(Event.StartDate,Event.EndDate) >= 0)
+            if (DateTime.Compare(Event.StartDate, Event.EndDate) >= 0)
             {
                 return Page();
-            }    
+            }
             await _eventService.AddNewEvent(Event);
 
             return RedirectToPage("./Index");

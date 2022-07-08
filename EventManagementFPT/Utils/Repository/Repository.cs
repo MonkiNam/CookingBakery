@@ -47,22 +47,30 @@ namespace EventManagementFPT.Utils.Repository
 
         public ICollection<T> GetAll(Func<IQueryable<T>, ICollection<T>> options = null, string includeProperties = null)
         {
-            IQueryable<T> query = DbSet;
-            
-            if (includeProperties != null)
+            try
             {
-                foreach (var includeProp in includeProperties.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                IQueryable<T> query = DbSet;
+
+                if (includeProperties != null)
                 {
-                    query = query.Include(includeProp);
+                    foreach (var includeProp in includeProperties.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                    {
+                        query = query.Include(includeProp);
+                    }
                 }
-            }
 
-            if (options != null)
+                if (options != null)
+                {
+                    return options(query).ToList();
+                }
+
+                return query.ToList();
+            }
+            catch
             {
-                return options(query).ToList();
+                Console.WriteLine("Error");
             }
-
-            return query.ToList();
+            return null;
         }
 
         public Task<T> GetFirstOrDefaultAsync(Expression<Func<T, bool>> filter = null, string includeProperties = null)

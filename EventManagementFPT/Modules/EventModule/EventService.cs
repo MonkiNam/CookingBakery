@@ -54,7 +54,9 @@ namespace EventManagementFPT.Modules.EventModule
 
         public ICollection<Event> GetAll()
         {
-            return _eventRepository.GetAll().ToList();
+            ICollection<Event> events = _eventRepository.GetAll();
+            if (events != null) return events.ToList();
+            return null;
         }
 
         public async Task AddNewEvent(Event newEvent)

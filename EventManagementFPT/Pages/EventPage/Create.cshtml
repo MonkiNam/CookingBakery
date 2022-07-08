@@ -5,79 +5,66 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>Event</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Event.EventId" class="control-label"></label>
-                <input asp-for="Event.EventId" class="form-control" />
-                <span asp-validation-for="Event.EventId" class="text-danger"></span>
+<div class="container-fluid mt-5 pl-5 pr-5 mb-5">
+    <form>
+        <div class="row mr-4 ml-4">
+            <div class="col-8">
+                <div class="border rounded shadow-sm p-4">
+                    <h4 class="font-weight-bold d-flex align-items-center justify-content-center"><ion-icon class="mt-1 mr-1" name="cube-outline"></ion-icon>Post's data</h4>
+                    <div class="form-group">
+                        <label class="font-weight-bold" for="title">Title of the post</label>
+                        <input asp-for="Event.Name" type="text" class="form-control" id="title" placeholder="An eye-catching title..." />
+                    </div>
+                    <div class="form-group">
+                        <label for="content" class="font-weight-bold">Content</label>
+                        <textarea asp-for="Event.Description" rows="5" class="form-control" id="content"> </textarea>
+                    </div>
+                    <label class="font-weight-bold">Cover image</label>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="customFile">
+                        <label id="customFileLabel" class="custom-file-label" for="customFile">Choose file</label>
+                    </div>
+                    <div class="rounded shadow-sm image-holder justify-content-center align-items-center mt-3 font-weight-bold">Preview your image here</div>
+                    <img src="" class="img-fluid" id="preview-image">
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Event.Name" class="control-label"></label>
-                <input asp-for="Event.Name" class="form-control" />
-                <span asp-validation-for="Event.Name" class="text-danger"></span>
+            <div class="col-4">
+                <div class="border rounded shadow-sm p-4">
+                    <h4 class="font-weight-bold d-flex align-items-center justify-content-center">
+                        <ion-icon class="mt-1 mr-1" name="settings-outline"></ion-icon>Settings
+                    </h4>
+                    <div class="form-group">
+                        <label class="font-weight-bold" for="title">Start Date</label>
+                        <input asp-for="Event.StartDate" type="datetime-local" class="form-control" id="date" />
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold" for="title">End Date</label>
+                        <input asp-for="Event.EndDate" type="datetime-local" class="form-control" id="date" />
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold" for="venue">Number of attendance</label>
+                        <input asp-for="Event.Capacity" type="number" class="form-control" id="venue" value="0" />
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold" for="venue-select">Venue</label>
+                        <select asp-for="Event.Venue" class="form-control" id="venue-select" asp-items="ViewBag.Venue">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold" for="category-select">Category</label>
+                        <select asp-for="Event.Category" class="form-control" id="category-select" asp-items="ViewBag.Category">
+                        </select>
+                    </div>
+                    <hr>
+                    <button class="btn btn-outline-primary btn-block" type="submit">Create</button>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Event.ImageUrl" class="control-label"></label>
-                <input asp-for="Event.ImageUrl" class="form-control" />
-                <span asp-validation-for="Event.ImageUrl" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Event.Description" class="control-label"></label>
-                <input asp-for="Event.Description" class="form-control" />
-                <span asp-validation-for="Event.Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Event.StartDate" class="control-label"></label>
-                <input asp-for="Event.StartDate" class="form-control" />
-                <span asp-validation-for="Event.StartDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Event.EndDate" class="control-label"></label>
-                <input asp-for="Event.EndDate" class="form-control" />
-                <span asp-validation-for="Event.EndDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Event.VenueId" class="control-label"></label>
-                <input asp-for="Event.VenueId" class="form-control" />
-                <span asp-validation-for="Event.VenueId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Event.Status" class="control-label"></label>
-                <input asp-for="Event.Status" class="form-control" />
-                <span asp-validation-for="Event.Status" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Event.CanComment" class="control-label"></label>
-                <input asp-for="Event.CanComment" class="form-control" />
-                <span asp-validation-for="Event.CanComment" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Event.Category" class="control-label"></label>
-                <select asp-for="Event.Category" class="form-control" asp-items="ViewBag.Category"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Event.Capacity" class="control-label"></label>
-                <input asp-for="Event.Capacity" class="form-control" />
-                <span asp-validation-for="Event.Capacity" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-page="Index">Back to List</a>
+        </div>
+    </form>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

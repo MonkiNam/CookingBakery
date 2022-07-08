@@ -15,10 +15,12 @@ namespace EventManagementFPT.Pages.Home
         }
 
         public IEnumerable<Event> Event { get;set; }
+        public IEnumerable<Event> NewestEvent { get;set; }
         
         public void OnGet()
         {
             Event = _eventService.GetAll();
+            NewestEvent = _eventService.GetNewestEvents(3);
         }
     }
 }
