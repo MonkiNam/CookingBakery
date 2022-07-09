@@ -16,6 +16,8 @@ namespace EventManagementFPT.Model
         [Required]
         public Guid VenueId { get; set; }
 
+        [Required]
+        [StringLength(100, MinimumLength = 2)]
         public string VenueName { get; set; }
 
         public bool Status { get; set; }

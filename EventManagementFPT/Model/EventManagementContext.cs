@@ -47,9 +47,7 @@ namespace EventManagementFPT.Model
 
                 entity.ToTable("tblCategory");
 
-                entity.Property(e => e.CategoryId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("CategoryID");
+                entity.Property(e => e.CategoryId).ValueGeneratedNever();
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -62,42 +60,29 @@ namespace EventManagementFPT.Model
 
                 entity.ToTable("tblComment");
 
-                entity.HasIndex(e => e.EventId, "IX_tblComment_EventID");
+                entity.HasIndex(e => e.EventId, "IX_tblComment_EventId");
 
-                entity.HasIndex(e => e.ParentId, "IX_tblComment_ParentID");
+                entity.HasIndex(e => e.ParentId, "IX_tblComment_ParentId");
 
-                entity.HasIndex(e => e.UserId, "IX_tblComment_UserID");
+                entity.HasIndex(e => e.UserId, "IX_tblComment_UserId");
 
-                entity.Property(e => e.CommentId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("CommentID");
+                entity.Property(e => e.CommentId).ValueGeneratedNever();
 
-                entity.Property(e => e.Content).IsRequired();
-
-                entity.Property(e => e.CreateDate).HasColumnType("datetime");
-
-                entity.Property(e => e.EventId).HasColumnName("EventID");
-
-                entity.Property(e => e.ParentId).HasColumnName("ParentID");
-
-                entity.Property(e => e.UserId).HasColumnName("UserID");
+                entity.Property(e => e.Content)
+                    .IsRequired()
+                    .HasMaxLength(500);
 
                 entity.HasOne(d => d.Event)
                     .WithMany(p => p.TblComments)
-                    .HasForeignKey(d => d.EventId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_tblComment_tblEvent");
+                    .HasForeignKey(d => d.EventId);
 
                 entity.HasOne(d => d.Parent)
                     .WithMany(p => p.InverseParent)
-                    .HasForeignKey(d => d.ParentId)
-                    .HasConstraintName("FK_tblComment_tblComment");
+                    .HasForeignKey(d => d.ParentId);
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.TblComments)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_tblComment_tblUser");
+                    .HasForeignKey(d => d.UserId);
             });
 
             modelBuilder.Entity<Event>(entity =>
@@ -106,32 +91,21 @@ namespace EventManagementFPT.Model
 
                 entity.ToTable("tblEvent");
 
-                entity.HasIndex(e => e.Category, "IX_tblEvent_Category");
+                entity.HasIndex(e => e.Category, "IX_tblEvent_CategoryNavigationCategoryId");
 
                 entity.HasIndex(e => e.VenueId, "IX_tblEvent_VenueId");
 
-                entity.Property(e => e.EventId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("EventID");
+                entity.Property(e => e.EventId).ValueGeneratedNever();
 
-                entity.Property(e => e.CreateDate).HasColumnType("datetime");
-
-                entity.Property(e => e.Description).IsRequired();
-
-                entity.Property(e => e.EndDate).HasColumnType("datetime");
-
-                entity.Property(e => e.ImageUrl).IsRequired();
-
-                entity.Property(e => e.Name)
+                entity.Property(e => e.Description)
                     .IsRequired()
-                    .HasMaxLength(50);
+                    .HasMaxLength(500);
 
-                entity.Property(e => e.StartDate).HasColumnType("datetime");
+                entity.Property(e => e.Name).IsRequired();
 
                 entity.HasOne(d => d.CategoryNavigation)
                     .WithMany(p => p.TblEvents)
-                    .HasForeignKey(d => d.Category)
-                    .HasConstraintName("FK_tblEvent_tblCategory");
+                    .HasForeignKey(d => d.Category);
 
                 entity.HasOne(d => d.Venue)
                     .WithMany(p => p.Events)
@@ -144,25 +118,15 @@ namespace EventManagementFPT.Model
 
                 entity.ToTable("tblEventLike");
 
-                entity.HasIndex(e => e.UserId, "IX_tblEventLike_UserID");
-
-                entity.Property(e => e.EventId).HasColumnName("EventID");
-
-                entity.Property(e => e.UserId).HasColumnName("UserID");
-
-                entity.Property(e => e.CreateDate).HasColumnType("datetime");
+                entity.HasIndex(e => e.UserId, "IX_tblEventLike_UserId");
 
                 entity.HasOne(d => d.Event)
                     .WithMany(p => p.TblEventLikes)
-                    .HasForeignKey(d => d.EventId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_tblEventLike_tblEvent");
+                    .HasForeignKey(d => d.EventId);
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.TblEventLikes)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_tblEventLike_tblUser");
+                    .HasForeignKey(d => d.UserId);
             });
 
             modelBuilder.Entity<Report>(entity =>
@@ -171,33 +135,25 @@ namespace EventManagementFPT.Model
 
                 entity.ToTable("tblReport");
 
-                entity.HasIndex(e => e.Author, "IX_tblReport_Author");
+                entity.HasIndex(e => e.Author, "IX_tblReport_AuthorNavigationUserId");
 
-                entity.HasIndex(e => e.EventId, "IX_tblReport_EventID");
+                entity.HasIndex(e => e.EventId, "IX_tblReport_EventId");
 
-                entity.Property(e => e.ReportId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ReportID");
+                entity.Property(e => e.ReportId).ValueGeneratedNever();
 
-                entity.Property(e => e.Content).IsRequired();
-
-                entity.Property(e => e.CreateDate).HasColumnType("datetime");
-
-                entity.Property(e => e.EventId).HasColumnName("EventID");
-
-                entity.Property(e => e.Name)
+                entity.Property(e => e.Content)
                     .IsRequired()
-                    .HasMaxLength(50);
+                    .HasMaxLength(500);
 
-                entity.HasOne(d => d.AuthorNavigation)
-                    .WithMany(p => p.TblReports)
-                    .HasForeignKey(d => d.Author)
-                    .HasConstraintName("FK_tblReport_tblUser");
+                entity.Property(e => e.Name).IsRequired();
 
                 entity.HasOne(d => d.Event)
                     .WithMany(p => p.TblReports)
-                    .HasForeignKey(d => d.EventId)
-                    .HasConstraintName("FK_tblReport_tblEvent");
+                    .HasForeignKey(d => d.EventId);
+
+                entity.HasOne(d => d.AuthorNavigation)
+                    .WithMany(p => p.TblReports)
+                    .HasForeignKey(d => d.Author);
             });
 
             modelBuilder.Entity<User>(entity =>
@@ -206,29 +162,13 @@ namespace EventManagementFPT.Model
 
                 entity.ToTable("tblUser");
 
-                entity.Property(e => e.UserId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("UserID");
-
-                entity.Property(e => e.Email)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.IsBlocked).HasColumnName("isBlocked");
+                entity.Property(e => e.UserId).ValueGeneratedNever();
 
                 entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasMaxLength(50);
+                    .HasMaxLength(100);
 
-                entity.Property(e => e.Password)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.PhoneNumber)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                entity.Property(e => e.Password).HasMaxLength(30);
             });
 
             modelBuilder.Entity<UserEvent>(entity =>
@@ -237,23 +177,15 @@ namespace EventManagementFPT.Model
 
                 entity.ToTable("tblUserEvent");
 
-                entity.HasIndex(e => e.UserId, "IX_tblUserEvent_UserID");
-
-                entity.Property(e => e.EventId).HasColumnName("EventID");
-
-                entity.Property(e => e.UserId).HasColumnName("UserID");
+                entity.HasIndex(e => e.UserId, "IX_tblUserEvent_UserId");
 
                 entity.HasOne(d => d.Event)
                     .WithMany(p => p.TblUserEvents)
-                    .HasForeignKey(d => d.EventId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_tblUserEvent_tblEvent");
+                    .HasForeignKey(d => d.EventId);
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.TblUserEvents)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_tblUserEvent_tblUser");
+                    .HasForeignKey(d => d.UserId);
             });
 
             modelBuilder.Entity<Venue>(entity =>
@@ -263,6 +195,10 @@ namespace EventManagementFPT.Model
                 entity.ToTable("tblVenue");
 
                 entity.Property(e => e.VenueId).ValueGeneratedNever();
+
+                entity.Property(e => e.VenueName)
+                    .IsRequired()
+                    .HasMaxLength(100);
             });
 
             OnModelCreatingPartial(modelBuilder);
