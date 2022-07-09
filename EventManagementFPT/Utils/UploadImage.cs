@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -7,7 +8,7 @@ namespace EventManagementFPT.Utils
 {
     public static class UploadImage
     {
-        public static async Task UploadFile(IFormFile file, IWebHostEnvironment environment)
+        public static async Task<string> UploadFile(IFormFile file, IWebHostEnvironment environment)
         {
             var baseDirectory = Path.Combine(environment.WebRootPath, "image");
             if (!Directory.Exists(baseDirectory))
@@ -19,6 +20,7 @@ namespace EventManagementFPT.Utils
             {
                 await file.CopyToAsync(stream);
             }
+            return file.FileName;
         }
     }
 }

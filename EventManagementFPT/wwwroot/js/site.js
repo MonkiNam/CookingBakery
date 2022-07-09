@@ -4,6 +4,9 @@
 // Write your JavaScript code.
 var filePreview = document.getElementById("customFile");
 if (filePreview != null) {
+    if (filePreview.files.length != 0) {
+        document.getElementsByClassName('image-holder')[0].style.display = 'none';
+    }
     filePreview.onchange = function () {
         var src = URL.createObjectURL(this.files[0]);
         var name = this.files[0].name;

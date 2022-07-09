@@ -35,6 +35,7 @@ namespace EventManagementFPT.Pages.EventPage
             {
                 return NotFound();
             }
+            ViewData["Venue"] = new SelectList(_context.Venues, "VenueId", "VenueName");
             ViewData["Category"] = new SelectList(_context.Categories, "CategoryId", "Name");
             return Page();
         }

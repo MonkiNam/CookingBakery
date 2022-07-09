@@ -5,8 +5,12 @@
     ViewData["Title"] = "Create";
 }
 
+<div asp-validation-summary="All">
+
+</div>
+
 <div class="container-fluid mt-5 pl-5 pr-5 mb-5">
-    <form>
+    <form method="post" enctype="multipart/form-data">
         <div class="row mr-4 ml-4">
             <div class="col-8">
                 <div class="border rounded shadow-sm p-4">
@@ -21,10 +25,10 @@
                     </div>
                     <label class="font-weight-bold">Cover image</label>
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="customFile">
+                        <input type="file" accept="image/*" class="custom-file-input" id="customFile" name="customFile">
                         <label id="customFileLabel" class="custom-file-label" for="customFile">Choose file</label>
                     </div>
-                    <div class="rounded shadow-sm image-holder justify-content-center align-items-center mt-3 font-weight-bold">Preview your image here</div>
+                    <div class="rounded mt-3 shadow-sm image-holder justify-content-center align-items-center mt-3 font-weight-bold">Preview your image here</div>
                     <img src="" class="img-fluid" id="preview-image">
                 </div>
             </div>
@@ -34,12 +38,12 @@
                         <ion-icon class="mt-1 mr-1" name="settings-outline"></ion-icon>Settings
                     </h4>
                     <div class="form-group">
-                        <label class="font-weight-bold" for="title">Start Date</label>
-                        <input asp-for="Event.StartDate" type="datetime-local" class="form-control" id="date" />
+                        <label class="font-weight-bold" for="start-date">Start Date</label>
+                        <input asp-for="Event.StartDate" type="datetime-local" class="form-control" id="start-date" />
                     </div>
                     <div class="form-group">
-                        <label class="font-weight-bold" for="title">End Date</label>
-                        <input asp-for="Event.EndDate" type="datetime-local" class="form-control" id="date" />
+                        <label class="font-weight-bold" for="end-date">End Date</label>
+                        <input asp-for="Event.EndDate" type="datetime-local" class="form-control" id="end-date" />
                     </div>
                     <div class="form-group">
                         <label class="font-weight-bold" for="venue">Number of attendance</label>
@@ -47,7 +51,7 @@
                     </div>
                     <div class="form-group">
                         <label class="font-weight-bold" for="venue-select">Venue</label>
-                        <select asp-for="Event.Venue" class="form-control" id="venue-select" asp-items="ViewBag.Venue">
+                        <select asp-for="Event.VenueId" class="form-control" id="venue-select" asp-items="ViewBag.Venue">
                         </select>
                     </div>
                     <div class="form-group">
@@ -55,6 +59,18 @@
                         <select asp-for="Event.Category" class="form-control" id="category-select" asp-items="ViewBag.Category">
                         </select>
                     </div>
+                    <span class="form-check">
+                        <input asp-for="Event.Status" class="form-check-input" type="checkbox" value="true" id="status">
+                        <label class="form-check-label" for="status">
+                            Active
+                        </label>
+                    </span>
+                    <span class="form-check">
+                        <input asp-for="Event.CanComment" class="form-check-input" type="checkbox" value="true" id="canComment">
+                        <label class="form-check-label" for="canComment">
+                            Comment
+                        </label>
+                    </span>
                     <hr>
                     <button class="btn btn-outline-primary btn-block" type="submit">Create</button>
                 </div>

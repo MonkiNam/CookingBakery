@@ -23,7 +23,6 @@ namespace EventManagementFPT.Model
         public string Name { get; set; }
         [Required]
         public string Description { get; set; }
-        [Required]
         public string ImageUrl { get; set; }
         [Required]
         public DateTime CreateDate { get; set; }
@@ -33,10 +32,11 @@ namespace EventManagementFPT.Model
         public DateTime EndDate { get; set; }
         [Required]
         public Guid VenueId { get; set; }
-        public bool? Status { get; set; }
-        public bool? CanComment { get; set; }
+        public bool Status { get; set; }
+        public bool CanComment { get; set; }
         public Guid? Category { get; set; }
         [Required]
+        [Range(1, int.MaxValue)]
         public int Capacity { get; set; }
 
         public virtual Category CategoryNavigation { get; set; }
