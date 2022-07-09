@@ -210,10 +210,6 @@ namespace EventManagementFPT.Model
                     .ValueGeneratedNever()
                     .HasColumnName("UserID");
 
-                entity.Property(e => e.Avatar)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
                 entity.Property(e => e.Email)
                     .IsRequired()
                     .HasMaxLength(50)
