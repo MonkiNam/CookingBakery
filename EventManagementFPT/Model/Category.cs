@@ -17,9 +17,11 @@ namespace EventManagementFPT.Model
 
         [Required]
         public Guid CategoryId { get; set; }
+        
         [Required]
-        [MinLength(1)]
+        [StringLength(50, MinimumLength = 2)]
         public string Name { get; set; }
+        
         [Required]
         public bool? Status { get; set; }
 

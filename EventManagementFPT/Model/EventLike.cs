@@ -11,11 +11,15 @@ namespace EventManagementFPT.Model
     {
         [Required]
         public Guid EventId { get; set; }
+        
         [Required]
         public Guid UserId { get; set; }
+        
         [Required]
         public bool? Status { get; set; }
+        
         [Required]
+        [DataType(DataType.DateTime)]
         public DateTime? CreateDate { get; set; }
 
         public virtual Event Event { get; set; }

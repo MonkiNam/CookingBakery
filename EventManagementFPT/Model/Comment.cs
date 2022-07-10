@@ -19,13 +19,21 @@ namespace EventManagementFPT.Model
         public Guid CommentId { get; set; }
         [Required]
         public Guid UserId { get; set; }
+        
         [Required]
+        [DataType(DataType.DateTime)]
         public DateTime CreateDate { get; set; }
+        
         [Required]
+        [StringLength(500, MinimumLength = 1)]
         public string Content { get; set; }
+        
         public bool? Status { get; set; }
+        
         public bool? IsParent { get; set; }
+        
         public Guid? ParentId { get; set; }
+        
         [Required]
         public Guid EventId { get; set; }
 
