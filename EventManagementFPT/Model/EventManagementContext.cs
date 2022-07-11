@@ -73,7 +73,7 @@ namespace EventManagementFPT.Model
                     .HasMaxLength(500);
 
                 entity.HasOne(d => d.Event)
-                    .WithMany(p => p.TblComments)
+                    .WithMany(p => p.Comments)
                     .HasForeignKey(d => d.EventId);
 
                 entity.HasOne(d => d.Parent)
@@ -81,7 +81,7 @@ namespace EventManagementFPT.Model
                     .HasForeignKey(d => d.ParentId);
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.TblComments)
+                    .WithMany(p => p.Comments)
                     .HasForeignKey(d => d.UserId);
             });
 
@@ -121,11 +121,11 @@ namespace EventManagementFPT.Model
                 entity.HasIndex(e => e.UserId, "IX_tblEventLike_UserId");
 
                 entity.HasOne(d => d.Event)
-                    .WithMany(p => p.TblEventLikes)
+                    .WithMany(p => p.EventLikes)
                     .HasForeignKey(d => d.EventId);
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.TblEventLikes)
+                    .WithMany(p => p.EventLikes)
                     .HasForeignKey(d => d.UserId);
             });
 
@@ -148,11 +148,11 @@ namespace EventManagementFPT.Model
                 entity.Property(e => e.Name).IsRequired();
 
                 entity.HasOne(d => d.Event)
-                    .WithMany(p => p.TblReports)
+                    .WithMany(p => p.Reports)
                     .HasForeignKey(d => d.EventId);
 
                 entity.HasOne(d => d.AuthorNavigation)
-                    .WithMany(p => p.TblReports)
+                    .WithMany(p => p.Reports)
                     .HasForeignKey(d => d.Author);
             });
 
@@ -180,11 +180,11 @@ namespace EventManagementFPT.Model
                 entity.HasIndex(e => e.UserId, "IX_tblUserEvent_UserId");
 
                 entity.HasOne(d => d.Event)
-                    .WithMany(p => p.TblUserEvents)
+                    .WithMany(p => p.UserEvents)
                     .HasForeignKey(d => d.EventId);
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.TblUserEvents)
+                    .WithMany(p => p.UserEvents)
                     .HasForeignKey(d => d.UserId);
             });
 

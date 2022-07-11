@@ -12,10 +12,10 @@ namespace EventManagementFPT.Model
     {
         public Event()
         {
-            TblComments = new HashSet<Comment>();
-            TblEventLikes = new HashSet<EventLike>();
-            TblReports = new HashSet<Report>();
-            TblUserEvents = new HashSet<UserEvent>();
+            Comments = new HashSet<Comment>();
+            EventLikes = new HashSet<EventLike>();
+            Reports = new HashSet<Report>();
+            UserEvents = new HashSet<UserEvent>();
         }
         [Required]
         public Guid EventId { get; set; }
@@ -60,9 +60,9 @@ namespace EventManagementFPT.Model
 
         public virtual Category CategoryNavigation { get; set; }
         public virtual Venue Venue { get; set; }
-        public virtual ICollection<Comment> TblComments { get; set; }
-        public virtual ICollection<EventLike> TblEventLikes { get; set; }
-        public virtual ICollection<Report> TblReports { get; set; }
-        public virtual ICollection<UserEvent> TblUserEvents { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<EventLike> EventLikes { get; set; }
+        public virtual ICollection<Report> Reports { get; set; }
+        public virtual ICollection<UserEvent> UserEvents { get; set; }
     }
 }

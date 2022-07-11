@@ -10,13 +10,12 @@ namespace EventManagementFPT.Model
     [Table("tblUser")]
     public partial class User
     {
-
         public User()
         {
-            TblComments = new HashSet<Comment>();
-            TblEventLikes = new HashSet<EventLike>();
-            TblReports = new HashSet<Report>();
-            TblUserEvents = new HashSet<UserEvent>();
+            Comments = new HashSet<Comment>();
+            EventLikes = new HashSet<EventLike>();
+            Reports = new HashSet<Report>();
+            UserEvents = new HashSet<UserEvent>();
         }
 
         public User(string name, string email, string avatar, bool googleAuthen, RoleEnum role)
@@ -27,6 +26,7 @@ namespace EventManagementFPT.Model
             Role = role;
             IsGoogleAuthenticate = googleAuthen;
         }
+        
         [Required]
         public Guid UserId { get; set; }
         
@@ -55,9 +55,9 @@ namespace EventManagementFPT.Model
         
         public bool IsGoogleAuthenticate { get; set; }
 
-        public virtual ICollection<Comment> TblComments { get; set; }
-        public virtual ICollection<EventLike> TblEventLikes { get; set; }
-        public virtual ICollection<Report> TblReports { get; set; }
-        public virtual ICollection<UserEvent> TblUserEvents { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<EventLike> EventLikes { get; set; }
+        public virtual ICollection<Report> Reports { get; set; }
+        public virtual ICollection<UserEvent> UserEvents { get; set; }
     }
 }
