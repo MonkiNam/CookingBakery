@@ -14,7 +14,7 @@ namespace EventManagementFPT.Modules.EventModule.Interface
         public ICollection<Event> GetNewestEvents(int quantity);
         public ICollection<Event> GetAll();
         public ICollection<Event> GetEventsByCategory(Guid? categoryID);
-        public Event GetEventByID(Guid? ID);
+        public Task<Event> GetEventByID(Guid? ID);
         public Task AddNewEvent(Event newEvent);
         public Task UpdateEvent(Event eventUpdate);
         public Task DeleteEvent(Guid? ID);

@@ -28,7 +28,7 @@ namespace EventManagementFPT.Pages.EventPage
                 return NotFound();
             }
 
-            Event = _eventService.GetEventByID(id);
+            Event = await _eventService.GetEventByID(id);
 
             if (Event == null)
             {

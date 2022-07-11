@@ -16,7 +16,7 @@ namespace EventManagementFPT.Modules.UserModule.Interface
         public Task DeleteUser(Guid? ID);
         public ICollection<User> GetAll();
         public bool isExist(string email);
-        public void LikeEvent(User user, Event _event);
-        public void UnlikeEvent(User user, Event _event);
+        public void LikeEvent(Guid userId, Guid eventId);
+        public void UnlikeEvent(Guid userId, Guid eventId);
     }
 }

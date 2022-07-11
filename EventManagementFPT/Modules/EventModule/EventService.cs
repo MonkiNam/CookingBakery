@@ -47,9 +47,9 @@ namespace EventManagementFPT.Modules.EventModule
             }).Select(x => x._event).Where(x => x.Status == true).ToList();
         }
 
-        public Event GetEventByID(Guid? eventID)
+        public async Task<Event> GetEventByID(Guid? eventID)
         {
-            return _eventRepository.GetFirstOrDefaultAsync(x => x.EventId.Equals(eventID) && x.Status == true).Result;
+            return await _eventRepository.GetFirstOrDefaultAsync(x => x.EventId.Equals(eventID) && x.Status == true);
         }
 
         public ICollection<Event> GetAll()

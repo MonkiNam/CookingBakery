@@ -48,20 +48,20 @@ namespace EventManagementFPT.Modules.UserModule
             await _userRepository.UpdateAsync(userDelete);
         }
 
-        public void LikeEvent(User user, Event _event)
+        public void LikeEvent(Guid userId, Guid eventId)
         {
             var likeInfo = new EventLike
             {
-                EventId = _event.EventId,
-                UserId = user.UserId
+                EventId = eventId,
+                UserId = userId
             };
             _userRepository.LikeEvent(likeInfo);
         }
 
-        public void UnlikeEvent(User user, Event _event)
+        public void UnlikeEvent(Guid userId, Guid eventId)
         {
             var likeInfo = _eventLikeRepository.GetFirstOrDefaultAsync(
-                item => item.EventId.Equals(_event.EventId) && item.UserId.Equals(user.UserId)
+                item => item.EventId.Equals(eventId) && item.UserId.Equals(userId)
             ).Result;
             if (likeInfo != null) _userRepository.UnlikeEvent(likeInfo);
         }
