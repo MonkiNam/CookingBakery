@@ -1,9 +1,12 @@
 ﻿using EventManagementFPT.Model;
 using EventManagementFPT.Modules.CategoryModule.Interface;
 using EventManagementFPT.Modules.EventModule.Interface;
+using EventManagementFPT.Modules.UserEventModule;
+using EventManagementFPT.Modules.UserEventModule.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace EventManagementFPT.Modules.EventModule
@@ -12,11 +15,13 @@ namespace EventManagementFPT.Modules.EventModule
     {
         private readonly IEventRepository _eventRepository;
         private readonly ICategoryRepository _categoryRepository;
+        private readonly IUserEventService _userEventService;
 
-        public EventService(IEventRepository eventRepository, ICategoryRepository categoryRepository)
+        public EventService(IEventRepository eventRepository, ICategoryRepository categoryRepository, IUserEventService userEventService)
         {
             _eventRepository = eventRepository;
             _categoryRepository = categoryRepository;
+            _userEventService = userEventService;
         }
 
         public ICollection<Event> GetNewestEvents(int quantity)
@@ -72,10 +77,13 @@ namespace EventManagementFPT.Modules.EventModule
             return null;
         }
 
-        public async Task AddNewEvent(Event newEvent)
+        public async Task AddNewEvent(Event newEvent, string uid)
         {
+            Guid _uid = Guid.Parse(uid);
             newEvent.CreateDate = DateTime.Now;
             newEvent.EventId = Guid.NewGuid();
+            await _userEventService.GoingAnEvent(_uid, newEvent.EventId, true);
+
             await _eventRepository.AddAsync(newEvent);
         }
 

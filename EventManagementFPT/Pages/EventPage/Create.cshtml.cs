@@ -10,6 +10,7 @@ using EventManagementFPT.Modules.EventModule.Interface;
 using Microsoft.AspNetCore.Http;
 using EventManagementFPT.Utils;
 using Microsoft.AspNetCore.Hosting;
+using System.Security.Claims;
 
 namespace EventManagementFPT.Pages.EventPage
 {
@@ -58,7 +59,7 @@ namespace EventManagementFPT.Pages.EventPage
             TempData["success"] = "Add success";
             string imageUrl = await UploadImage.UploadFile(customFile, _env);
             Event.ImageUrl = imageUrl;
-            await _eventService.AddNewEvent(Event);
+            await _eventService.AddNewEvent(Event, User.FindFirst(ClaimTypes.NameIdentifier).Value);
             return RedirectToPage("./Index");
             //return RedirectToPage("./Index");
         }

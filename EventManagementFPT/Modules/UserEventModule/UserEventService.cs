@@ -31,14 +31,15 @@ namespace EventManagementFPT.Modules.UserEventModule
             if (_eventRepository.GetFirstOrDefaultAsync(x => x.EventId.Equals(eventID) && x.Status == true).Result == null) return 0;
             return _userEventRepository.GetUserEventsBy(x => x.EventId.Equals(eventID)).Count();
         }
-        public async Task GoingAnEvent(Guid userID, Guid eventID)
+        public async Task GoingAnEvent(Guid userID, Guid eventID, bool isHost)
         {
             if (await _eventRepository.GetFirstOrDefaultAsync(x => x.EventId.Equals(eventID) && x.Status == true) == null) return;
             if (await _userRepository.GetFirstOrDefaultAsync(x => x.UserId.Equals(userID) && x.IsBlocked == false) == null) return;
             await _userEventRepository.AddAsync(new UserEvent
             {
                 UserId = userID,
-                EventId = eventID
+                EventId = eventID,
+                IsHost = isHost,
             });
         }
         public async Task NotGoingAnEvent(Guid userID, Guid eventID)
