@@ -70,5 +70,10 @@ namespace EventManagementFPT.Modules.UserModule
         {
             return _userRepository.isExist(email);
         }
+
+        public Task<User> GetUserByEmail(string Email)
+        {
+            return _userRepository.GetFirstOrDefaultAsync(u => u.Email.Equals(Email));
+        }
     }
 }

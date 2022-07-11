@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -12,6 +13,18 @@
         font-size: 24px;
     }
 </style>
+@{
+
+    var avatarUrl = "";
+    try
+    {
+        avatarUrl = User.FindFirst("avatar-url").Value;
+    }
+    catch (Exception ex)
+    {
+        avatarUrl = "../../image/default.png"; 
+    }
+}
 @if (TempData["noti"] != null)
 {
     <div style="position: absolute; top: 20px; right: 20px; min-width: 300px; z-index: 2000;">
@@ -91,7 +104,7 @@
                     <span class="mb-1">Create event</span>
                 </a>
                 <span href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                    <img src="../image/default.png" width="40" height="40" alt="avatar" />
+                    <img src="@avatarUrl" width="40" height="40" alt="avatar" class="rounded-circle"/>
                 </span>
                 <div class="dropdown-menu dropdown-menu-right shadow-lg mt-2">
                     <a class="dropdown-item d-flex align-items-center" href="#">

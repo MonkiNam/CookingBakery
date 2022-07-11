@@ -38,6 +38,7 @@ namespace EventManagementFPT.Pages.Authentication
         }
         public async Task<IActionResult> OnPost(string email, string password, string token)
         {
+            //Login with username and password -> check if it is admin
             if (string.IsNullOrEmpty(token))
             {
                 if (!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(password))
@@ -68,6 +69,7 @@ namespace EventManagementFPT.Pages.Authentication
                     return Page();
                 }
             }
+            //Login with Google token -> check if the email is valid
             if (!string.IsNullOrEmpty(token))
             {
                 var handler = new JwtSecurityTokenHandler();
@@ -81,13 +83,16 @@ namespace EventManagementFPT.Pages.Authentication
                     {
                         var nameData = jsonToken.Claims.First(claim => claim.Type == "name").Value;
                         var avatarData = jsonToken.Claims.First(claim => claim.Type == "picture").Value;
-                        var user = new User(nameData, emailData, avatarData);
-                        await _userService.AddNewUser(user);
+                        var newUser = new User(nameData, emailData, avatarData);
+                        await _userService.AddNewUser(newUser);
                     }
+                    User user = await _userService.GetUserByEmail(emailData);
                     var claims = new List<Claim>
                         {
                             new Claim(ClaimTypes.Role, "user"),
-                            new Claim(ClaimTypes.Email, emailData)
+                            new Claim(ClaimTypes.Email, emailData),
+                            new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
+                            new Claim("avatar-url", user.Avatar)
                         };
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);

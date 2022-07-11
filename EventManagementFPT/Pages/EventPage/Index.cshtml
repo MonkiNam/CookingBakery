@@ -47,44 +47,48 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Event) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                <img src="~/image/@item.ImageUrl" alt="event-banner"/>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreateDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VenueId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CanComment)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CategoryNavigation.Name)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.EventId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.EventId">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.EventId">Delete</a>
-            </td>
-        </tr>
-}
+        @if (Model.Event != null)
+        {
+            @foreach (var item in Model.Event)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        <img src="~/image/@item.ImageUrl" alt="event-banner" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreateDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VenueId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CanComment)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CategoryNavigation.Name)
+                    </td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.EventId">Edit</a> |
+                        <a asp-page="./Details" asp-route-id="@item.EventId">Details</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.EventId">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
     </tbody>
 </table>
