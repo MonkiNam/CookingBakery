@@ -49,5 +49,12 @@ namespace EventManagementFPT.Modules.UserEventModule
             if (userEvent == null) return;
             await _userEventRepository.RemoveUserEvent(userEvent);
         }
+        public ICollection<User> GetUserGoingOfEvent(Guid eventID)
+        {
+            if (_eventRepository.GetFirstOrDefaultAsync(x => x.EventId.Equals(eventID) && x.Status == true).Result == null) return null;
+            return _userRepository.GetAll().Join(_userEventRepository.GetAll(), x => x.UserId, y => y.UserId, (x, y) => new {
+                _event = x
+            }).Select(x => x._event).ToList();
+        }
     }
 }
