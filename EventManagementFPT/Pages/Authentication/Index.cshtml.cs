@@ -6,12 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Linq;
 using System.Security.Claims;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace EventManagementFPT.Pages.Authentication
@@ -33,7 +31,7 @@ namespace EventManagementFPT.Pages.Authentication
             if (User.Identity.IsAuthenticated)
             {
                 TempData["noti"] = "You have already logged in";
-                return RedirectToPage("../Index");
+                return RedirectToPage("/Home/Index");
             }
             return Page();
         }
@@ -62,7 +60,7 @@ namespace EventManagementFPT.Pages.Authentication
                         var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
                         await HttpContext.SignInAsync(claimsPrincipal);
                         TempData["success"] = "Welcome admin";
-                        return RedirectToPage("../Index");
+                        return RedirectToPage("/EventPage/Index");
                     }
                     //check user
                     var User = await _userService.Authenticate(email, password);
@@ -79,7 +77,7 @@ namespace EventManagementFPT.Pages.Authentication
                         var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
                         await HttpContext.SignInAsync(claimsPrincipal);
                         TempData["success"] = "Welcome " + User.Name;
-                        return RedirectToPage("../Index");
+                        return RedirectToPage("/Home/Index");
                     }
                 }
                 else
@@ -117,7 +115,7 @@ namespace EventManagementFPT.Pages.Authentication
                     var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
                     await HttpContext.SignInAsync(claimsPrincipal);
                     TempData["success"] = "Welcome " + jsonToken.Claims.First(claim => claim.Type == "name").Value;
-                    return RedirectToPage("../Index");
+                    return RedirectToPage("/Home/Index");
                 }
                 else
                 {

@@ -21,11 +21,13 @@ namespace EventManagementFPT.Modules.EventModule
 
         public ICollection<Event> GetNewestEvents(int quantity)
         {
-            var list = _eventRepository.GetAll(options: o => o.OrderBy(p => p.CreateDate).Where(x => x.Status == true).Take(quantity).ToList());
+            var list = _eventRepository.GetAll(options: o =>
+                o.OrderBy(p => p.CreateDate).Where(x => x.Status == true).Take(quantity).ToList());
             return (list);
         }
 
-        public ICollection<Event> GetEventsByName(string name, Func<IQueryable<Event>, ICollection<Event>> options = null,
+        public ICollection<Event> GetEventsByName(string name,
+            Func<IQueryable<Event>, ICollection<Event>> options = null,
             string includeProperties = null)
         {
             return _eventRepository.GetEventsBy(
@@ -42,19 +44,30 @@ namespace EventManagementFPT.Modules.EventModule
 
         public ICollection<Event> GetEventsByCategory(Guid? categoryID)
         {
-            return _eventRepository.GetAll().Join(_categoryRepository.GetAll(), x => x.Category, y => y.CategoryId, (x, y) => new {
-                _event = x
-            }).Select(x => x._event).Where(x => x.Status == true).ToList();
+            return _eventRepository
+                .GetAll()
+                .Join(
+                    _categoryRepository.GetAll(),
+                    x => x.Category,
+                    y => y.CategoryId,
+                    (x, y) => new {_event = x}
+                )
+                .Select(x => x._event)
+                .Where(x => x.Status)
+                .ToList();
         }
 
         public async Task<Event> GetEventByID(Guid? eventID)
         {
-            return await _eventRepository.GetFirstOrDefaultAsync(x => x.EventId.Equals(eventID) && x.Status == true);
+            return await _eventRepository.GetFirstOrDefaultAsync(
+                x => x.EventId.Equals(eventID) && x.Status == true,
+                includeProperties: "Venue,CategoryNavigation"
+            );
         }
 
         public ICollection<Event> GetAll()
         {
-            ICollection<Event> events = _eventRepository.GetAll();
+            ICollection<Event> events = _eventRepository.GetAll(includeProperties: "Venue");
             if (events != null) return events.ToList();
             return null;
         }
@@ -65,16 +78,20 @@ namespace EventManagementFPT.Modules.EventModule
             newEvent.EventId = Guid.NewGuid();
             await _eventRepository.AddAsync(newEvent);
         }
+
         public async Task UpdateEvent(Event eventUpdate)
         {
             await _eventRepository.UpdateAsync(eventUpdate);
         }
+
         public async Task DeleteEvent(Guid? id)
         {
-            Event eventDelete = _eventRepository.GetFirstOrDefaultAsync(x => x.EventId.Equals(id) && x.Status == true).Result;
+            Event eventDelete = await _eventRepository.GetFirstOrDefaultAsync(
+                x => x.EventId.Equals(id) && x.Status == true
+            );
             if (eventDelete == null) return;
             eventDelete.Status = false;
-            if(eventDelete != null ) await _eventRepository.UpdateAsync(eventDelete);
+            if (eventDelete != null) await _eventRepository.UpdateAsync(eventDelete);
         }
     }
 }

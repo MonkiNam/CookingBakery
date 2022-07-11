@@ -1,0 +1,317 @@
+﻿@page
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model EventManagementFPT.Pages.Home.Details
+
+@{
+    ViewData["Title"] = "Event Details";
+}
+
+<div class="container-fluid main-content pt-5 pl-5 pr-5">
+<div class="row pl-5 pr-5">
+    <div class="col-8 pl-0">
+        <div class="header p-4 border shadow-sm rounded mb-4">
+            <div class="d-flex justify-content-between mb-3">
+                <h2 class="mb-0">@Model.Event.Name</h2>
+                <a asp-page="/Home/Index" class="btn">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button class="btn btn-primary d-flex align-items-center">
+                            <ion-icon
+                                name="heart"
+                                style="font-size: 16px"
+                                class="mr-1">
+                            </ion-icon>
+                            Like
+                        </button>
+                        <button class="btn border">@Model.EventLike</button>
+                    </div>
+                </a>
+            </div>
+            <div class="d-flex algin-items-center mb-2">
+                <ion-icon class="event-time" name="time-outline"></ion-icon>
+                <span class="text-muted ml-2">@Model.Event.StartDate</span>
+            </div>
+            <div class="d-flex algin-items-center">
+                <ion-icon
+                    class="event-location"
+                    name="location-outline">
+                </ion-icon>
+                <span class="text-muted ml-2">@Model.Event.Venue.VenueName</span>
+            </div>
+        </div>
+        <img
+            src="../image/@Model.Event.ImageUrl"
+            onerror="this.onerror=null;this.src = '../image/event.jpg'"
+            alt="event-background"
+            class="img-fluid"/>
+        <div class="content border shadow-sm rounded mt-4 p-4 mb-5">
+            <h2 class="mb-3 text-center">About this event</h2>
+            <p>@Model.Event.Description</p>
+            <div class="d-flex justify-content-between">
+                <span
+                    class="tag d-inline-flex align-items-center rounded"
+                    id="category">
+                    <ion-icon name="pricetag-outline"></ion-icon>@Model.Event.CategoryNavigation.Name
+                </span>
+                <button
+                    class="btn btn-warning text-light d-inline-flex align-items-center rounded p-2"
+                    id="report" data-toggle="modal" data-target="#reportModal">
+                    <ion-icon name="warning-outline"></ion-icon>
+                </button>
+            </div>
+
+            <hr/>
+            <h3 class="text-center mb-3">Event Discussion</h3>
+            <form class="mb-2">
+                <div class="media">
+                    <img
+                        src="../image/default.png"
+                        width="38"
+                        height="38"
+                        alt="avatar"
+                        class="mr-2"/>
+                    <div class="media-body">
+                        <input
+                            type="text"
+                            class="form-control rounded-pill"
+                            placeholder="Write a comment..."/>
+                        <small class="form-text text-muted ml-2">
+                            Press 'Enter' to submit
+                        </small
+                        >
+                    </div>
+                </div>
+            </form>
+            <div class="media comment">
+                <a href="#">
+                    <img
+                        src="../image/default.png"
+                        width="38"
+                        height="38"
+                        alt="avatar"
+                        class="mr-2 avatar"/>
+                </a>
+                <div class="media-body comment-body ml-1">
+                    <h5 class="mt-0">Username</h5>
+                    <p class="mb-0">
+                        Standing on the frontline when the bombs start to fall. Heaven
+                        is jealous of our love, angels are crying from up above. Can't
+                        replace you with a million rings. Boy, when you're with me
+                        I'll give you a taste. There's no going back. Before you met
+                        me I was alright but things were kinda heavy. Heavy is the
+                        head that wears the crown.
+                    </p>
+                    <small class="form-text text-muted d-flex" style="gap: 15px">
+                        <a href="#">Like</a>
+                        <span> 29-Jun-2022 01:17 AM </span>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4 pr-0">
+        <div class="border shadow-sm rounded p-4">
+            <div class="media">
+                <img
+                    src="../image/default.png"
+                    width="90"
+                    height="90"
+                    class="mr-2 rounded-circle"
+                    alt="..."/>
+                <div class="media-body">
+                    <h5 class="mt-0">@Model.HostUser.Name</h5>
+                    <div class="d-flex flex-wrap" style="gap: 5px">
+                        @{
+                            var phoneNumber = Model.HostUser.PhoneNumber;
+
+                            if (string.IsNullOrEmpty(phoneNumber))
+                            {
+                                <span
+                                    class="tag d-flex align-items-center rounded"
+                                    id="location">
+                                    <ion-icon name="call-outline"></ion-icon>@phoneNumber
+                                </span>
+                                <span class="tag d-flex align-items-center rounded" id="category">
+                                    <ion-icon name="mail-open-outline"></ion-icon>
+                                    @Model.HostUser.Email
+                                </span>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            <div class="d-flex" style="gap: 16px">
+                <div class="d-flex align-items-center">
+                    <ion-icon
+                        class="text-success mr-1"
+                        name="checkmark-circle-outline">
+                    </ion-icon>
+                    @Model.UserEvent.Count going
+                </div>
+                <div class="d-flex align-items-center">
+                    <ion-icon
+                        class="text-warning mr-1"
+                        name="star-outline">
+                    </ion-icon>
+                    @Model.EventLike like
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col">
+                    @if (Model.UserEvent.Any(o => o.UserId == Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!)))
+                    {
+                        <a asp-page="/Home/UnattendEvent" asp-route-id="@Model.Event.EventId"
+                           class="btn btn-danger btn-block text-light d-flex align-items-center justify-content-center">
+                            <ion-icon
+                                class="mr-1"
+                                name="close-circle-outline">
+                            </ion-icon>
+                            Cancel Going
+                        </a>
+                    }
+                    else
+                    {
+                        <a asp-page="/Home/JoinEvent" asp-route-id="@Model.Event.EventId"
+                           class="btn btn-success btn-block text-light d-flex align-items-center justify-content-center">
+                            <ion-icon
+                                class="mr-1"
+                                name="checkmark-circle-outline">
+                            </ion-icon>
+                            Going
+                        </a>
+                    }
+                </div>
+                <div class="col">
+                    @if (Model.IsLikeEvent)
+                    {
+                        <a asp-page="/Home/UnlikeEvent" asp-route-id="@Model.Event.EventId"
+                           class="btn btn-warning btn-block text-light d-flex justify-content-center align-items-center">
+                            <ion-icon class="mr-1" name="star"></ion-icon>
+                            Unlike
+                        </a>
+                    }
+                    else
+                    {
+                        <a asp-page="/Home/LikeEvent" asp-route-id="@Model.Event.EventId"
+                           class="btn btn-warning btn-block text-light d-flex justify-content-center align-items-center">
+                            <ion-icon class="mr-1" name="star-outline"></ion-icon>
+                            Like
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- Change password modal -->
+<div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    Change your password
+                </h5>
+                <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="currentPassword">Current password</label>
+                        <input
+                            type="password"
+                            class="form-control"
+                            id="currentPassword"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">New password</label>
+                        <input
+                            type="password"
+                            class="form-control"
+                            id="exampleInputPassword1"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Re-enter password</label>
+                        <input
+                            type="password"
+                            class="form-control"
+                            id="exampleInputPassword1"/>
+                    </div>
+                    <button
+                        type="submit"
+                        class="btn btn-outline-success btn-block mt-4">
+                        Submit
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Report modal -->
+<div
+    class="modal fade"
+    id="reportModal"
+    tabindex="-1"
+    aria-labelledby="reportModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reportModalLabel">
+                    Report
+                </h5>
+                <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label class="font-weight-bold" for="reportTitle">Title</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="reportTitle"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold" for="type-select">Type</label>
+                        <select class="form-control" id="type-select">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold" for="reportDescription">Description</label>
+                        <textarea rows="6" class="form-control" id="reportDescription">Please provide additional information here</textarea>
+                    </div>
+                    <button
+                        type="submit"
+                        class="btn btn-outline-success btn-block mt-4">
+                        Submit
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
