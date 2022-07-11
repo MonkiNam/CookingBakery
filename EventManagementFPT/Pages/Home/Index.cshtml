@@ -1,22 +1,10 @@
 ﻿@page
 @model EventManagementFPT.Pages.Home.Index
 
-<!Doctype HTML>
-<html lang="en">
+@{
+    ViewData["Title"] = "Home page";
+}
 
-<head>
-    <title>Main page</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta charset="utf-8"/>
-    <link rel="stylesheet" href="../wwwroot/css/shared.css"/>
-    <link rel="stylesheet" href="../css/index.css"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
-          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-</head>
-
-<body>
-
-<!-- Main content -->
 <div class="container-fluid mt-5 pl-5 pr-5 mb-5">
     <div class="row mr-4 ml-4">
         <div class="col-3">
@@ -63,31 +51,32 @@
                 <div class="container-fluid mt-4">
                     <!-- New events -->
                     <div class="card-deck">
-                        @foreach (var _event in Model.NewestEvent) {
+                        @foreach (var _event in Model.NewestEvent)
+                        {
                             <div class="card event">
-                            <img src="../image/event.jpg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title mb-4">@_event.Name</h5>
-                                <div class="d-flex align-items-center mb-2">
-                                    <ion-icon class="event-time" name="time-outline"></ion-icon>
-                                    <span class="font-weight-bold ml-2 flex-grow-1">
-                                        @_event.StartDate
-                                    </span>
+                                <img src="../image/@_event.ImageUrl" onerror="this.onerror=null;this.src = '../image/event.jpg'" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title mb-4">@_event.Name</h5>
+                                    <div class="d-flex align-items-center mb-2">
+                                        <ion-icon class="event-time" name="time-outline"></ion-icon>
+                                        <span class="font-weight-bold ml-2 flex-grow-1">
+                                            @_event.StartDate
+                                        </span>
+                                        <div class="d-flex align-items-center">
+                                            <ion-icon class="event-time" name="people-outline"></ion-icon>
+                                            <span class="font-weight-bold ml-2">
+                                                @_event.Capacity
+                                            </span>
+                                        </div>
+                                    </div>
                                     <div class="d-flex align-items-center">
-                                        <ion-icon class="event-time" name="people-outline"></ion-icon>
-                                        <span class="font-weight-bold ml-2">
-                                            @_event.Capacity
+                                        <span class="tag d-flex align-items-center rounded" id="location">
+                                            <ion-icon name="location-outline"></ion-icon>@_event.Venue.VenueName
                                         </span>
                                     </div>
                                 </div>
-                                <div class="d-flex align-items-center">
-                                    <span class="tag d-flex align-items-center rounded" id="location">
-                                        <ion-icon name="location-outline"></ion-icon>@_event.Venue
-                                    </span>
-                                </div>
+                                <a asp-page="./Details" asp-route-id="@_event.EventId" class="stretched-link"></a>
                             </div>
-                            <a href="./Detail" asp-route-id="@_event.EventId" class="stretched-link"></a>
-                        </div>
                         }
                     </div>
                     <!-- Event list -->
@@ -95,10 +84,10 @@
                     <div class="row row-cols-1 row-cols-md-3">
                         @foreach (var _event in Model.Event)
                         {
-                            <div class="col mb-4">
-                                <div class="card event">
-                                    <img src="@_event.ImageUrl" class="card-img-top" alt="...">
-                                    <div class="card-body">
+                            <div class="col mb-4 d-flex">
+                                <div class="card event flex-grow-1">
+                                    <img src="../image/@_event.ImageUrl" onerror="this.onerror=null;this.src = '../image/event.jpg'" class="card-img-top flex-grow-1" style="object-fit: cover" alt="...">
+                                    <div class="card-body flex-grow-0">
                                         <h5 class="card-title mb-4">@_event.Name</h5>
                                         <div class="d-flex align-items-center mb-2">
                                             <ion-icon class="event-time" name="time-outline"></ion-icon>
@@ -114,11 +103,11 @@
                                         </div>
                                         <div class="d-flex align-items-center">
                                             <span class="tag d-flex align-items-center rounded" id="location">
-                                                <ion-icon name="location-outline"></ion-icon>@_event.VenueId
+                                                <ion-icon name="location-outline"></ion-icon>@_event.Venue.VenueName
                                             </span>
                                         </div>
                                     </div>
-                                    <a href="#" class="stretched-link"></a>
+                                    <a asp-page="./Details" asp-route-id="@_event.EventId" class="stretched-link"></a>
                                 </div>
                             </div>
                         }
@@ -181,15 +170,3 @@
         </div>
     </div>
 </div>
-
-<script src=" https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
-        crossorigin="anonymous"></script>
-<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-</body>
-
-</html>
