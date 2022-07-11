@@ -53,7 +53,9 @@ namespace EventManagementFPT.Modules.UserModule
             var likeInfo = new EventLike
             {
                 EventId = eventId,
-                UserId = userId
+                UserId = userId,
+                CreateDate = DateTime.Now,
+                Status = true
             };
             _userRepository.LikeEvent(likeInfo);
         }
