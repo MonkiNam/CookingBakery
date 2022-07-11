@@ -2,9 +2,7 @@
 using EventManagementFPT.Modules.EventLikeModule.Interface;
 using EventManagementFPT.Utils.Repository;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace EventManagementFPT.Modules.EventLikeModule
 {
@@ -16,9 +14,10 @@ namespace EventManagementFPT.Modules.EventLikeModule
         {
             _db = db;
         }
+
         public int CountLikeOfEvent(Guid? eventID)
         {
-            return _db.EventLikes.Where(x => x.EventId.Equals(eventID)).ToList().Count();
+            return _db.EventLikes.Where(x => x.EventId.Equals(eventID)).ToList().Count;
         }
     }
 }
