@@ -15,12 +15,12 @@ namespace EventManagementFPT.Modules.EventLikeModule
         }
         public int CountLikeOfEvent(Guid? eventID)
         {
-            var _event = _eventLikeRepository.GetFirstOrDefaultAsync(x => x.EventId.Equals(eventID));
+            var _event = _eventLikeRepository.GetFirstOrDefaultAsync(x => x.EventId.Equals(eventID)).Result;
             if (_event == null)
             {
                 return 0;
             }
-            return _eventLikeRepository.CountLikeOfEvent(eventID);
+            return _eventLikeRepository.CountLikeOfEvent(_event.EventId);
         }
     }
 }
