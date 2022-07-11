@@ -8,6 +8,7 @@ namespace EventManagementFPT.Modules.UserModule.Interface
 {
     public interface IUserService
     {
+        public Task<User> Authenticate(string Email, string Password);
         public User GetUserByUserID(Guid? ID);
         public Task<User> GetUserByEmail(string Email);
         public Task AddNewUser(User newUser);

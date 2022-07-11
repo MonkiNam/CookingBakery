@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using EventManagementFPT.Model;
 using EventManagementFPT.Modules.UserModule.Interface;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EventManagementFPT.Pages.UserPage
 {
+    [Authorize(Roles="admin")]
     public class CreateModel : PageModel
     {
         private readonly EventManagementFPT.Model.EventManagementContext _context;

@@ -75,5 +75,10 @@ namespace EventManagementFPT.Modules.UserModule
         {
             return _userRepository.GetFirstOrDefaultAsync(u => u.Email.Equals(Email));
         }
+
+        public Task<User> Authenticate(string Email, string Password)
+        {
+            return _userRepository.GetFirstOrDefaultAsync(u => (u.Email == Email && u.Password == Password));
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿@page
+@using EventManagementFPT.Model
 @model EventManagementFPT.Pages.UserPage.CreateModel
 
 @{
@@ -13,11 +14,6 @@
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="User.UserId" class="control-label"></label>
-                <input asp-for="User.UserId" class="form-control" />
-                <span asp-validation-for="User.UserId" class="text-danger"></span>
-            </div>
             <div class="form-group">
                 <label asp-for="User.Name" class="control-label"></label>
                 <input asp-for="User.Name" class="form-control" />
@@ -44,19 +40,14 @@
                 <span asp-validation-for="User.Avatar" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="User.IsBlocked" class="control-label"></label>
-                <input asp-for="User.IsBlocked" class="form-control" />
-                <span asp-validation-for="User.IsBlocked" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="User.Role" class="control-label"></label>
-                <select asp-for="User.Role" class="form-control"></select>
+                <select asp-for="User.Role" class="form-control">
+                    <option>Choose..</option>
+                    <option value="@RoleEnum.Admin">admin</option>
+                    <option value="@RoleEnum.Host">host</option>
+                    <option value="@RoleEnum.User">user</option>
+                </select>
                 <span asp-validation-for="User.Role" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="User.IsGoogleAuthenticate" /> @Html.DisplayNameFor(model => model.User.IsGoogleAuthenticate)
-                </label>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

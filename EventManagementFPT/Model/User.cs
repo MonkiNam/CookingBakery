@@ -19,11 +19,13 @@ namespace EventManagementFPT.Model
             TblUserEvents = new HashSet<UserEvent>();
         }
 
-        public User(string name, string email, string avatar)
+        public User(string name, string email, string avatar, bool googleAuthen, RoleEnum role)
         {
             Name = name;
             Email = email;
             Avatar = avatar;
+            Role = role;
+            IsGoogleAuthenticate = googleAuthen;
         }
         [Required]
         public Guid UserId { get; set; }
@@ -42,8 +44,7 @@ namespace EventManagementFPT.Model
         [DataType(DataType.PhoneNumber)]
         [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Entered phone format is not valid.")]
         public string PhoneNumber { get; set; }
-        
-        [MaxLength]
+
         [Column(TypeName = "nvarchar(MAX)")]
         public string Avatar { get; set; }
         

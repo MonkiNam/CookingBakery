@@ -9,7 +9,7 @@
 </div>
 <<div class="container-fluid mt-5 pl-5 pr-5 mb-5">
     <form method="post" enctype="multipart/form-data">
-        <input type="hidden" asp-for="Event.EventId" value="Event.EventId" />
+        <input type="hidden" asp-for="Event.EventId" value="@Model.Event.EventId" />
         <div class="row mr-4 ml-4">
             <div class="col-8">
                 <div class="border rounded shadow-sm p-4">
@@ -49,8 +49,8 @@
                         <input asp-for="Event.EndDate" type="datetime-local" class="form-control" id="end-date" />
                     </div>
                     <div class="form-group">
-                        <label class="font-weight-bold" for="venue">Number of attendance</label>
-                        <input asp-for="Event.Capacity" type="number" class="form-control" id="venue" value="0" />
+                        <label class="font-weight-bold" for="capacity">Number of attendance</label>
+                        <input asp-for="Event.Capacity" type="number" class="form-control" id="capacity" value="@Model.Event.Capacity" />
                     </div>
                     <div class="form-group">
                         <label class="font-weight-bold" for="venue-select">Venue</label>

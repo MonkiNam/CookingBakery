@@ -11,6 +11,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Linq;
 using System.Security.Claims;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace EventManagementFPT.Pages.Authentication
@@ -49,6 +50,7 @@ namespace EventManagementFPT.Pages.Authentication
                                     .Build();
                     string adminEmail = config["admin:email"];
                     string adminPassword = config["admin:password"];
+                    //check admin
                     if (email.Equals(adminEmail) && password.Equals(adminPassword))
                     {
                         var claims = new List<Claim>
@@ -60,6 +62,23 @@ namespace EventManagementFPT.Pages.Authentication
                         var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
                         await HttpContext.SignInAsync(claimsPrincipal);
                         TempData["success"] = "Welcome admin";
+                        return RedirectToPage("../Index");
+                    }
+                    //check user
+                    var User = await _userService.Authenticate(email, password);
+                    if(User != null)
+                    {
+                        var claims = new List<Claim>
+                        {
+                            new Claim(ClaimTypes.Role, User.Role.ToString()),
+                            new Claim(ClaimTypes.Email, User.Email),
+                            new Claim(ClaimTypes.NameIdentifier, User.UserId.ToString()),
+                            new Claim("avatar-url", User.Avatar)
+                        };
+                        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                        var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+                        await HttpContext.SignInAsync(claimsPrincipal);
+                        TempData["success"] = "Welcome " + User.Name;
                         return RedirectToPage("../Index");
                     }
                 }
@@ -83,13 +102,13 @@ namespace EventManagementFPT.Pages.Authentication
                     {
                         var nameData = jsonToken.Claims.First(claim => claim.Type == "name").Value;
                         var avatarData = jsonToken.Claims.First(claim => claim.Type == "picture").Value;
-                        var newUser = new User(nameData, emailData, avatarData);
+                        var newUser = new User(nameData, emailData, avatarData, true, RoleEnum.User);
                         await _userService.AddNewUser(newUser);
                     }
                     User user = await _userService.GetUserByEmail(emailData);
                     var claims = new List<Claim>
                         {
-                            new Claim(ClaimTypes.Role, "user"),
+                            new Claim(ClaimTypes.Role, user.Role.ToString()),
                             new Claim(ClaimTypes.Email, emailData),
                             new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
                             new Claim("avatar-url", user.Avatar)
