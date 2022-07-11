@@ -36,13 +36,15 @@ namespace EventManagementFPT.Pages.Home
         public async Task<IActionResult> OnGet(Guid id)
         {
             var uid = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (uid == null) return RedirectToPage("/Authentication/Login");
             
-            var userId = Guid.Parse(uid);
             Event = await _eventService.GetEventByID(id);
             UserEvent = _userEventService.GetUserGoingOfEvent(id);
             EventLike = _eventLikeService.CountLikeOfEvent(id);
-            IsLikeEvent = _context.EventLikes.Any(o => o.UserId == userId && o.EventId == id);
+            if (uid != null)
+            {
+                var userId = Guid.Parse(uid);
+                IsLikeEvent = _context.EventLikes.Any(o => o.UserId == userId && o.EventId == id);
+            }
             HostUser = _context.UserEvents.FirstOrDefault(o => o.IsHost == true && o.EventId == id)?.User;
             
             return Page();
