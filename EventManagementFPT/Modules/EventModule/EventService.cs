@@ -82,9 +82,10 @@ namespace EventManagementFPT.Modules.EventModule
             Guid _uid = Guid.Parse(uid);
             newEvent.CreateDate = DateTime.Now;
             newEvent.EventId = Guid.NewGuid();
-            await _userEventService.GoingAnEvent(_uid, newEvent.EventId, true);
+          
 
             await _eventRepository.AddAsync(newEvent);
+            await _userEventService.GoingAnEvent(_uid, newEvent.EventId, true);
         }
 
         public async Task UpdateEvent(Event eventUpdate)

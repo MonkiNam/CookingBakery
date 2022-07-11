@@ -19,7 +19,7 @@ namespace EventManagementFPT.Pages.Home
         public async Task<IActionResult> OnGetAsync(Guid id)
         {
             var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
-            await _userEventService.GoingAnEvent(userId,id);
+            await _userEventService.GoingAnEvent(userId,id, false);
             return RedirectToPage("/Home/Details", new {id});
         }
     }
