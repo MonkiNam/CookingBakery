@@ -165,32 +165,51 @@
                         <div class="row mt-3">
                             @if (!(Model.HostUser.UserId == Guid.Parse(uid)))
                             {
-                                <div class="col">
-                                    @if (Model.UserEvent.Any(o => o.UserId == Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!)))
-                                    {
-                                        <a asp-page="/Home/UnattendEvent" asp-route-id="@Model.Event.EventId"
-                                           class="btn btn-danger btn-block text-light d-flex align-items-center justify-content-center">
-                                            <ion-icon
-                                                class="mr-1"
-                                                name="close-circle-outline">
-                                            </ion-icon>
-                                            Cancel Going
-                                        </a>
-                                    }
-                                    else
-                                    {
-                                        <a asp-page="/Home/JoinEvent" asp-route-id="@Model.Event.EventId"
-                                           class="btn btn-success btn-block text-light d-flex align-items-center justify-content-center">
-                                            <ion-icon
-                                                class="mr-1"
-                                                name="checkmark-circle-outline">
-                                            </ion-icon>
-                                            Going
-                                        </a>
-                                    }
-                                </div>
+                                @if (Model.Event.StartDate <= DateTime.Now && Model.Event.EndDate >= DateTime.Now)
+                                {
+                                    <div class="col">
+                                        @if (Model.UserEvent.Any(o => o.UserId == Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!))
+                                            )
+                                        {
+                                            <a asp-page="/Home/UnattendEvent" asp-route-id="@Model.Event.EventId"
+                                               class="btn btn-danger btn-block text-light d-flex align-items-center justify-content-center">
+                                                <ion-icon
+                                                    class="mr-1"
+                                                    name="close-circle-outline">
+                                                </ion-icon>
+                                                Cancel Going
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            @if (Model.UserEvent.Count >= Model.Event.Capacity)
+                                            {
+                                                <h4 class="text-warning text-center">Full Capacity</h4>
+                                            }
+                                            else
+                                            {
+                                                <a asp-page="/Home/JoinEvent" asp-route-id="@Model.Event.EventId"
+                                                   class="btn btn-success btn-block text-light d-flex align-items-center justify-content-center">
+                                                    <ion-icon
+                                                        class="mr-1"
+                                                        name="checkmark-circle-outline">
+                                                    </ion-icon>
+                                                    Going
+                                                </a>
+                                            }
+                                        }
+                                    </div>
+                                }
+                                else if (Model.Event.StartDate > DateTime.Now)
+                                {
+                                    <h4 class="text-center text-warning col">Event hasn't started yet!</h4>
+                                }
+                                else if (DateTime.Now > Model.Event.EndDate)
+                                {
+                                    <h4 class="text-center text-danger col">Event has ended!</h4>
+                                }
                             }
-                            <div class="col">
+                            <div class="col d-flex align-items-center">
                                 @if (Model.IsLikeEvent)
                                 {
                                     <a asp-page="/Home/UnlikeEvent" asp-route-id="@Model.Event.EventId"
