@@ -72,7 +72,7 @@ namespace EventManagementFPT.Pages.Authentication
                             new Claim(ClaimTypes.Role, User.Role.ToString()),
                             new Claim(ClaimTypes.Email, User.Email),
                             new Claim(ClaimTypes.NameIdentifier, User.UserId.ToString()),
-                            new Claim("avatar-url", User.Avatar)
+                            new Claim("avatar-url", User.Avatar ?? "")
                         };
                         var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                         var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
