@@ -39,18 +39,24 @@ namespace EventManagementFPT.Pages.Home
             var uid = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             
             Event = await _eventService.GetEventByID(id);
-            UserEvent = _userEventService.GetUserGoingOfEvent(id);
-            EventLike = _eventLikeService.CountLikeOfEvent(id);
-            if (uid != null)
+
+            if (Event?.Status ?? false)
             {
-                var userId = Guid.Parse(uid);
-                IsLikeEvent = _context.EventLikes.Any(o => o.UserId == userId && o.EventId == id);
-            }
-            HostUser = _context.UserEvents
-                .Include(o => o.User)
-                .FirstOrDefault(o => o.IsHost == true && o.EventId == id)?.User;
+                UserEvent = _userEventService.GetUserGoingOfEvent(id);
+                EventLike = _eventLikeService.CountLikeOfEvent(id);
+                if (uid != null)
+                {
+                    var userId = Guid.Parse(uid);
+                    IsLikeEvent = _context.EventLikes.Any(o => o.UserId == userId && o.EventId == id);
+                }
+                HostUser = _context.UserEvents
+                    .Include(o => o.User)
+                    .FirstOrDefault(o => o.IsHost == true && o.EventId == id)?.User;
             
-            return Page();
+                return Page();
+            }
+
+            return NotFound();
         }
     }
 }
