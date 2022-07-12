@@ -157,6 +157,7 @@
                 </div>
                 @{
                     var uid = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                    var role = User.FindFirst(ClaimTypes.Role)?.Value;
         
                     if (uid != null)
                     {
@@ -186,12 +187,11 @@
                                             }
                                             else
                                             {
+                                                var disabled = role is "Admin" ? "disabled" : "";
+                                                
                                                 <a asp-page="/Home/JoinEvent" asp-route-id="@Model.Event.EventId"
-                                                   class="btn btn-success btn-block text-light d-flex align-items-center justify-content-center">
-                                                    <ion-icon
-                                                        class="mr-1"
-                                                        name="checkmark-circle-outline">
-                                                    </ion-icon>
+                                                   class="@disabled btn btn-success btn-block text-light d-flex align-items-center justify-content-center">
+                                                    <ion-icon class="mr-1" name="checkmark-circle-outline"></ion-icon>
                                                     Going
                                                 </a>
                                             }
