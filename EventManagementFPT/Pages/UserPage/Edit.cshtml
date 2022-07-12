@@ -1,6 +1,6 @@
 ﻿@page
 @model EventManagementFPT.Pages.UserPage.EditModel
-
+@using EventManagementFPT.Model
 @{
     ViewData["Title"] = "Edit";
 }
@@ -41,12 +41,21 @@
             </div>
             <div class="form-group">
                 <label asp-for="User.IsBlocked" class="control-label"></label>
-                <input asp-for="User.IsBlocked" class="form-control" />
+                <select asp-for="User.IsBlocked" class="form-control">
+                    <option>Choose..</option>
+                    <option value="true">True</option>
+                    <option value="false">False</option>
+                </select>
                 <span asp-validation-for="User.IsBlocked" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="User.Role" class="control-label"></label>
-                <select asp-for="User.Role" class="form-control"></select>
+                <select asp-for="User.Role" class="form-control">
+                    <option>Choose..</option>
+                    <option value="@RoleEnum.Admin">admin</option>
+                    <option value="@RoleEnum.Host">host</option>
+                    <option value="@RoleEnum.User">user</option>
+                </select>
                 <span asp-validation-for="User.Role" class="text-danger"></span>
             </div>
             <div class="form-group form-check">

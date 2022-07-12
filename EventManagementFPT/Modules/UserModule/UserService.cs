@@ -31,6 +31,7 @@ namespace EventManagementFPT.Modules.UserModule
         public async Task AddNewUser(User newUser)
         {
             newUser.UserId = Guid.NewGuid();
+            if (await _userRepository.GetFirstOrDefaultAsync(x => x.Email.Equals(newUser.Email)) != null) return;
             await _userRepository.AddAsync(newUser);
         }
 
@@ -42,7 +43,7 @@ namespace EventManagementFPT.Modules.UserModule
 
         public async Task DeleteUser(Guid? ID)
         {
-            User userDelete = _userRepository.GetFirstOrDefaultAsync(x => x.UserId.Equals(ID) && x.IsBlocked == false).Result;
+            User userDelete = await _userRepository.GetFirstOrDefaultAsync(x => x.UserId.Equals(ID) && x.IsBlocked != true);
             if (userDelete == null) return;
             userDelete.IsBlocked = true;
             await _userRepository.UpdateAsync(userDelete);
