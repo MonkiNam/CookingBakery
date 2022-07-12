@@ -50,60 +50,60 @@
                         id="category">
                         <ion-icon name="pricetag-outline"></ion-icon>@Model.Event.CategoryNavigation.Name
                     </span>
-                    <button
-                        class="btn btn-warning text-light d-inline-flex align-items-center rounded p-2"
-                        id="report" data-toggle="modal" data-target="#reportModal">
-                        <ion-icon name="warning-outline"></ion-icon>
-                    </button>
+                    @* <button *@
+                    @*     class="btn btn-warning text-light d-inline-flex align-items-center rounded p-2" *@
+                    @*     id="report" data-toggle="modal" data-target="#reportModal"> *@
+                    @*     <ion-icon name="warning-outline"></ion-icon> *@
+                    @* </button> *@
                 </div>
         
                 <hr/>
                 <h3 class="text-center mb-3">Event Discussion</h3>
-                <form class="mb-2">
-                    <div class="media">
-                        <img
-                            src="../image/default.png"
-                            width="38"
-                            height="38"
-                            alt="avatar"
-                            class="mr-2"/>
-                        <div class="media-body">
-                            <input
-                                type="text"
-                                class="form-control rounded-pill"
-                                placeholder="Write a comment..."/>
-                            <small class="form-text text-muted ml-2">
-                                Press 'Enter' to submit
-                            </small
-                            >
+                @{                    
+                    var uid = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                    var avt = User.FindFirst("avatar-url")?.Value;
+
+                    if (uid != null && Model.Event.CanComment)
+                    {
+                        <form asp-page="/Home/AddComment" class="mb-2">
+                            <input type="hidden" name="eventId" value="@Model.Event.EventId">
+                            <div class="media">
+                                <img 
+                                    src="@avt" onerror="this.onerror=null;this.src = '../image/default.png'"
+                                    width="38" height="38" alt="avatar" class="mr-2 rounded-circle border"/>
+                                <div class="media-body">
+                                    <input name="txtContent" type="text" class="form-control rounded-pill" placeholder="Write a comment..."/>
+                                    <small class="form-text text-muted ml-2">
+                                        Press 'Enter' to submit
+                                    </small
+                                    >
+                                </div>
+                            </div>
+                        </form>
+                    }
+                }
+                @if (Model.Event.Comments.Any())
+                {
+                    @foreach (var comment in Model.Event.Comments)
+                    {
+                        <div class="media comment pb-3">
+                            <img src="@comment.User.Avatar"
+                                onerror="this.onerror=null;this.src = '../image/default.png'"
+                                width="38" height="38" class="mr-2 rounded-circle border"/>
+                            <div class="media-body comment-body ml-1">
+                                <h5 class="mt-0">@comment.User.Name</h5>
+                                <p class="mb-0">@comment.Content</p>
+                                <small class="form-text text-muted d-flex" style="gap: 15px">
+                                    <span> @comment.CreateDate </span>
+                                </small>
+                            </div>
                         </div>
-                    </div>
-                </form>
-                <div class="media comment">
-                    <a href="#">
-                        <img 
-                            src="../image/default.png"
-                            width="38"
-                            height="38"
-                            alt="avatar"
-                            class="mr-2 avatar"/>
-                    </a>
-                    <div class="media-body comment-body ml-1">
-                        <h5 class="mt-0">Username</h5>
-                        <p class="mb-0">
-                            Standing on the frontline when the bombs start to fall. Heaven
-                            is jealous of our love, angels are crying from up above. Can't
-                            replace you with a million rings. Boy, when you're with me
-                            I'll give you a taste. There's no going back. Before you met
-                            me I was alright but things were kinda heavy. Heavy is the
-                            head that wears the crown.
-                        </p>
-                        <small class="form-text text-muted d-flex" style="gap: 15px">
-                            <a href="#">Like</a>
-                            <span> 29-Jun-2022 01:17 AM </span>
-                        </small>
-                    </div>
-                </div>
+                    }
+                }
+                else
+                {
+                    <h5 class="text-center">No comment yet!</h5>
+                }
             </div>
         </div>
         
@@ -156,7 +156,6 @@
                     </div>
                 </div>
                 @{
-                    var uid = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                     var role = User.FindFirst(ClaimTypes.Role)?.Value;
         
                     if (uid != null)
@@ -167,8 +166,7 @@
                                 @if (Model.Event.StartDate <= DateTime.Now && Model.Event.EndDate >= DateTime.Now)
                                 {
                                     <div class="col">
-                                        @if (Model.UserEvent.Any(o => o.UserId == Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!))
-                                            )
+                                        @if (Model.UserEvent.Any(o => o.UserId == Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!)))
                                         {
                                             <a asp-page="/Home/UnattendEvent" asp-route-id="@Model.Event.EventId"
                                                class="btn btn-danger btn-block text-light d-flex align-items-center justify-content-center">
@@ -289,56 +287,56 @@
 </div>
 
 <!-- Report modal -->
-<div
-    class="modal fade"
-    id="reportModal"
-    tabindex="-1"
-    aria-labelledby="reportModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="reportModalLabel">
-                    Report
-                </h5>
-                <button
-                    type="button"
-                    class="close"
-                    data-dismiss="modal"
-                    aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label class="font-weight-bold" for="reportTitle">Title</label>
-                        <input
-                            type="text"
-                            class="form-control"
-                            id="reportTitle"/>
-                    </div>
-                    <div class="form-group">
-                        <label class="font-weight-bold" for="type-select">Type</label>
-                        <select class="form-control" id="type-select">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="font-weight-bold" for="reportDescription">Description</label>
-                        <textarea rows="6" class="form-control" id="reportDescription">Please provide additional information here</textarea>
-                    </div>
-                    <button
-                        type="submit"
-                        class="btn btn-outline-success btn-block mt-4">
-                        Submit
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+@* <div *@
+@*     class="modal fade" *@
+@*     id="reportModal" *@
+@*     tabindex="-1" *@
+@*     aria-labelledby="reportModalLabel" *@
+@*     aria-hidden="true"> *@
+@*     <div class="modal-dialog modal-dialog-centered"> *@
+@*         <div class="modal-content"> *@
+@*             <div class="modal-header"> *@
+@*                 <h5 class="modal-title" id="reportModalLabel"> *@
+@*                     Report *@
+@*                 </h5> *@
+@*                 <button *@
+@*                     type="button" *@
+@*                     class="close" *@
+@*                     data-dismiss="modal" *@
+@*                     aria-label="Close"> *@
+@*                     <span aria-hidden="true">&times;</span> *@
+@*                 </button> *@
+@*             </div> *@
+@*             <div class="modal-body"> *@
+@*                 <form> *@
+@*                     <div class="form-group"> *@
+@*                         <label class="font-weight-bold" for="reportTitle">Title</label> *@
+@*                         <input *@
+@*                             type="text" *@
+@*                             class="form-control" *@
+@*                             id="reportTitle"/> *@
+@*                     </div> *@
+@*                     <div class="form-group"> *@
+@*                         <label class="font-weight-bold" for="type-select">Type</label> *@
+@*                         <select class="form-control" id="type-select"> *@
+@*                             <option>1</option> *@
+@*                             <option>2</option> *@
+@*                             <option>3</option> *@
+@*                             <option>4</option> *@
+@*                             <option>5</option> *@
+@*                         </select> *@
+@*                     </div> *@
+@*                     <div class="form-group"> *@
+@*                         <label class="font-weight-bold" for="reportDescription">Description</label> *@
+@*                         <textarea rows="6" class="form-control" id="reportDescription">Please provide additional information here</textarea> *@
+@*                     </div> *@
+@*                     <button *@
+@*                         type="submit" *@
+@*                         class="btn btn-outline-success btn-block mt-4"> *@
+@*                         Submit *@
+@*                     </button> *@
+@*                 </form> *@
+@*             </div> *@
+@*         </div> *@
+@*     </div> *@
+@* </div> *@

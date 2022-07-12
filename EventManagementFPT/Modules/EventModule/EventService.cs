@@ -66,7 +66,7 @@ namespace EventManagementFPT.Modules.EventModule
         {
             return await _eventRepository.GetFirstOrDefaultAsync(
                 x => x.EventId.Equals(eventID),
-                includeProperties: "Venue,CategoryNavigation"
+                includeProperties: "Venue,CategoryNavigation,Comments"
             );
         }
 
