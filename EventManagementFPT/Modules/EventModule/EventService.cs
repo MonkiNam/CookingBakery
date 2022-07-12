@@ -27,7 +27,7 @@ namespace EventManagementFPT.Modules.EventModule
         public ICollection<Event> GetNewestEvents(int quantity)
         {
             var list = _eventRepository.GetAll(options: o =>
-                o.OrderBy(p => p.CreateDate).Where(x => x.Status == true).Take(quantity).ToList());
+                o.OrderByDescending(p => p.CreateDate).Where(x => x.Status == true).Take(quantity).ToList());
             return (list);
         }
 
