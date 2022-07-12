@@ -54,10 +54,7 @@ namespace EventManagementFPT.Modules.UserEventModule
         public ICollection<User> GetUserGoingOfEvent(Guid eventID)
         {
             if (_eventRepository.GetFirstOrDefaultAsync(x => x.EventId.Equals(eventID) && x.Status == true).Result == null) return null;
-            return _eventRepository.GetAll().Join(_userEventRepository.GetAll(), x => x.EventId, y => y.EventId, (x, y) => new
-            {
-                _userID = y.UserId
-            }).Join(_userRepository.GetAll(), x => x._userID, y => y.UserId, (x, y) => new
+            return _userEventRepository.GetUserEventsBy(x => x.EventId.Equals(eventID)).Join(_userRepository.GetAll(), x => x.UserId, y => y.UserId, (x, y) => new
             {
                 _user = y
             }).Select(x => x._user).ToList();
