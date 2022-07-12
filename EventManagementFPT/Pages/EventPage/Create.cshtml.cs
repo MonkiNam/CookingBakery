@@ -38,7 +38,7 @@ namespace EventManagementFPT.Pages.EventPage
                 return Page();
             }
 
-            return RedirectToPage("/Home");
+            return RedirectToPage("/Home/Index");
         }
 
         [BindProperty] public Event Event { get; set; }
