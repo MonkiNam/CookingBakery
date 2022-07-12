@@ -9,6 +9,7 @@ using EventManagementFPT.Modules.EventModule.Interface;
 using EventManagementFPT.Modules.UserEventModule.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace EventManagementFPT.Pages.Home
 {
@@ -45,7 +46,9 @@ namespace EventManagementFPT.Pages.Home
                 var userId = Guid.Parse(uid);
                 IsLikeEvent = _context.EventLikes.Any(o => o.UserId == userId && o.EventId == id);
             }
-            HostUser = _context.UserEvents.FirstOrDefault(o => o.IsHost == true && o.EventId == id)?.User;
+            HostUser = _context.UserEvents
+                .Include(o => o.User)
+                .FirstOrDefault(o => o.IsHost == true && o.EventId == id)?.User;
             
             return Page();
         }
