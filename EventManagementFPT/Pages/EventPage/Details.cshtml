@@ -5,75 +5,77 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<div class="container py-5">
+    <h1>Details</h1>
 
-<div>
-    <h4>Event</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Event.Name)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Event.Name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Event.ImageUrl)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Event.ImageUrl)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Event.Description)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Event.Description)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Event.CreateDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Event.CreateDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Event.StartDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Event.StartDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Event.EndDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Event.EndDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Event.VenueId)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Event.VenueId)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Event.Status)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Event.Status)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Event.CanComment)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Event.CanComment)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Event.CategoryNavigation)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Event.CategoryNavigation.Name)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-page="./Edit" asp-route-id="@Model.Event.EventId">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+    <div>
+        <h4>Event</h4>
+        <hr/>
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Event.Name)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Event.Name)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Event.ImageUrl)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Event.ImageUrl)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Event.Description)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Event.Description)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Event.CreateDate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Event.CreateDate)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Event.StartDate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Event.StartDate)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Event.EndDate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Event.EndDate)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Event.VenueId)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Event.VenueId)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Event.Status)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Event.Status)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Event.CanComment)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Event.CanComment)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Event.CategoryNavigation)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Event.CategoryNavigation.Name)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-page="./Edit" asp-route-id="@Model.Event.EventId">Edit</a> |
+        <a asp-page="./Index">Back to List</a>
+    </div>
 </div>

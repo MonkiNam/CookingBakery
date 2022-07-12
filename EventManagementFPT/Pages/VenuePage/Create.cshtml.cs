@@ -1,22 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using System.Threading.Tasks;
 using EventManagementFPT.Model;
 using EventManagementFPT.Modules.VenueModule.Interface;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace EventManagementFPT.Pages.VenuePage
 {
     public class CreateModel : PageModel
     {
-        private readonly EventManagementFPT.Model.EventManagementContext _context;
         private readonly IVenueService _venueService;
-        public CreateModel(EventManagementFPT.Model.EventManagementContext context, IVenueService venueService)
+        public CreateModel(IVenueService venueService)
         {
-            _context = context;
             _venueService = venueService;
         }
 
