@@ -11,13 +11,6 @@
 </head>
 
 <body>
-  <style>
-    .user-info {
-
-      position: relative;
-      transform: translateY(50%) !important;
-    }
-  </style>
   <!-- Navbar -->
   <nav class="navbar navbar-light bg-light sticky-top shadow">
     <div class="container-fluid pl-5 pr-5 ml-4 mr-4">
@@ -66,28 +59,64 @@
       </div>
     </div>
   </nav>
-  <div class="container" style="height: calc(100vh - 58px); ">
+  <div class="container d-flex align-items-center justify-content-center" style="height: calc(100vh - 58px); ">
     <form method="post">
-      <div class="shadow p-3 user-info">
+      <div class="shadow-sm p-3 user-info rounded border">
         <div class="row p-4">
-          <div class="col-md-4 pr-5 d-flex flex-column align-items-center justify-content-center">
+          <div class="col-md-4 d-flex flex-column align-items-center justify-content-center">
             <img src="../image/default.png" style="max-width: 200px; max-height: 200px" class="rounded-circle"
               alt="avatar" />
             <div class="mt-3">
-              <input accept="image/*" type="file" id="avatar" name="avatar" style="display: none;"/>
-              <label class="btn btn-primary" data-browser="Choose an image" for="avatar">Change avatar</label>
+              <input accept="image/*" type="file" id="avatar" name="avatar" style="display: none;" />
+              <label style="gap: 8px;" class="btn btn-primary d-flex align-items-center" data-browser="Choose an image" for="avatar"><ion-icon name="camera-outline"></ion-icon>Change avatar</label>
             </div>
           </div>
           <div class="col-md-8 pl-4 border-left">
-            <h4>Account's information</h4>
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label for="Name">Name</label>
-                <input type="text" class="form-control" id="name" >
+            <h4>Username's information
+              <span class="badge badge-primary">Role</span>
+            </h4>
+            <div class="form-row gx-4">
+              <div class="form-group col-md-12" data-toggle="tooltip" data-placement="top" title="You cannot change your email!">
+                <label for="Email">Email</label>
+                <div class="form-control" id="email" readonly>test@fpt.edu.vn</div>
               </div>
               <div class="form-group col-md-6">
                 <label for="Name">Name</label>
-                <input type="text" class="form-control" id="name" >
+                <input type="text" class="form-control" id="name" />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="Password">Password</label>
+                <input type="password" class="form-control" id="password" readonly value="thisisnotyourpassword" />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="PhoneNumber">Phone number</label>
+                <input type="tel" class="form-control" id="PhoneNumber" />
+              </div>
+              <div class="form-group col-md-3" >
+                <label for="Status">Status</label>
+                <div class="d-flex align-items-center" style="gap: 8px; padding-top: 6px; color: #28a745;">
+                  <ion-icon name="shield-checkmark-outline"></ion-icon>
+                  Active
+                </div>
+                <!-- <div class="d-flex align-items-center" style="gap: 8px; padding-top: 6px; color: #dc3545!important;">
+                  <ion-icon name="close-circle-outline"></ion-icon>
+                  Deactivated
+                </div> -->
+              </div>
+              <div class="form-group col-md-3" >
+                <label for="Status">Google Authenticate</label>
+                <div class="d-flex align-items-center" style="gap: 8px; padding-top: 6px; color: #28a745;">
+                  <ion-icon name="shield-checkmark-outline"></ion-icon>
+                  Yes
+                </div>
+                <!-- <div class="d-flex align-items-center" style="gap: 8px; padding-top: 6px; color: #dc3545!important;">
+                  <ion-icon name="close-circle-outline"></ion-icon>
+                  No
+                </div> -->
+              </div>
+              <div class="col-md-12 d-flex" style="gap: 8px;">
+                <button type="submit" class="btn btn-primary d-flex align-items-center" style="gap: 8px;">Save profile</button>
+                <a href="#" class="btn btn-light">Cancel</a>
               </div>
             </div>
           </div>
@@ -137,6 +166,11 @@
     crossorigin="anonymous"></script>
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script>
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
+  </script>
 </body>
 
 </html>
