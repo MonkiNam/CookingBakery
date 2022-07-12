@@ -81,9 +81,10 @@
                     <div class="card-deck">
                         @foreach (var _event in Model.NewestEvent)
                         {
-                            <div class="card event">
-                                <img src="../image/@_event.ImageUrl" onerror="this.onerror=null;this.src = '../image/event.jpg'" class="card-img-top" alt="...">
-                                <div class="card-body">
+                            <div class="card event d-flex">
+                                <img src="../image/@_event.ImageUrl" onerror="this.onerror=null;this.src = '../image/event.jpg'" 
+                                     class="card-img-top flex-grow-1" style="object-fit: cover" alt="...">
+                                <div class="card-body flex-grow-0">
                                     <h5 class="card-title mb-4">@_event.Name</h5>
                                     <div class="d-flex align-items-center mb-2">
                                         <ion-icon class="event-time" name="time-outline"></ion-icon>
