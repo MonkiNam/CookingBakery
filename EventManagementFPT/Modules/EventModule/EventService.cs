@@ -65,7 +65,7 @@ namespace EventManagementFPT.Modules.EventModule
         public async Task<Event> GetEventByID(Guid? eventID)
         {
             return await _eventRepository.GetFirstOrDefaultAsync(
-                x => x.EventId.Equals(eventID) && x.Status != false,
+                x => x.EventId.Equals(eventID),
                 includeProperties: "Venue,CategoryNavigation"
             );
         }
