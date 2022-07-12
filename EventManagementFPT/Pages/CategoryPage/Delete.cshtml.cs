@@ -19,28 +19,20 @@ namespace EventManagementFPT.Pages.CategoryPage
         [BindProperty]
         public Category Category { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(Guid? id)
+        public IActionResult OnGet(Guid? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             Category = _categoryService.GetCategoryByID(id);
 
-            if (Category == null)
-            {
-                return NotFound();
-            }
+            if (Category == null) return NotFound();
+            
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(Guid? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             await _categoryService.DeleteCategory(id);
 

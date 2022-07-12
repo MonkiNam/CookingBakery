@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 using EventManagementFPT.Model;
 using EventManagementFPT.Modules.VenueModule.Interface;
 
@@ -22,7 +19,7 @@ namespace EventManagementFPT.Pages.VenuePage
         [BindProperty]
         public Venue Venue { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(Guid? id)
+        public IActionResult OnGet(Guid? id)
         {
             if (id == null)
             {
@@ -31,19 +28,14 @@ namespace EventManagementFPT.Pages.VenuePage
 
             Venue = _venueService.GetVenueByID(id);
 
-            if (Venue == null)
-            {
-                return NotFound();
-            }
+            if (Venue == null) return NotFound();
+            
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(Guid? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             await _venueService.DeleteVenue(id);
 

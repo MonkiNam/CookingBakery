@@ -48,7 +48,7 @@ namespace EventManagementFPT.Model
         [Column(TypeName = "nvarchar(MAX)")]
         public string Avatar { get; set; }
         
-        public bool? IsBlocked { get; set; }
+        public bool IsBlocked { get; set; }
         
         [Required]
         public RoleEnum Role { get; set; }
