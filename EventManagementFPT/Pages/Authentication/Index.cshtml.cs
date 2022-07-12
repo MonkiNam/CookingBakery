@@ -80,6 +80,11 @@ namespace EventManagementFPT.Pages.Authentication
                         TempData["success"] = "Welcome " + User.Name;
                         return RedirectToPage("/Home/Index");
                     }
+                    else
+                    {
+                        TempData["error"] = "Invalid credentials";
+                        return Page();
+                    }
                 }
                 else
                 {
