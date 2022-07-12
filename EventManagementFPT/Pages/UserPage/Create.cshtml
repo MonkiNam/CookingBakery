@@ -35,9 +35,10 @@
                 <span asp-validation-for="User.PhoneNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="User.Avatar" class="control-label"></label>
-                <input asp-for="User.Avatar" class="form-control" />
-                <span asp-validation-for="User.Avatar" class="text-danger"></span>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="customFile" name="customFile">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
             </div>
             <div class="form-group">
                 <label asp-for="User.Role" class="control-label"></label>
@@ -61,5 +62,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

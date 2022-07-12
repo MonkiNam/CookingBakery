@@ -3,17 +3,17 @@
 
 // Write your JavaScript code.
 var filePreview = document.getElementById("customFile");
-if (filePreview != null) {
-    if (filePreview.files.length != 0) {
-        document.getElementsByClassName('image-holder')[0].style.display = 'none';
-    }
-    filePreview.onchange = function () {
-        var src = URL.createObjectURL(this.files[0]);
-        var name = this.files[0].name;
-        document.getElementById('customFileLabel').textContent = name;
-        document.getElementById('preview-image').src = src;
-        document.getElementsByClassName('image-holder')[0].style.display = 'none';
-    }
+var previewImage = document.getElementById('preview-image');
+if (previewImage.getAttribute('src').length > 0) {
+    document.getElementsByClassName('image-holder')[0].style.display = 'none';
+    console.log(previewImage.getAttribute('src'));
+}
+filePreview.onchange = function () {
+    var src = URL.createObjectURL(this.files[0]);
+    var name = this.files[0].name;
+    document.getElementById('customFileLabel').textContent = name;
+    previewImage.src = src;
+    document.getElementsByClassName('image-holder')[0].style.display = 'none';
 }
 $(document).ready(function () {
     $('.toast').toast('show')

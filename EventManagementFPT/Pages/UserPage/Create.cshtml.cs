@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using EventManagementFPT.Model;
 using EventManagementFPT.Modules.UserModule.Interface;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
 
 namespace EventManagementFPT.Pages.UserPage
 {
@@ -16,11 +18,13 @@ namespace EventManagementFPT.Pages.UserPage
     {
         private readonly EventManagementFPT.Model.EventManagementContext _context;
         private readonly IUserService _userService;
+        private readonly IWebHostEnvironment _env;
 
-        public CreateModel(EventManagementFPT.Model.EventManagementContext context, IUserService userService)
+        public CreateModel(EventManagementFPT.Model.EventManagementContext context, IUserService userService, IWebHostEnvironment env)
         {
             _context = context;
             _userService = userService;
+            _env = env; 
         }
 
         public IActionResult OnGet()
@@ -32,11 +36,20 @@ namespace EventManagementFPT.Pages.UserPage
         public User User { get; set; }
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(IFormFile customFile)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
+            }
+
+            if(customFile != null)
+            {
+                await Utils.UploadImage.UploadFile(customFile, _env);
+            }
+            else
+            {
+                User.Avatar = "~/image/default.png";
             }
 
             await _userService.AddNewUser(User);

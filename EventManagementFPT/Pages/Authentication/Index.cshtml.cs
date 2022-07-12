@@ -42,26 +42,27 @@ namespace EventManagementFPT.Pages.Authentication
             {
                 if (!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(password))
                 {
-                    IConfiguration config = new ConfigurationBuilder()
-                                    .SetBasePath(Directory.GetCurrentDirectory())
-                                    .AddJsonFile("appsettings.json", true, true)
-                                    .Build();
-                    string adminEmail = config["admin:email"];
-                    string adminPassword = config["admin:password"];
-                    //check admin
-                    if (email.Equals(adminEmail) && password.Equals(adminPassword))
-                    {
-                        var claims = new List<Claim>
-                        {
-                            new Claim(ClaimTypes.Role, "admin"),
-                            new Claim(ClaimTypes.Email, email)
-                        };
-                        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                        var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-                        await HttpContext.SignInAsync(claimsPrincipal);
-                        TempData["success"] = "Welcome admin";
-                        return RedirectToPage("/EventPage/Index");
-                    }
+                    //IConfiguration config = new ConfigurationBuilder()
+                    //                .SetBasePath(Directory.GetCurrentDirectory())
+                    //                .AddJsonFile("appsettings.json", true, true)
+                    //                .Build();
+                    //string adminEmail = config["admin:email"];
+                    //string adminPassword = config["admin:password"];
+                    ////check admin
+                    //if (email.Equals(adminEmail) && password.Equals(adminPassword))
+                    //{
+                    //    var claims = new List<Claim>
+                    //    {
+                    //        new Claim(ClaimTypes.Role, "admin"),
+                    //        new Claim(ClaimTypes.Email, email),
+                    //        new Claim(ClaimTypes.NameIdentifier, config["admin:guid"])
+                    //    };
+                    //    var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    //    var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+                    //    await HttpContext.SignInAsync(claimsPrincipal);
+                    //    TempData["success"] = "Welcome admin";
+                    //    return RedirectToPage("/EventPage/Index");
+                    //}
                     //check user
                     var User = await _userService.Authenticate(email, password);
                     if(User != null)

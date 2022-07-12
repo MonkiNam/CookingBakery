@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using EventManagementFPT.Model;
 using EventManagementFPT.Modules.EventModule.Interface;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
 
 namespace EventManagementFPT.Pages.EventPage
 {
@@ -12,11 +14,13 @@ namespace EventManagementFPT.Pages.EventPage
     {
         private readonly EventManagementFPT.Model.EventManagementContext _context;
         private readonly IEventService _eventService;
+        private readonly IWebHostEnvironment _env;
 
-        public EditModel(EventManagementFPT.Model.EventManagementContext context, IEventService eventService)
+        public EditModel(EventManagementFPT.Model.EventManagementContext context, IEventService eventService, IWebHostEnvironment env)
         {
             _context = context;
             _eventService = eventService;
+            _env = env;
         }
 
         [BindProperty]
@@ -42,13 +46,18 @@ namespace EventManagementFPT.Pages.EventPage
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(IFormFile customFile)
         {
             if (!ModelState.IsValid)
             {
                 ViewData["Venue"] = new SelectList(_context.Venues, "VenueId", "VenueName");
                 ViewData["Category"] = new SelectList(_context.Categories, "CategoryId", "Name");
                 return Page();
+            }
+            if(customFile != null)
+            {
+                string NewImageUrl = await Utils.UploadImage.UploadFile(customFile, _env);
+                Event.ImageUrl = NewImageUrl;
             }
 
             await _eventService.UpdateEvent(_context.Attach(Event).Entity);
