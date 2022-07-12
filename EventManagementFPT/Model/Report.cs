@@ -24,9 +24,6 @@ namespace EventManagementFPT.Model
         public DateTime CreateDate { get; set; }
         
         [Required]
-        public bool? Type { get; set; }
-        
-        [Required]
         [Column("UserId")]
         public Guid? Author { get; set; }
         
