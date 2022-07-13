@@ -28,7 +28,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="User.Password" class="control-label"></label>
-                    <input asp-for="User.Password" class="form-control" />
+                    <input asp-for="User.Password" class="form-control" value="@Model.User.Password"/>
                     <span asp-validation-for="User.Password" class="text-danger"></span>
                 </div>
                 <div class="form-group">
