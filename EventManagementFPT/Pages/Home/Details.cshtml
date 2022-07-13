@@ -50,11 +50,11 @@
                         id="category">
                         <ion-icon name="pricetag-outline"></ion-icon>@Model.Event.CategoryNavigation.Name
                     </span>
-                    @* <button *@
-                    @*     class="btn btn-warning text-light d-inline-flex align-items-center rounded p-2" *@
-                    @*     id="report" data-toggle="modal" data-target="#reportModal"> *@
-                    @*     <ion-icon name="warning-outline"></ion-icon> *@
-                    @* </button> *@
+                    <button
+                    class="btn btn-warning text-light d-inline-flex align-items-center rounded p-2" 
+                     id="report" data-toggle="modal" data-target="#reportModal">
+                    <ion-icon name="warning-outline"></ion-icon>
+                    </button>
                 </div>
         
                 <hr/>
@@ -287,56 +287,47 @@
 </div>
 
 <!-- Report modal -->
-@* <div *@
-@*     class="modal fade" *@
-@*     id="reportModal" *@
-@*     tabindex="-1" *@
-@*     aria-labelledby="reportModalLabel" *@
-@*     aria-hidden="true"> *@
-@*     <div class="modal-dialog modal-dialog-centered"> *@
-@*         <div class="modal-content"> *@
-@*             <div class="modal-header"> *@
-@*                 <h5 class="modal-title" id="reportModalLabel"> *@
-@*                     Report *@
-@*                 </h5> *@
-@*                 <button *@
-@*                     type="button" *@
-@*                     class="close" *@
-@*                     data-dismiss="modal" *@
-@*                     aria-label="Close"> *@
-@*                     <span aria-hidden="true">&times;</span> *@
-@*                 </button> *@
-@*             </div> *@
-@*             <div class="modal-body"> *@
-@*                 <form> *@
-@*                     <div class="form-group"> *@
-@*                         <label class="font-weight-bold" for="reportTitle">Title</label> *@
-@*                         <input *@
-@*                             type="text" *@
-@*                             class="form-control" *@
-@*                             id="reportTitle"/> *@
-@*                     </div> *@
-@*                     <div class="form-group"> *@
-@*                         <label class="font-weight-bold" for="type-select">Type</label> *@
-@*                         <select class="form-control" id="type-select"> *@
-@*                             <option>1</option> *@
-@*                             <option>2</option> *@
-@*                             <option>3</option> *@
-@*                             <option>4</option> *@
-@*                             <option>5</option> *@
-@*                         </select> *@
-@*                     </div> *@
-@*                     <div class="form-group"> *@
-@*                         <label class="font-weight-bold" for="reportDescription">Description</label> *@
-@*                         <textarea rows="6" class="form-control" id="reportDescription">Please provide additional information here</textarea> *@
-@*                     </div> *@
-@*                     <button *@
-@*                         type="submit" *@
-@*                         class="btn btn-outline-success btn-block mt-4"> *@
-@*                         Submit *@
-@*                     </button> *@
-@*                 </form> *@
-@*             </div> *@
-@*         </div> *@
-@*     </div> *@
-@* </div> *@
+ <div 
+     class="modal fade" 
+     id="reportModal" 
+     tabindex="-1" 
+     aria-labelledby="reportModalLabel" 
+     aria-hidden="true"> 
+     <div class="modal-dialog modal-dialog-centered"> 
+         <div class="modal-content"> 
+             <div class="modal-header"> 
+                 <h5 class="modal-title" id="reportModalLabel"> 
+                     Report 
+                 </h5> 
+                 <button 
+                     type="button" 
+                     class="close" 
+                     data-dismiss="modal" 
+                     aria-label="Close"> 
+                     <span aria-hidden="true">&times;</span> 
+                 </button> 
+             </div> 
+             <div class="modal-body"> 
+                 <form method="post" asp-page="/ReportPage/Create">
+                     <input type="hidden" value="@Model.Event.EventId"  name="eventId"/>
+                     <div class="form-group"> 
+                         <label class="font-weight-bold" for="reportTitle" name="reportTitle">Title</label> 
+                         <input 
+                             type="text" 
+                             class="form-control" 
+                             id="reportName" name="reportName"/> 
+                     </div> 
+                     <div class="form-group"> 
+                         <label class="font-weight-bold" for="reportDescription">Description</label> 
+                         <textarea rows="6" class="form-control" id="reportContent" name="reportContent">Please provide additional information here</textarea> 
+                     </div> 
+                     <button 
+                         type="submit" 
+                         class="btn btn-outline-success btn-block mt-4"> 
+                         Submit 
+                     </button> 
+                 </form> 
+             </div> 
+         </div> 
+     </div> 
+ </div> 

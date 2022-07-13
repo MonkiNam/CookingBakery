@@ -20,6 +20,8 @@ using EventManagementFPT.Modules.UserEventModule.Interface;
 using EventManagementFPT.Modules.UserEventModule;
 using EventManagementFPT.Modules.VenueModule.Interface;
 using EventManagementFPT.Modules.VenueModule;
+using EventManagementFPT.Modules.ReportModule.Interface;
+using EventManagementFPT.Modules.ReportModule;
 
 namespace EventManagementFPT
 {
@@ -58,7 +60,10 @@ namespace EventManagementFPT
             services.AddScoped<IEventLikeService, EventLikeService>();
             //Comment Module
             services.AddScoped<ICommentRepository, CommentRepository>();
-            services.AddScoped<ICommentService, CommentService>();
+            services.AddScoped<ICommentService, CommentService>(); 
+            //Report Module
+            services.AddScoped<IReportRepository, ReportRepository>();
+            services.AddScoped<IReportService, ReportService>();
 
             services.AddDbContext<EventManagementContext>(
                 opt => opt.UseSqlServer(

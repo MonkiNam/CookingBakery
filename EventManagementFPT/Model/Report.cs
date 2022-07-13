@@ -22,7 +22,10 @@ namespace EventManagementFPT.Model
         [Required]
         [DataType(DataType.DateTime)]
         public DateTime CreateDate { get; set; }
-        
+
+        [Required]
+        public ReportEnum Status { get; set; }
+
         [Required]
         [Column("UserId")]
         public Guid? Author { get; set; }
