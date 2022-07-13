@@ -37,24 +37,20 @@
                     <span class="text-muted ml-2">@Model.Event.Venue.VenueName</span>
                 </div>
             </div>
-            <img src="../image/@Model.Event.ImageUrl"
-                 onerror="this.onerror=null;this.src = '../image/event.jpg'"
-                 alt="event-background"
-                 class="img-fluid"/>
+            <img src="../image/@Model.Event.ImageUrl" alt="event-background" class="img-fluid"
+                 onerror="this.onerror=null;this.src = '../image/event.jpg'"/>
             <div class="content border shadow-sm rounded mt-4 p-4 mb-5">
                 <h2 class="mb-3 text-center">About this event</h2>
                 <p>@Model.Event.Description</p>
                 <div class="d-flex justify-content-between">
-                    <span
-                        class="tag d-inline-flex align-items-center rounded"
-                        id="category">
+                    <span class="tag d-inline-flex align-items-center rounded" id="category">
                         <ion-icon name="pricetag-outline"></ion-icon>@Model.Event.CategoryNavigation.Name
                     </span>
-                    @* <button *@
-                    @*     class="btn btn-warning text-light d-inline-flex align-items-center rounded p-2" *@
-                    @*     id="report" data-toggle="modal" data-target="#reportModal"> *@
-                    @*     <ion-icon name="warning-outline"></ion-icon> *@
-                    @* </button> *@
+                    <button
+                        class="btn btn-warning text-light d-inline-flex align-items-center rounded p-2"
+                        id="report" data-toggle="modal" data-target="#reportModal">
+                        <ion-icon name="warning-outline"></ion-icon>
+                    </button>
                 </div>
         
                 <hr/>
@@ -65,45 +61,57 @@
 
                     if (uid != null && Model.Event.CanComment)
                     {
-                        <form asp-page="/Home/AddComment" class="mb-2">
-                            <input type="hidden" name="eventId" value="@Model.Event.EventId">
+                        <form class="mb-2">
+                            <input type="hidden" id="uid" value="@uid">
+                            <input type="hidden" id="eventId" value="@Model.Event.EventId">
                             <div class="media">
-                                <img 
-                                    src="@avt" onerror="this.onerror=null;this.src = '../image/default.png'"
-                                    width="38" height="38" alt="avatar" class="mr-2 rounded-circle border"/>
+                                <img src="@avt" onerror="this.onerror=null;this.src = '../image/default.png'"
+                                     width="38" height="38" alt="avatar" class="mr-2 rounded-circle border"/>
                                 <div class="media-body">
-                                    <input name="txtContent" type="text" class="form-control rounded-pill" placeholder="Write a comment..."/>
+                                    <input id="commentContent" type="text" 
+                                           class="form-control rounded-pill" 
+                                           placeholder="Write a comment..."/>
                                     <small class="form-text text-muted ml-2">
                                         Press 'Enter' to submit
-                                    </small
-                                    >
+                                    </small>
                                 </div>
+                                <button id="btnSendComment" type="button" class="btn pl-2">
+                                    <ion-icon name="send-outline"></ion-icon>
+                                </button>
                             </div>
                         </form>
                     }
                 }
-                @if (Model.Event.Comments.Any())
-                {
-                    @foreach (var comment in Model.Event.Comments)
+                <div id="commentSection">
+                    @if (Model.Event.Comments.Any())
                     {
-                        <div class="media comment pb-3">
-                            <img src="@comment.User.Avatar"
-                                onerror="this.onerror=null;this.src = '../image/default.png'"
-                                width="38" height="38" class="mr-2 rounded-circle border"/>
-                            <div class="media-body comment-body ml-1">
-                                <h5 class="mt-0">@comment.User.Name</h5>
-                                <p class="mb-0">@comment.Content</p>
-                                <small class="form-text text-muted d-flex" style="gap: 15px">
-                                    <span> @comment.CreateDate </span>
-                                </small>
+                        var comments = Model.Event.Comments.OrderBy(o => o.CreateDate);
+                        
+                        @foreach (var comment in comments)
+                        {
+                            <div class="media comment pb-3">
+                                <img src="@comment.User.Avatar"
+                                    onerror="this.onerror=null;this.src = '../image/default.png'"
+                                    width="38" height="38" class="mr-2 rounded-circle border"/>
+                                <div class="media-body comment-body ml-1">
+                                    <h5 class="mt-0">@comment.User.Name</h5>
+                                    <p class="mb-0">@comment.Content</p>
+                                    <small class="form-text text-muted d-flex" style="gap: 15px">
+                                        @{
+                                            var commentId = comment.CommentId;
+                                        }
+                                        <span class="@commentId"></span>
+                                        <script>
+                                            $(".@Html.Raw(commentId)").html(
+                                                `<p>${moment("@Html.Raw(comment.CreateDate)").fromNow()}</p>`
+                                            );
+                                        </script>
+                                    </small>
+                                </div>
                             </div>
-                        </div>
+                        }
                     }
-                }
-                else
-                {
-                    <h5 class="text-center">No comment yet!</h5>
-                }
+                </div>
             </div>
         </div>
         
@@ -287,56 +295,126 @@
 </div>
 
 <!-- Report modal -->
-@* <div *@
-@*     class="modal fade" *@
-@*     id="reportModal" *@
-@*     tabindex="-1" *@
-@*     aria-labelledby="reportModalLabel" *@
-@*     aria-hidden="true"> *@
-@*     <div class="modal-dialog modal-dialog-centered"> *@
-@*         <div class="modal-content"> *@
-@*             <div class="modal-header"> *@
-@*                 <h5 class="modal-title" id="reportModalLabel"> *@
-@*                     Report *@
-@*                 </h5> *@
-@*                 <button *@
-@*                     type="button" *@
-@*                     class="close" *@
-@*                     data-dismiss="modal" *@
-@*                     aria-label="Close"> *@
-@*                     <span aria-hidden="true">&times;</span> *@
-@*                 </button> *@
-@*             </div> *@
-@*             <div class="modal-body"> *@
-@*                 <form> *@
-@*                     <div class="form-group"> *@
-@*                         <label class="font-weight-bold" for="reportTitle">Title</label> *@
-@*                         <input *@
-@*                             type="text" *@
-@*                             class="form-control" *@
-@*                             id="reportTitle"/> *@
-@*                     </div> *@
-@*                     <div class="form-group"> *@
-@*                         <label class="font-weight-bold" for="type-select">Type</label> *@
-@*                         <select class="form-control" id="type-select"> *@
-@*                             <option>1</option> *@
-@*                             <option>2</option> *@
-@*                             <option>3</option> *@
-@*                             <option>4</option> *@
-@*                             <option>5</option> *@
-@*                         </select> *@
-@*                     </div> *@
-@*                     <div class="form-group"> *@
-@*                         <label class="font-weight-bold" for="reportDescription">Description</label> *@
-@*                         <textarea rows="6" class="form-control" id="reportDescription">Please provide additional information here</textarea> *@
-@*                     </div> *@
-@*                     <button *@
-@*                         type="submit" *@
-@*                         class="btn btn-outline-success btn-block mt-4"> *@
-@*                         Submit *@
-@*                     </button> *@
-@*                 </form> *@
-@*             </div> *@
-@*         </div> *@
-@*     </div> *@
-@* </div> *@
+<div
+    class="modal fade"
+    id="reportModal"
+    tabindex="-1"
+    aria-labelledby="reportModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reportModalLabel">
+                    Report
+                </h5>
+                <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label class="font-weight-bold" for="reportTitle">Title</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="reportTitle"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold" for="type-select">Type</label>
+                        <select class="form-control" id="type-select">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold" for="reportDescription">Description</label>
+                        <textarea rows="6" class="form-control" id="reportDescription">Please provide additional information here</textarea>
+                    </div>
+                    <button
+                        type="submit"
+                        class="btn btn-outline-success btn-block mt-4">
+                        Submit
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/signalr/dist/browser/signalr.min.js"></script>
+<script src="~/lib/date_fns/date_fns.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $(window).keydown(function(event){
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                return false;
+            }
+        });
+    });
+</script>
+
+<script>
+    let eventId;
+    
+    eventId = "@Html.Raw(Model.Event.EventId)";
+    
+    $(async () => {
+        let connection = new signalR.HubConnectionBuilder().withUrl("/signalRServer").build();
+        connection
+            .start()
+            .then(() => console.log(connection))
+            .then(() => console.log(connection.state))
+            .then(() => {
+                console.log('Attempting to join group');
+                connection.invoke("AddToGroup", eventId);
+            })
+            .catch(error => console.log("Error establishing connection: ", error));
+    
+        connection.on("ReceiveComment", comment => {
+            let div = '';
+            
+            div += `
+                <div class="media comment pb-3">
+                    <img src="${comment.user.avatar}"
+                        onerror="this.onerror=null;this.src = '../image/default.png'"
+                        width="38" height="38" class="mr-2 rounded-circle border"/>
+                    <div class="media-body comment-body ml-1">
+                        <h5 class="mt-0">${comment.user.name}</h5>
+                        <p class="mb-0">${comment.content}</p>
+                        <small class="form-text text-muted d-flex" style="gap: 15px">
+                            <span> ${moment(comment.createdDate).fromNow()} </span>
+                        </small>
+                    </div>
+                </div>
+            `;
+            
+            $("#commentSection").append(div);
+        });
+        
+        connection.onclose(() => {
+            connection.invoke("RemoveFromGroup", activityId)
+                .then(() => this.connection.stop())
+                .then(() => console.log("Connection stopped"))
+                .catch(err => console.log(err));
+        });
+        
+        $("#btnSendComment").click(function  () {
+            let comment = $("#commentContent")
+            let content = comment.val();
+            if (content.length > 0) {
+                connection.invoke("SendComment", eventId, content).catch(err => console.log(err));
+                comment.val('');
+            }
+        });
+    });
+</script>

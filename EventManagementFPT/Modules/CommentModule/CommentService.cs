@@ -23,14 +23,27 @@ namespace EventManagementFPT.Modules.CommentModule
 
             await _commentRepository.RemoveAndItsChildComment(commentRemoved);
         }
+
         public ICollection<Comment> GetListSubComment(Guid? oriCommentID)
         {
             return _commentRepository.GetListSubComment(oriCommentID);
         }
-        public async Task AddNewComment(Comment newComment)
+
+        public async Task<Comment> AddNewComment(Comment newComment)
         {
             await _commentRepository.AddAsync(newComment);
+            return await GetCommentById(newComment.CommentId);
         }
+
+        private async Task<Comment> GetCommentById(Guid? commentId)
+        {
+            return await _commentRepository
+                .GetFirstOrDefaultAsync(
+                    x => x.CommentId.Equals(commentId),
+                    includeProperties: "User"
+                );
+        }
+
         public async Task UpdateComment(Comment commentUpdate)
         {
             await _commentRepository.UpdateAsync(commentUpdate);
