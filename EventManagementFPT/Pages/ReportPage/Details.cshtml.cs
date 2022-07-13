@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using EventManagementFPT.Model;
 using EventManagementFPT.Modules.ReportModule.Interface;
 using Microsoft.AspNetCore.Authorization;
+using EventManagementFPT.Modules.UserModule.Interface;
 
 namespace EventManagementFPT.Pages.ReportPage
 {
@@ -15,10 +16,12 @@ namespace EventManagementFPT.Pages.ReportPage
     public class DetailsModel : PageModel
     {
         private readonly IReportService _reportService;
+        private readonly IUserService _userService;
 
-        public DetailsModel(IReportService reportService)
+        public DetailsModel(IReportService reportService, IUserService userService)
         {
             _reportService = reportService;
+            _userService = userService;
         }
 
         public Report Report { get; set; }
@@ -30,6 +33,7 @@ namespace EventManagementFPT.Pages.ReportPage
                 return NotFound();
             }
 
+            
             Report = await _reportService.GetReportByID(id);
 
             if (Report == null)
