@@ -6,7 +6,7 @@
     ViewData["Title"] = "Details";
 }
 
-<div style="height: calc(100vh - 58px);" class="d-flex justify-content-center align-items-center">
+<div style="height: calc(100vh - 150px);" class="d-flex justify-content-center align-items-center">
     <div class="shadow card p4 border border-rounded" style="width: 40vw;">
         <div class="card-header d-flex justify-content-between" style="gap: 8px;">
             <h3 class="text-break">Report's title</h3>
@@ -35,7 +35,7 @@
         <div class="card-body">
             <div class="card-title d-flex align-items-center text-muted">
                 <ion-icon name="person-circle" class="mr-1"></ion-icon>
-                <span>@Model.Report.Author &#x2022; <span style="font-size: 14px;">@Model.Report.CreateDate</span></span>
+                <span>@Model.Report.AuthorNavigation.Name &#x2022; <span style="font-size: 14px;">@Model.Report.CreateDate</span></span>
             </div>
             <p class="card-text">
                 @Model.Report.Content
@@ -66,7 +66,4 @@
             </a>
         </div>
     </div>
-</div>
-<div>
-    <a asp-page="./Index">Back to List</a>
 </div>

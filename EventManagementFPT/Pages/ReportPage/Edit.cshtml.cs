@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using EventManagementFPT.Model;
 using EventManagementFPT.Modules.ReportModule.Interface;
 
@@ -27,7 +23,7 @@ namespace EventManagementFPT.Pages.ReportPage
         {
             if (type.Equals("edit"))
             {
-                await _reportService.ChangeStatus(id, (int)status);
+                await _reportService.ChangeStatus(id, (int) status);
                 TempData["success"] = "Status of the report has been updated!";
             }
             else if (type.Equals("delete"))
@@ -35,6 +31,7 @@ namespace EventManagementFPT.Pages.ReportPage
                 await _reportService.DeleteReport(id);
                 TempData["success"] = "Report has been closed!";
             }
+
             return RedirectToPage("./Index");
         }
     }
