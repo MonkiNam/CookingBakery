@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+using EventManagementFPT.Hubs;
 using EventManagementFPT.Model;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -20,6 +22,7 @@ using EventManagementFPT.Modules.UserEventModule.Interface;
 using EventManagementFPT.Modules.UserEventModule;
 using EventManagementFPT.Modules.VenueModule.Interface;
 using EventManagementFPT.Modules.VenueModule;
+using Newtonsoft.Json;
 using EventManagementFPT.Modules.ReportModule.Interface;
 using EventManagementFPT.Modules.ReportModule;
 
@@ -39,6 +42,11 @@ namespace EventManagementFPT
         {
             services.AddRazorPages();
             services.AddSession();
+            services
+                .AddSignalR(e => {
+                    e.EnableDetailedErrors = true;
+                    e.MaximumReceiveMessageSize = 102400000;
+                });
             //Add scope and dependency injection
             //User Module
             services.AddScoped<IUserRepository, UserRepository>();
@@ -104,6 +112,7 @@ namespace EventManagementFPT
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+                endpoints.MapHub<SignalRServer>("/signalrServer");
             });
         }
     }
