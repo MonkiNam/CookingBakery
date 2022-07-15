@@ -1,6 +1,7 @@
 ﻿using EventManagementFPT.Model;
 using EventManagementFPT.Modules.EventLikeModule.Interface;
 using EventManagementFPT.Modules.UserModule.Interface;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +13,13 @@ namespace EventManagementFPT.Modules.UserModule
     {
         private readonly IUserRepository _userRepository;
         private readonly IEventLikeRepository _eventLikeRepository;
+        private readonly EventManagementContext _context;
 
-        public UserService(IUserRepository userRepository, IEventLikeRepository eventLikeRepository)
+        public UserService(IUserRepository userRepository, IEventLikeRepository eventLikeRepository, EventManagementContext context)
         {
             _userRepository = userRepository;
             _eventLikeRepository = eventLikeRepository;
+            _context = context;
         }
         public ICollection<User> GetAll()
         {
@@ -39,6 +42,17 @@ namespace EventManagementFPT.Modules.UserModule
         {
             if (userUpdate.IsBlocked == true) return;
             await _userRepository.UpdateAsync(userUpdate);
+        }
+
+        public async Task ChangePassword(string newPassword, string uid)
+        {
+            User user = GetUserByUserID(Guid.Parse(uid));
+            if(user != null && user.IsBlocked == false)
+            {
+                user.Password = newPassword;
+                _context.Entry(user).State = EntityState.Modified;
+                _context.SaveChanges();
+            }
         }
 
         public async Task DeleteUser(Guid? ID)

@@ -13,6 +13,7 @@ namespace EventManagementFPT.Modules.UserModule.Interface
         public Task<User> GetUserByEmail(string Email);
         public Task AddNewUser(User newUser);
         public Task UpdateUser(User userUpdate);
+        public Task ChangePassword(string newPassword, string uid);
         public Task DeleteUser(Guid? ID);
         public ICollection<User> GetAll();
         public bool isExist(string email);

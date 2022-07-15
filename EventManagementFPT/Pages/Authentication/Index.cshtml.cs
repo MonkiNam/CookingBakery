@@ -72,7 +72,8 @@ namespace EventManagementFPT.Pages.Authentication
                             new Claim(ClaimTypes.Role, User.Role.ToString()),
                             new Claim(ClaimTypes.Email, User.Email),
                             new Claim(ClaimTypes.NameIdentifier, User.UserId.ToString()),
-                            new Claim("avatar-url", User.Avatar ?? "")
+                            new Claim("avatar-url", User.Avatar ?? ""),
+                            new Claim("google-authen", "false")
                         };
                         var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                         var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
@@ -115,7 +116,8 @@ namespace EventManagementFPT.Pages.Authentication
                             new Claim(ClaimTypes.Role, user.Role.ToString()),
                             new Claim(ClaimTypes.Email, emailData),
                             new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
-                            new Claim("avatar-url", user.Avatar)
+                            new Claim("avatar-url", user.Avatar),
+                            new Claim("google-authen", "true")
                         };
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);

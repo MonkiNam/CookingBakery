@@ -31,6 +31,12 @@ namespace EventManagementFPT.Pages.Home
 
         public IActionResult OnPost(IFormFile customFile)
         {
+            if(customFile != null)
+            {
+                string url = await Utils.UploadImage.UploadFile(customFile, _env);
+                user.Avatar = url;
+            }
+            await _userService.UpdateUser(user);
             return Page();
         }
     }
