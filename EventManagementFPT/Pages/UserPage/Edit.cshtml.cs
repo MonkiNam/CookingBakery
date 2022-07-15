@@ -5,7 +5,6 @@ using EventManagementFPT.Modules.UserModule.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EventManagementFPT.Pages.UserPage
 {
@@ -24,7 +23,7 @@ namespace EventManagementFPT.Pages.UserPage
         [BindProperty]
         public new User User { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(Guid? id)
+        public IActionResult OnGet(Guid? id)
         {
             if (id == null) return NotFound();
 

@@ -27,7 +27,7 @@ namespace EventManagementFPT.Pages.UserPage
             return Page();
         }
 
-        [BindProperty] public User User { get; set; }
+        [BindProperty] public new User User { get; set; }
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync(IFormFile customFile)

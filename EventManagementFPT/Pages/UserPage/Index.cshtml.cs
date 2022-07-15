@@ -16,7 +16,7 @@ namespace EventManagementFPT.Pages.UserPage
             _userService = userService;
         }
 
-        public IList<User> User { get;set; }
+        public new IList<User> User { get;set; }
 
         public void OnGet()
         {

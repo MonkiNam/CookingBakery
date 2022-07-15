@@ -16,7 +16,7 @@ namespace EventManagementFPT.Pages.UserPage
             _userService = userService;
         }
 
-        public User User { get; set; }
+        public new User User { get; set; }
 
         public IActionResult OnGet(Guid? id)
         {

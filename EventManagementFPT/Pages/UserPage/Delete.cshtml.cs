@@ -19,7 +19,7 @@ namespace EventManagementFPT.Pages.UserPage
         }
 
         [BindProperty]
-        public User User { get; set; }
+        public new User User { get; set; }
 
         public IActionResult OnGetAsync(Guid? id)
         {
