@@ -59,6 +59,14 @@ namespace EventManagementFPT.Pages.EventPage
                     ViewData["Venue"] = new SelectList(_context.Venues, "VenueId", "VenueName");
                     return Page();
                 }
+                
+                if (Event.StartDate < (DateTime.Now - TimeSpan.FromMinutes(15)) || Event.EndDate < (DateTime.Now - TimeSpan.FromMinutes(15)))
+                {
+                    TempData["error"] = "Start date and End date cannot be less than now";
+                    ViewData["Category"] = new SelectList(_context.Categories, "CategoryId", "Name");
+                    ViewData["Venue"] = new SelectList(_context.Venues, "VenueId", "VenueName");
+                    return Page();
+                }
 
                 if (DateTime.Compare(Event.StartDate, Event.EndDate) >= 0)
                 {
@@ -69,8 +77,11 @@ namespace EventManagementFPT.Pages.EventPage
                 }
 
                 TempData["success"] = "Add success";
-                string imageUrl = await UploadImage.UploadFile(customFile, _env);
-                Event.ImageUrl = imageUrl;
+                if (Event.ImageUrl != null)
+                {
+                    string imageUrl = await UploadImage.UploadFile(customFile, _env);
+                    Event.ImageUrl = imageUrl;
+                }
                 await _eventService.AddNewEvent(Event, uid);
                 return RedirectToPage("./Index");
             }

@@ -47,11 +47,11 @@ namespace EventManagementFPT.Modules.UserModule
         public async Task ChangePassword(string newPassword, string uid)
         {
             User user = GetUserByUserID(Guid.Parse(uid));
-            if(user != null && user.IsBlocked == false)
+            if(user is {IsBlocked: false})
             {
                 user.Password = newPassword;
                 _context.Entry(user).State = EntityState.Modified;
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
         }
 
