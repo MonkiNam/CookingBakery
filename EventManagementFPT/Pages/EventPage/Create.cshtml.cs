@@ -77,7 +77,7 @@ namespace EventManagementFPT.Pages.EventPage
                 }
 
                 TempData["success"] = "Add success";
-                if (Event.ImageUrl != null)
+                if (customFile != null)
                 {
                     string imageUrl = await UploadImage.UploadFile(customFile, _env);
                     Event.ImageUrl = imageUrl;
