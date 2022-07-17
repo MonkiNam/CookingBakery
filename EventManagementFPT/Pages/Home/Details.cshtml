@@ -15,10 +15,9 @@
                     <h2 class="mb-0">@Model.Event.Name</h2>
                     <div class="btn-group" role="group" aria-label="Basic example">
                         <a href="#" class="btn btn-primary d-flex align-items-center">
-                            <ion-icon
-                                name="heart"
-                                style="font-size: 16px"
-                                class="mr-1">
+                            <ion-icon name="heart"
+                                      style="font-size: 16px"
+                                      class="mr-1">
                             </ion-icon>
                             Like
                         </a>
@@ -30,15 +29,14 @@
                     <span class="text-muted ml-2">@Model.Event.StartDate</span>
                 </div>
                 <div class="d-flex algin-items-center">
-                    <ion-icon
-                        class="event-location"
-                        name="location-outline">
+                    <ion-icon class="event-location"
+                              name="location-outline">
                     </ion-icon>
                     <span class="text-muted ml-2">@Model.Event.Venue.VenueName</span>
                 </div>
             </div>
             <img src="../image/@Model.Event.ImageUrl" alt="event-background" class="img-fluid w-100"
-                 onerror="this.onerror=null;this.src = '../image/event.jpg'"/>
+                 onerror="this.onerror=null;this.src = '../image/event.jpg'" />
             <div class="content border shadow-sm rounded mt-4 p-4 mb-5">
                 <h2 class="mb-3 text-center">About this event</h2>
                 <p>@Model.Event.Description</p>
@@ -48,36 +46,34 @@
                     </span>
                     @{
                         var role = User.FindFirst(ClaimTypes.Role)?.Value;
-                        
+
                         if (role is "Host" or "User")
                         {
-                            <button
-                                class="btn btn-warning text-light d-inline-flex align-items-center rounded p-2" 
-                                id="report" data-toggle="modal" data-target="#reportModal">
-                                <ion-icon name="warning-outline"></ion-icon>
-                            </button>
+                                        <button class="btn btn-warning text-light d-inline-flex align-items-center rounded p-2"
+                                            id="report" data-toggle="modal" data-target="#reportModal">
+                                            <ion-icon name="warning-outline"></ion-icon>
+                                        </button>
                         }
                     }
                 </div>
-        
-                @{                    
+
+                <hr />
+                <h3 class="text-center mb-3">Event Discussion</h3>
+                @{
                     var uid = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                     var avt = User.FindFirst("avatar-url")?.Value;
-
                     if (uid != null && Model.Event.CanComment)
-                    {   
-                        <hr/>
-                        <h3 class="text-center mb-3">Event Discussion</h3>
-                        <form class="mb-2">
+                    {
+                        <form class="mb-2" id="commentForm">
                             <input type="hidden" id="uid" value="@uid">
                             <input type="hidden" id="eventId" value="@Model.Event.EventId">
                             <div class="media">
                                 <img src="@avt" onerror="this.onerror=null;this.src = '../image/default.png'"
-                                     width="38" height="38" alt="avatar" class="mr-2 rounded-circle border"/>
+                                    width="38" height="38" alt="avatar" class="mr-2 rounded-circle border" />
                                 <div class="media-body">
-                                    <input id="commentContent" type="text" 
-                                           class="form-control rounded-pill" 
-                                           placeholder="Write a comment..."/>
+                                    <input id="commentContent" type="text"
+                                        class="form-control rounded-pill"
+                                        placeholder="Write a comment..." />
                                     <small class="form-text text-muted ml-2">
                                         Press 'Enter' to submit
                                     </small>
@@ -93,13 +89,13 @@
                     @if (Model.Event.Comments.Any())
                     {
                         var comments = Model.Event.Comments.OrderBy(o => o.CreateDate);
-                        
+
                         @foreach (var comment in comments)
                         {
                             <div class="media comment pb-3">
                                 <img src="@comment.User.Avatar"
-                                    onerror="this.onerror=null;this.src = '../image/default.png'"
-                                    width="38" height="38" class="mr-2 rounded-circle border"/>
+                             onerror="this.onerror=null;this.src = '../image/default.png'"
+                             width="38" height="38" class="mr-2 rounded-circle border" />
                                 <div class="media-body comment-body ml-1">
                                     <h5 class="mt-0">@comment.User.Name</h5>
                                     <p class="mb-0">@comment.Content</p>
@@ -121,51 +117,47 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="col-4 pr-0">
             <div class="border shadow-sm rounded p-4">
                 <div class="media">
-                    <img
-                        src="../image/default.png"
-                        width="90"
-                        height="90"
-                        class="mr-2 rounded-circle"
-                        alt="..."/>
+                    <img src="../image/default.png"
+                         width="90"
+                         height="90"
+                         class="mr-2 rounded-circle"
+                         alt="..." />
                     <div class="media-body">
                         <h5 class="mt-0">@Model.HostUser.Name</h5>
                         <div class="d-flex flex-wrap" style="gap: 5px">
                             @{
                                 var phoneNumber = Model.HostUser.PhoneNumber;
-        
+
                                 if (!string.IsNullOrEmpty(phoneNumber))
                                 {
-                                    <span
-                                        class="tag d-flex align-items-center rounded"
-                                        id="location">
-                                        <ion-icon name="call-outline"></ion-icon>@phoneNumber
-                                    </span>
+                                                <span class="tag d-flex align-items-center rounded"
+                                                  id="location">
+                                                    <ion-icon name="call-outline"></ion-icon>@phoneNumber
+                                                </span>
                                 }
-                                <span class="tag d-flex align-items-center rounded" id="category">
-                                    <ion-icon name="mail-open-outline"></ion-icon>
-                                    @Model.HostUser.Email
-                                </span>
+                                            <span class="tag d-flex align-items-center rounded" id="category">
+                                                <ion-icon name="mail-open-outline"></ion-icon>
+                                                @Model.HostUser.Email
+                                            </span>
                             }
                         </div>
                     </div>
                 </div>
-                <hr/>
+                <hr />
                 <div class="d-flex" style="gap: 16px">
                     <div class="d-flex align-items-center">
-                        <ion-icon
-                            class="text-success mr-1"
-                            name="checkmark-circle-outline">
+                        <ion-icon class="text-success mr-1"
+                                  name="checkmark-circle-outline">
                         </ion-icon>
                         @Model.UserEvent.Count going
                     </div>
                     <div class="d-flex align-items-center">
-                        <ion-icon
-                            class="text-warning mr-1"
-                            name="star-outline">
+                        <ion-icon class="text-warning mr-1"
+                                  name="star-outline">
                         </ion-icon>
                         @Model.EventLike like
                     </div>
@@ -173,68 +165,68 @@
                 @{
                     if (uid != null)
                     {
-                        <div class="row mt-3">
-                            @if (!(Model.HostUser.UserId == Guid.Parse(uid)))
+                                    <div class="row mt-3">
+                                        @if (!(Model.HostUser.UserId == Guid.Parse(uid)))
                             {
-                                @if (Model.Event.StartDate - TimeSpan.FromDays(7) <= DateTime.Now && Model.Event.EndDate >= DateTime.Now)
+                                            @if (Model.Event.StartDate <= DateTime.Now && Model.Event.EndDate >= DateTime.Now)
                                 {
-                                    <div class="col">
-                                        @if (Model.UserEvent.Any(o => o.UserId == Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!)))
+                                                <div class="col">
+                                                    @if (Model.UserEvent.Any(o => o.UserId == Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!)))
                                         {
-                                            <a asp-page="/Home/UnattendEvent" asp-route-id="@Model.Event.EventId"
-                                               class="btn btn-danger btn-block text-light d-flex align-items-center justify-content-center">
-                                                <ion-icon class="mr-1" name="close-circle-outline">
-                                                </ion-icon>
-                                                Cancel Going
-                                            </a>
+                                                        <a asp-page="/Home/UnattendEvent" asp-route-id="@Model.Event.EventId"
+                           class="btn btn-danger btn-block text-light d-flex align-items-center justify-content-center">
+                                                            <ion-icon class="mr-1" name="close-circle-outline">
+                                                            </ion-icon>
+                                                            Cancel Going
+                                                        </a>
                                         }
                                         else
                                         {
-                                            @if (Model.UserEvent.Count >= Model.Event.Capacity)
+                                                        @if (Model.UserEvent.Count >= Model.Event.Capacity)
                                             {
-                                                <h4 class="text-warning text-center">Full Capacity</h4>
+                                                            <h4 class="text-warning text-center">Full Capacity</h4>
                                             }
                                             else
                                             {
                                                 var disabled = role is "Admin" ? "disabled" : "";
-                                                
-                                                <a asp-page="/Home/JoinEvent" asp-route-id="@Model.Event.EventId"
-                                                   class="@disabled btn btn-success btn-block text-light d-flex align-items-center justify-content-center">
-                                                    <ion-icon class="mr-1" name="checkmark-circle-outline"></ion-icon>
-                                                    Going
-                                                </a>
+
+                                                            <a asp-page="/Home/JoinEvent" asp-route-id="@Model.Event.EventId"
+                           class="@disabled btn btn-success btn-block text-light d-flex align-items-center justify-content-center">
+                                                                <ion-icon class="mr-1" name="checkmark-circle-outline"></ion-icon>
+                                                                Going
+                                                            </a>
                                             }
                                         }
-                                    </div>
+                                                </div>
                                 }
                                 else if (Model.Event.StartDate > DateTime.Now - TimeSpan.FromDays(7))
                                 {
-                                    <h4 class="text-center text-warning col">Event hasn't started yet!</h4>
+                                                <h4 class="text-center text-warning col">Event hasn't started yet!</h4>
                                 }
                                 else if (DateTime.Now > Model.Event.EndDate)
                                 {
-                                    <h4 class="text-center text-danger col">Event has ended!</h4>
+                                                <h4 class="text-center text-danger col">Event has ended!</h4>
                                 }
                             }
-                            <div class="col d-flex align-items-center">
-                                @if (Model.IsLikeEvent)
+                                        <div class="col d-flex align-items-center">
+                                            @if (Model.IsLikeEvent)
                                 {
-                                    <a asp-page="/Home/UnlikeEvent" asp-route-id="@Model.Event.EventId"
-                                       class="btn btn-warning btn-block text-light d-flex justify-content-center align-items-center">
-                                        <ion-icon class="mr-1" name="star"></ion-icon>
-                                        Unlike
-                                    </a>
+                                                <a asp-page="/Home/UnlikeEvent" asp-route-id="@Model.Event.EventId"
+                           class="btn btn-warning btn-block text-light d-flex justify-content-center align-items-center">
+                                                    <ion-icon class="mr-1" name="star"></ion-icon>
+                                                    Unlike
+                                                </a>
                                 }
                                 else
                                 {
-                                    <a asp-page="/Home/LikeEvent" asp-route-id="@Model.Event.EventId"
-                                       class="btn btn-warning btn-block text-light d-flex justify-content-center align-items-center">
-                                        <ion-icon class="mr-1" name="star-outline"></ion-icon>
-                                        Like
-                                    </a>
+                                                <a asp-page="/Home/LikeEvent" asp-route-id="@Model.Event.EventId"
+                           class="btn btn-warning btn-block text-light d-flex justify-content-center align-items-center">
+                                                    <ion-icon class="mr-1" name="star-outline"></ion-icon>
+                                                    Like
+                                                </a>
                                 }
-                            </div>
-                        </div>
+                                        </div>
+                                    </div>
                     }
                 }
             </div>
@@ -243,23 +235,21 @@
 </div>
 
 <!-- Change password modal -->
-<div
-    class="modal fade"
-    id="exampleModal"
-    tabindex="-1"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal fade"
+     id="exampleModal"
+     tabindex="-1"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">
                     Change your password
                 </h5>
-                <button
-                    type="button"
-                    class="close"
-                    data-dismiss="modal"
-                    aria-label="Close">
+                <button type="button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -267,28 +257,24 @@
                 <form>
                     <div class="form-group">
                         <label for="currentPassword">Current password</label>
-                        <input
-                            type="password"
-                            class="form-control"
-                            id="currentPassword"/>
+                        <input type="password"
+                               class="form-control"
+                               id="currentPassword" />
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">New password</label>
-                        <input
-                            type="password"
-                            class="form-control"
-                            id="exampleInputPassword1"/>
+                        <input type="password"
+                               class="form-control"
+                               id="exampleInputPassword1" />
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Re-enter password</label>
-                        <input
-                            type="password"
-                            class="form-control"
-                            id="exampleInputPassword1"/>
+                        <input type="password"
+                               class="form-control"
+                               id="exampleInputPassword1" />
                     </div>
-                    <button
-                        type="submit"
-                        class="btn btn-outline-success btn-block mt-4">
+                    <button type="submit"
+                            class="btn btn-outline-success btn-block mt-4">
                         Submit
                     </button>
                 </form>
@@ -302,7 +288,7 @@
 
 <script>
     $(document).ready(function() {
-        $(window).keydown(function(event){
+        $(window).keydown(function(event) {
             if (event.keyCode === 13) {
                 event.preventDefault();
                 return false;
@@ -313,26 +299,23 @@
 
 <script>
     let eventId;
-    
+
     eventId = "@Html.Raw(Model.Event.EventId)";
-    
-    $(async () => {
-        let connection = new signalR.HubConnectionBuilder().withUrl("/signalRServer").build();
-        connection
-            .start()
-            .then(() => console.log(connection))
-            .then(() => console.log(connection.state))
-            .then(() => {
-                console.log('Attempting to join group');
-                connection.invoke("AddToGroup", eventId);
-            })
-            .catch(error => console.log("Error establishing connection: ", error));
-    
+
+$(async () => {
+    let connection = new signalR.HubConnectionBuilder().withUrl("/signalRServer").build();
+    connection
+        .start()
+        .then(() => console.log(connection))
+        .then(() => console.log(connection.state))
+        .then(() => {
+            console.log('Attempting to join group');
+            connection.invoke("AddToGroup", eventId);
+        })
+        .catch(error => console.log("Error establishing connection: ", error));
         connection.on("ReceiveComment", comment => {
-            let div = '';
-            
-            div += `
-                <div class="media comment pb-3">
+        let div = '';
+        div += `<div class="media comment pb-3">
                     <img src="${comment.user.avatar}"
                         onerror="this.onerror=null;this.src = '../image/default.png'"
                         width="38" height="38" class="mr-2 rounded-circle border"/>
@@ -343,28 +326,38 @@
                             <span> ${moment(comment.createdDate).fromNow()} </span>
                         </small>
                     </div>
-                </div>
-            `;
-            
+                </div>`;
             $("#commentSection").append(div);
         });
-        
-        connection.onclose(() => {
-            connection.invoke("RemoveFromGroup", activityId)
-                .then(() => this.connection.stop())
-                .then(() => console.log("Connection stopped"))
-                .catch(err => console.log(err));
-        });
-        
-        $("#btnSendComment").click(function  () {
+
+    connection.onclose(() => {
+        connection.invoke("RemoveFromGroup", activityId)
+            .then(() => this.connection.stop())
+            .then(() => console.log("Connection stopped"))
+            .catch(err => console.log(err));
+    });
+
+    $("#btnSendComment").click(function() {
+        let comment = $("#commentContent")
+        let content = comment.val();
+        if (content.length > 0) {
+            connection.invoke("SendComment", eventId, content).catch(err => console.log(err));
+            comment.val('');
+        }
+    });
+
+    $('#commentContent').keydown(function(e) {
+        console.log(e.keyCode);
+        if (e.which == 10 || e.which == 13) {
             let comment = $("#commentContent")
             let content = comment.val();
             if (content.length > 0) {
                 connection.invoke("SendComment", eventId, content).catch(err => console.log(err));
                 comment.val('');
             }
-        });
+        }
     });
+});
 </script>
 
 <div class="modal fade"
@@ -378,31 +371,28 @@
                 <h5 class="modal-title" id="reportModalLabel">
                     Report
                 </h5>
-                <button
-                    type="button"
-                    class="close"
-                    data-dismiss="modal"
-                    aria-label="Close">
+                <button type="button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <form method="post" asp-page="/ReportPage/Create">
-                    <input type="hidden" value="@Model.Event.EventId" name="eventId"/>
+                    <input type="hidden" value="@Model.Event.EventId" name="eventId" />
                     <div class="form-group">
                         <label class="font-weight-bold" for="reportTitle" name="reportTitle">Title</label>
-                        <input
-                            type="text"
-                            class="form-control"
-                            id="reportName" name="reportName"/>
+                        <input type="text"
+                               class="form-control"
+                               id="reportName" name="reportName" />
                     </div>
                     <div class="form-group">
                         <label class="font-weight-bold" for="reportDescription">Description</label>
                         <textarea rows="6" class="form-control" id="reportContent" name="reportContent">Please provide additional information here</textarea>
                     </div>
-                    <button
-                        type="submit"
-                        class="btn btn-outline-success btn-block mt-4">
+                    <button type="submit"
+                            class="btn btn-outline-success btn-block mt-4">
                         Submit
                     </button>
                 </form>
