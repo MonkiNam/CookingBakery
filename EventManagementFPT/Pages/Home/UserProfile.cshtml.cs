@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace EventManagementFPT.Pages.Home
 {
@@ -29,7 +30,7 @@ namespace EventManagementFPT.Pages.Home
             user = _userService.GetUserByUserID(Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value));
         }
 
-        public IActionResult OnPost(IFormFile customFile)
+        public async Task<IActionResult> OnPostAsync(IFormFile customFile)
         {
             if(customFile != null)
             {
