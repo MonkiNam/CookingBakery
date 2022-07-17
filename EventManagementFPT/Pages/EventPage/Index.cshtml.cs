@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using EventManagementFPT.Model;
 using EventManagementFPT.Modules.EventModule.Interface;
+using EventManagementFPT.Utils;
+using System.Linq;
 
 namespace EventManagementFPT.Pages.EventPage
 {
@@ -14,11 +16,12 @@ namespace EventManagementFPT.Pages.EventPage
             _eventService = eventService;
         }
 
-        public IList<Event> Event { get;set; }
+        public PaginatedList<Event> Event { get;set; }
 
-        public void OnGet()
+        public void OnGet(int? pageIndex)
         {
-            Event = (IList<Event>)_eventService.GetAll();
+            var events = _eventService.GetAll().AsQueryable();
+            Event = PaginatedList<Event>.Create(events, pageIndex ?? 1, 5);
         }
     }
 }

@@ -71,3 +71,27 @@
     }
     </tbody>
 </table>
+@{
+    var prevDisabled = !Model.User.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.User.HasNextPage ? "disabled" : "";
+
+    <nav>
+        <ul class="pagination justify-content-center pagination-lg">
+            <li class="page-item btn-lg">
+                <a asp-page="./Index"
+               asp-route-pageIndex="@(Model.User.PageIndex - 1)"
+               class="btn btn-primary page-link @prevDisabled">
+                    Previous
+                </a>
+            </li>
+
+            <li class="page-item btn-lg" style="width: 156px">
+                <a asp-page="./Index"
+               asp-route-pageIndex="@(Model.User.PageIndex + 1)"
+               class="btn btn-primary page-link @nextDisabled">
+                    Next
+                </a>
+            </li>
+        </ul>
+    </nav>
+}

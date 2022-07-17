@@ -88,7 +88,7 @@ namespace EventManagementFPT.Pages.Home
                 events = events.Where(o => o.Category == filterCategory);
             }
 
-            Event = PaginatedList<Event>.Create(events, pageIndex ?? 1, 10);
+            Event = PaginatedList<Event>.Create(events, pageIndex ?? 1, 5);
 
             ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Name");
         }

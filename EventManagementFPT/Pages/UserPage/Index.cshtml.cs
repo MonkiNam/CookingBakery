@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using EventManagementFPT.Model;
 using EventManagementFPT.Modules.UserModule.Interface;
+using EventManagementFPT.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -16,11 +18,12 @@ namespace EventManagementFPT.Pages.UserPage
             _userService = userService;
         }
 
-        public new IList<User> User { get;set; }
+        public PaginatedList<User> User { get;set; }
 
-        public void OnGet()
+        public void OnGet(int? pageIndex)
         {
-            User = (IList<User>) _userService.GetAll();
+            var users = _userService.GetAll().AsQueryable();
+            User = PaginatedList<User>.Create(users, pageIndex ?? 1, 1);
         }
     }
 }
