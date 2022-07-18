@@ -18,11 +18,13 @@
                     <h4 class="font-weight-bold d-flex align-items-center justify-content-center"><ion-icon class="mt-1 mr-1" name="cube-outline"></ion-icon>Post's data</h4>
                     <div class="form-group">
                         <label class="font-weight-bold" for="title">Title of the post</label>
-                        <input asp-for="Event.Name" type="text" class="form-control" id="title" placeholder="An eye-catching title..."/>
+                        <input asp-for="Event.Name" type="text" class="form-control" id="title" placeholder="An eye-catching title..." />
+                        <span asp-validation-for="Event.Name" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label for="content" class="font-weight-bold">Content</label>
                         <textarea asp-for="Event.Description" rows="5" class="form-control" id="content"> </textarea>
+                        <span asp-validation-for="Event.Description" class="text-danger"></span>
                     </div>
                     <label class="font-weight-bold">Cover image</label>
                     <div class="custom-file">
@@ -44,15 +46,18 @@
                     </div>
                     <div class="form-group">
                         <label class="font-weight-bold" for="start-date">Start Date</label>
-                        <input asp-for="Event.StartDate" type="datetime-local" class="form-control" id="start-date"/>
+                        <input asp-for="Event.StartDate" type="datetime-local" class="form-control" id="start-date" />
+                        <span asp-validation-for="Event.StartDate" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label class="font-weight-bold" for="end-date">End Date</label>
-                        <input asp-for="Event.EndDate" type="datetime-local" class="form-control" id="end-date"/>
+                        <input asp-for="Event.EndDate" type="datetime-local" class="form-control" id="end-date" />
+                        <span asp-validation-for="Event.EndDate" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label class="font-weight-bold" for="capacity">Number of attendance</label>
-                        <input asp-for="Event.Capacity" type="number" class="form-control" id="capacity" value="@Model.Event.Capacity"/>
+                        <input asp-for="Event.Capacity" type="number" class="form-control" id="capacity" value="@Model.Event.Capacity" />
+                        <span asp-validation-for="Event.Capacity" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label class="font-weight-bold" for="venue-select">Venue</label>

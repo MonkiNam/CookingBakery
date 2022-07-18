@@ -72,7 +72,7 @@ namespace EventManagementFPT.Modules.EventModule
 
         public ICollection<Event> GetAll()
         {
-            ICollection<Event> events = _eventRepository.GetAll(includeProperties: "Venue");
+            ICollection<Event> events = _eventRepository.GetAll(includeProperties: "Venue,CategoryNavigation");
             if (events != null) return events.ToList();
             return null;
         }

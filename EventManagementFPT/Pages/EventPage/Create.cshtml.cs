@@ -10,6 +10,7 @@ using EventManagementFPT.Utils;
 using Microsoft.AspNetCore.Hosting;
 using System.Security.Claims;
 using EventManagementFPT.Modules.CategoryModule.Interface;
+using EventManagementFPT.Modules.VenueModule.Interface;
 
 namespace EventManagementFPT.Pages.EventPage
 {
@@ -19,14 +20,16 @@ namespace EventManagementFPT.Pages.EventPage
         private readonly IEventService _eventService;
         private readonly IWebHostEnvironment _env;
         private readonly ICategoryService _categoryService;
+        private readonly IVenueService _venueService;
 
         public CreateModel(EventManagementContext context, IEventService eventService,
-            IWebHostEnvironment env, ICategoryService categoryService)
+            IWebHostEnvironment env, ICategoryService categoryService, IVenueService venueService)
         {
             _context = context;
             _eventService = eventService;
             _env = env;
             _categoryService = categoryService;
+            _venueService = venueService;
         }
 
         public IActionResult OnGet()
@@ -35,7 +38,7 @@ namespace EventManagementFPT.Pages.EventPage
             if (role is "Admin" or "Host")
             {
                 ViewData["Category"] = new SelectList(_categoryService.GetCategoriesBy(x => x.Status != false), "CategoryId", "Name");
-                ViewData["Venue"] = new SelectList(_context.Venues, "VenueId", "VenueName");
+                ViewData["Venue"] = new SelectList(_venueService.GetVenuesBy(x => x.Status != false), "VenueId", "VenueName");
                 TempData["success"] = "Page loaded!";
 
                 return Page();
@@ -59,7 +62,7 @@ namespace EventManagementFPT.Pages.EventPage
                 {
                     TempData["error"] = "Invalid data";
                     ViewData["Category"] = new SelectList(_categoryService.GetCategoriesBy(x => x.Status != false), "CategoryId", "Name");
-                    ViewData["Venue"] = new SelectList(_context.Venues, "VenueId", "VenueName");
+                    ViewData["Venue"] = new SelectList(_venueService.GetVenuesBy(x => x.Status != false), "VenueId", "VenueName");
                     return Page();
                 }
                 
@@ -67,7 +70,7 @@ namespace EventManagementFPT.Pages.EventPage
                 {
                     TempData["error"] = "Start date and End date cannot be less than now";
                     ViewData["Category"] = new SelectList(_categoryService.GetCategoriesBy(x => x.Status != false), "CategoryId", "Name");
-                    ViewData["Venue"] = new SelectList(_context.Venues, "VenueId", "VenueName");
+                    ViewData["Venue"] = new SelectList(_venueService.GetVenuesBy(x => x.Status != false), "VenueId", "VenueName");
                     return Page();
                 }
 
@@ -75,7 +78,7 @@ namespace EventManagementFPT.Pages.EventPage
                 {
                     TempData["error"] = "Start date cannot be greater than end date";
                     ViewData["Category"] = new SelectList(_categoryService.GetCategoriesBy(x => x.Status != false), "CategoryId", "Name");
-                    ViewData["Venue"] = new SelectList(_context.Venues, "VenueId", "VenueName");
+                    ViewData["Venue"] = new SelectList(_venueService.GetVenuesBy(x => x.Status != false), "VenueId", "VenueName");
                     return Page();
                 }
 

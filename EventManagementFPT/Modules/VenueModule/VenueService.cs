@@ -3,6 +3,7 @@ using EventManagementFPT.Modules.VenueModule.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace EventManagementFPT.Modules.VenueModule
@@ -18,6 +19,12 @@ namespace EventManagementFPT.Modules.VenueModule
         public ICollection<Venue> GetAll()
         {
             return _venueRepository.GetAll().ToList();
+        }
+        public ICollection<Venue> GetVenuesBy(Expression<Func<Venue, bool>> filter = null,
+           Func<IQueryable<Venue>, ICollection<Venue>> options = null,
+           string includeProperties = null)
+        {
+            return _venueRepository.GetVenuesBy(filter);
         }
         public async Task AddNewVenue(Venue newVenue)
         {

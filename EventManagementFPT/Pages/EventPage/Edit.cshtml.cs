@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using EventManagementFPT.Model;
+using EventManagementFPT.Modules.CategoryModule.Interface;
 using EventManagementFPT.Modules.EventModule.Interface;
+using EventManagementFPT.Modules.VenueModule.Interface;
 using EventManagementFPT.Utils;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -16,12 +18,16 @@ namespace EventManagementFPT.Pages.EventPage
         private readonly EventManagementContext _context;
         private readonly IEventService _eventService;
         private readonly IWebHostEnvironment _env;
+        private readonly ICategoryService _categoryService;
+        private readonly IVenueService _venueService;
 
-        public EditModel(EventManagementContext context, IEventService eventService, IWebHostEnvironment env)
+        public EditModel(EventManagementContext context, IEventService eventService, IWebHostEnvironment env, ICategoryService categoryService, IVenueService venueService)
         {
             _context = context;
             _eventService = eventService;
             _env = env;
+            _categoryService = categoryService;
+            _venueService = venueService;
         }
 
         [BindProperty]
@@ -35,8 +41,8 @@ namespace EventManagementFPT.Pages.EventPage
 
             if (Event == null) return NotFound();
             
-            ViewData["Venue"] = new SelectList(_context.Venues, "VenueId", "VenueName");
-            ViewData["Category"] = new SelectList(_context.Categories, "CategoryId", "Name");
+            ViewData["Venue"] = new SelectList(_venueService.GetVenuesBy(x => x.Status != false), "VenueId", "VenueName");
+            ViewData["Category"] = new SelectList(_categoryService.GetCategoriesBy(x => x.Status != false), "CategoryId", "Name");
             return Page();
         }
 
@@ -46,11 +52,26 @@ namespace EventManagementFPT.Pages.EventPage
         {
             if (!ModelState.IsValid)
             {
-                ViewData["Venue"] = new SelectList(_context.Venues, "VenueId", "VenueName");
-                ViewData["Category"] = new SelectList(_context.Categories, "CategoryId", "Name");
+                ViewData["Venue"] = new SelectList(_venueService.GetVenuesBy(x => x.Status != false), "VenueId", "VenueName");
+                ViewData["Category"] = new SelectList(_categoryService.GetCategoriesBy(x => x.Status != false), "CategoryId", "Name");
                 return Page();
             }
-            if(customFile != null)
+            if (Event.StartDate < (DateTime.Now - TimeSpan.FromMinutes(15)) || Event.EndDate < (DateTime.Now - TimeSpan.FromMinutes(15)))
+            {
+                TempData["error"] = "Start date and End date cannot be less than now";
+                ViewData["Category"] = new SelectList(_categoryService.GetCategoriesBy(x => x.Status != false), "CategoryId", "Name");
+                ViewData["Venue"] = new SelectList(_venueService.GetVenuesBy(x => x.Status != false), "VenueId", "VenueName");
+                return Page();
+            }
+
+            if (DateTime.Compare(Event.StartDate, Event.EndDate) >= 0)
+            {
+                TempData["error"] = "Start date cannot be greater than end date";
+                ViewData["Category"] = new SelectList(_categoryService.GetCategoriesBy(x => x.Status != false), "CategoryId", "Name");
+                ViewData["Venue"] = new SelectList(_venueService.GetVenuesBy(x => x.Status != false), "VenueId", "VenueName");
+                return Page();
+            }
+            if (customFile != null)
             {
                 string NewImageUrl = await UploadImage.UploadFile(customFile, _env);
                 Event.ImageUrl = NewImageUrl;
