@@ -1,4 +1,5 @@
 ﻿@page
+@using EventManagementFPT.Model
 @model EventManagementFPT.Pages.ReportPage.IndexModel
 
 @{
@@ -18,6 +19,9 @@
                 @Html.DisplayNameFor(model => model.Report[0].Content)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Report[0].Status)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Report[0].CreateDate)
             </th>
             <th></th>
@@ -32,6 +36,28 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Content)
+                </td>
+                <td>
+                    @{
+                        switch (item.Status)
+                        {
+                            case ReportEnum.Unprocess:
+                                <span class="d-flex align-items-center">
+                                    <ion-icon name="ellipse" style="font-size: 16px; color: red;"> </ion-icon> @Html.DisplayFor(modelItem => item.Status)
+                                </span>
+                                break;
+                            case ReportEnum.Processing:
+                                <span class="d-flex align-items-center">
+                                    <ion-icon name="ellipse" style="font-size: 16px; color: yellow;"> </ion-icon> @Html.DisplayFor(modelItem => item.Status)
+                                </span>
+                                break;
+                            case ReportEnum.Processed:
+                                <span class="d-flex align-items-center">
+                                    <ion-icon name="ellipse" style="font-size: 16px; color: lawngreen;"> </ion-icon> @Html.DisplayFor(modelItem => item.Status)
+                                </span>
+                                break;
+                        }
+                    }
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CreateDate)
