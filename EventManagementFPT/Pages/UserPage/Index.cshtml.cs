@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using EventManagementFPT.Model;
 using EventManagementFPT.Modules.UserModule.Interface;
 using EventManagementFPT.Utils;
@@ -23,7 +22,7 @@ namespace EventManagementFPT.Pages.UserPage
         public void OnGet(int? pageIndex)
         {
             var users = _userService.GetAll().AsQueryable();
-            User = PaginatedList<User>.Create(users, pageIndex ?? 1, 1);
+            User = PaginatedList<User>.Create(users, pageIndex ?? 1, 10);
         }
     }
 }
