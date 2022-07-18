@@ -15,11 +15,7 @@
                     <h2 class="mb-0">@Model.Event.Name</h2>
                     <div class="btn-group" role="group" aria-label="Basic example">
                         <a href="#" class="btn btn-primary d-flex align-items-center">
-                            <ion-icon
-                                name="heart"
-                                style="font-size: 16px"
-                                class="mr-1">
-                            </ion-icon>
+                            <ion-icon name="heart" style="font-size: 16px" class="mr-1"></ion-icon>
                             Like
                         </a>
                         <button class="btn border">@Model.EventLike</button>
@@ -66,7 +62,6 @@
 
                     if (uid != null && Model.Event.CanComment)
                     {   
-                        <hr/>
                         <h3 class="text-center mb-3">Event Discussion</h3>
                         <form class="mb-2">
                             <input type="hidden" id="uid" value="@uid">
@@ -92,6 +87,8 @@
                 <div id="commentSection">
                     @if (Model.Event.Comments.Any())
                     {
+                        <hr/>
+
                         var comments = Model.Event.Comments.OrderBy(o => o.CreateDate);
                         
                         @foreach (var comment in comments)
