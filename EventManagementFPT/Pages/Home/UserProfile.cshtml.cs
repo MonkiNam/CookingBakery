@@ -38,6 +38,7 @@ namespace EventManagementFPT.Pages.Home
                 user.Avatar = url;
             }
             await _userService.UpdateUser(user);
+            TempData["success"] = "Profile has been updated successfully";
             return Page();
         }
     }

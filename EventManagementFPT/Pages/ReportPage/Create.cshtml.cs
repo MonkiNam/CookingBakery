@@ -51,10 +51,12 @@ namespace EventManagementFPT.Pages.ReportPage
                 }
 
                 await _reportService.AddNewReport(Report);
+                TempData["success"] = "A report has been created!";
 
                 return RedirectToPage("/Home/Details", new { id = eventId });
             }
 
+            TempData["error"] = "You are not allowed to perform this function";
             return RedirectToPage("/Index");
         }
     }
