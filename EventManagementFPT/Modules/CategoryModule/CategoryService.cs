@@ -3,6 +3,7 @@ using EventManagementFPT.Modules.CategoryModule.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace EventManagementFPT.Modules.CategoryModule
@@ -18,6 +19,12 @@ namespace EventManagementFPT.Modules.CategoryModule
         public ICollection<Category> GetAll()
         {
             return _categoryRepository.GetAll().ToList();
+        }
+        public ICollection<Category> GetCategoriesBy(Expression<Func<Category, bool>> filter = null,
+            Func<IQueryable<Category>, ICollection<Category>> options = null,
+            string includeProperties = null)
+        {
+            return _categoryRepository.GetCategoriesBy(filter);
         }
         public async Task AddNewCategory(Category newCategory)
         {

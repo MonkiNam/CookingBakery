@@ -32,7 +32,7 @@
                 @Html.DisplayNameFor(model => model.Event[0].EndDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Event[0].VenueId)
+                @Html.DisplayNameFor(model => model.Event[0].Venue.VenueName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Event[0].Status)
@@ -71,7 +71,7 @@
                         @Html.DisplayFor(modelItem => item.EndDate)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.VenueId)
+                        @Html.DisplayFor(modelItem => item.Venue.VenueName)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Status)

@@ -23,7 +23,7 @@ namespace EventManagementFPT.Model
         public string Name { get; set; }
         
         [Required]
-        public bool? Status { get; set; }
+        public bool Status { get; set; }
 
         public virtual ICollection<Event> TblEvents { get; set; }
     }
