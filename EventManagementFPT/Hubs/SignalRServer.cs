@@ -23,7 +23,7 @@ namespace EventManagementFPT.Hubs
             _userService = userService;
         }
 
-        public async Task SendComment(string eventId, string content)
+        public async Task SendComment(string eventId, string content, bool isParent, string parentId)
         {
             var _event = await _eventService.GetEventByID(Guid.Parse(eventId));
 
@@ -41,13 +41,15 @@ namespace EventManagementFPT.Hubs
                 Content = content,
                 UserId = uid,
                 CreateDate = DateTime.Now,
-                IsParent = true,
+                IsParent = isParent,
+                ParentId = parentId == "" ? null :Guid.Parse(parentId),
                 Status = true,
             });
             
             var user = _userService.GetUserByUserID(uid);
 
             comment.Event = null;
+            comment.Parent = null;
             comment.User.Comments = null;
             comment.User.Reports = null;
             comment.User.UserEvents = null;

@@ -91,9 +91,11 @@
 
                         var comments = Model.Event.Comments.OrderBy(o => o.CreateDate);
                         
-                        @foreach (var comment in comments)
+                        @foreach (var comment in comments.Where(o => o.IsParent))
                         {
-                            <div class="media comment pb-3">
+                            var commentId = comment.CommentId;
+                            
+                            <div class="media comment pb-3 @commentId">
                                 <img src="@comment.User.Avatar"
                                     onerror="this.onerror=null;this.src = '../image/default.png'"
                                     width="38" height="38" class="mr-2 rounded-circle border"/>
@@ -101,18 +103,75 @@
                                     <h5 class="mt-0">@comment.User.Name</h5>
                                     <p class="mb-0">@comment.Content</p>
                                     <small class="form-text text-muted d-flex" style="gap: 15px">
-                                        @{
-                                            var commentId = comment.CommentId;
-                                        }
-                                        <span class="@commentId"></span>
+                                        <span>
+                                            <button id="btnReply-@commentId" style="background: transparent; border: none; padding: 0; font-weight: 600;">
+                                                Reply
+                                            </button>
+                                        </span>
+                                        <span class="createDate-@commentId"></span>
                                         <script>
-                                            $(".@Html.Raw(commentId)").html(
+                                            $(".createDate-@Html.Raw(commentId)").html(
                                                 `<p>${moment("@Html.Raw(comment.CreateDate)").fromNow()}</p>`
                                             );
                                         </script>
                                     </small>
+                                    <div id="replySection-@commentId"></div>
+                                    <div id="reply-@commentId" class="replyFrom"></div>
+                                    <script>
+                                        $("#btnReply-@commentId").click(function()
+                                        {
+                                            let listReplyField = document.querySelectorAll("[id^='reply-']");
+                                            
+                                            for (let i = 0; i < listReplyField.length; i++)
+                                            {
+                                                listReplyField[i].replaceChildren();
+                                            }
+                                            
+                                            $(`#reply-@commentId`).append(`
+                                                <form class="mb-2">
+                                                    <input type="hidden" id="parentId" value="@commentId">
+                                                    <div class="media">
+                                                        <img src="@avt" onerror="this.onerror=null;this.src = '../image/default.png'"
+                                                             width="38" height="38" alt="avatar" class="mr-2 rounded-circle border"/>
+                                                        <div class="media-body">
+                                                            <input id="replyContent" type="text" 
+                                                                   class="form-control rounded-pill" 
+                                                                   placeholder="Write a comment..."/>
+                                                        </div>
+                                                        <button id="btnReplyComment" type="button" class="btn pl-2">
+                                                            <ion-icon name="send-outline"></ion-icon>
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            `);
+                                            
+                                            $("#replyContent").focus();
+                                        });
+                                    </script>
                                 </div>
                             </div>
+                        }
+                        
+                        @foreach (var comment in comments.Where(o => !o.IsParent))
+                        {
+                            <script>
+                                $(`#replySection-@comment.ParentId`).append(`
+                                    <div class="media comment pb-3 @comment.CommentId">
+                                        <img src="@comment.User.Avatar"
+                                            onerror="this.onerror=null;this.src = '../image/default.png'"
+                                            width="38" height="38" class="mr-2 rounded-circle border"/>
+                                        <div class="media-body comment-body ml-1">
+                                            <h5 class="mt-0">@comment.User.Name</h5>
+                                            <p class="mb-0">@comment.Content</p>
+                                            <small class="form-text text-muted d-flex" style="gap: 15px">
+                                                <span class="createDate-@comment.CommentId"> 
+                                                    ${moment("@comment.CreateDate").fromNow()} 
+                                                </span>
+                                            </small>
+                                        </div>
+                                    </div>
+                                `);
+                            </script>
                         }
                     }
                 </div>
@@ -313,7 +372,7 @@
     
     eventId = "@Html.Raw(Model.Event.EventId)";
     
-    $(async () => {
+    $(() => {
         let connection = new signalR.HubConnectionBuilder().withUrl("/signalRServer").build();
         connection
             .start()
@@ -329,7 +388,7 @@
             let div = '';
             
             div += `
-                <div class="media comment pb-3">
+                <div class="media comment pb-3 ${comment.commentId}">
                     <img src="${comment.user.avatar}"
                         onerror="this.onerror=null;this.src = '../image/default.png'"
                         width="38" height="38" class="mr-2 rounded-circle border"/>
@@ -337,13 +396,17 @@
                         <h5 class="mt-0">${comment.user.name}</h5>
                         <p class="mb-0">${comment.content}</p>
                         <small class="form-text text-muted d-flex" style="gap: 15px">
-                            <span> ${moment(comment.createdDate).fromNow()} </span>
+                            <span class="createDate-${comment.commentId}"> ${moment(comment.createdDate).fromNow()} </span>
                         </small>
                     </div>
                 </div>
             `;
-            
-            $("#commentSection").append(div);
+                
+            if (comment.isParent) {
+                $("#commentSection").append(div);    
+            } else {
+                $(`#replySection-${comment.parentId}`).append(div);    
+            }
         });
         
         connection.onclose(() => {
@@ -353,23 +416,33 @@
                 .catch(err => console.log(err));
         });
         
-        $("#btnSendComment").click(function  () {
+        $("#btnSendComment").click(function() {
             let comment = $("#commentContent")
-            let content = comment.val();
+            let content = comment.val().trim();
             if (content.length > 0) {
-                connection.invoke("SendComment", eventId, content).catch(err => console.log(err));
+                connection.invoke("SendComment", eventId, content, true, '').catch(err => console.log(err));
                 comment.val('');
             }
         });
+        
         $('#commentContent').keydown(function(e) {
-            console.log(e.keyCode);
-            if (e.which == 10 || e.which == 13) {
+            if (e.which === 10 || e.which === 13) {
                 let comment = $("#commentContent")
-                let content = comment.val();
+                let content = comment.val().trim();
                 if (content.length > 0) {
-                    connection.invoke("SendComment", eventId, content).catch(err => console.log(err));
+                    connection.invoke("SendComment", eventId, content, true, '').catch(err => console.log(err));
                     comment.val('');
                 }
+            }
+        });
+        
+        $(".replyFrom").on('click', "#btnReplyComment", function() {
+            let comment = $("#replyContent")
+            let content = comment.val().trim();
+            let commentId = $("#parentId").val();
+            if (content.length > 0) {
+                connection.invoke("SendComment", eventId, content, false, commentId).catch(err => console.log(err));
+                comment.val('');
             }
         });
     });
