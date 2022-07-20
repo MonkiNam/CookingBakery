@@ -30,7 +30,7 @@ namespace EventManagementFPT.Model
         
         public bool? Status { get; set; }
         
-        public bool? IsParent { get; set; }
+        public bool IsParent { get; set; }
         
         public Guid? ParentId { get; set; }
         
