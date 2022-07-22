@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using EventManagementFPT.Model;
 using EventManagementFPT.Modules.VenueModule.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace EventManagementFPT.Pages.VenuePage
 {
+    [Authorize(Roles = "Admin")]
     public class IndexModel : PageModel
     {
         private readonly IVenueService _venueService;
