@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using EventManagementFPT.Model;
 using EventManagementFPT.Modules.EventModule.Interface;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EventManagementFPT.Pages.EventPage
 {
+    [Authorize(Roles="Admin, Host")]
     public class DetailsModel : PageModel
     {
         private readonly IEventService _eventService;

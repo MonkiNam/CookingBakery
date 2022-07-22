@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using EventManagementFPT.Model;
 using EventManagementFPT.Modules.ReportModule.Interface;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EventManagementFPT.Pages.ReportPage
 {
+    [Authorize(Roles = "Admin")]
     public class EditModel : PageModel
     {
         private readonly IReportService _reportService;

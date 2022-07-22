@@ -6,9 +6,11 @@ using EventManagementFPT.Model;
 using EventManagementFPT.Modules.ReportModule.Interface;
 using System.Security.Claims;
 using EventManagementFPT.Modules.UserModule.Interface;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EventManagementFPT.Pages.ReportPage
 {
+    [Authorize(Roles = "Admin")]
     public class CreateModel : PageModel
     {
         private readonly IReportService _reportService;

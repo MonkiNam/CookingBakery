@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using EventManagementFPT.Model;
 using EventManagementFPT.Modules.VenueModule.Interface;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EventManagementFPT.Pages.VenuePage
 {
+    [Authorize(Roles = "Admin")]
     public class DetailsModel : PageModel
     {
         private readonly IVenueService _venueService;

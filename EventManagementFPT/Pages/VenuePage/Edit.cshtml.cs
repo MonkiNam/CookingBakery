@@ -2,11 +2,13 @@
 using System.Threading.Tasks;
 using EventManagementFPT.Model;
 using EventManagementFPT.Modules.VenueModule.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace EventManagementFPT.Pages.VenuePage
 {
+    [Authorize(Roles = "Admin")]
     public class EditModel : PageModel
     {
         private readonly EventManagementContext _context;

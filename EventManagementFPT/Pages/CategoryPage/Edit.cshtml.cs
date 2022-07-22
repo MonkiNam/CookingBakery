@@ -3,11 +3,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using EventManagementFPT.Model;
 using EventManagementFPT.Modules.CategoryModule.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace EventManagementFPT.Pages.CategoryPage
 {
+    [Authorize(Roles="Admin")]
     public class EditModel : PageModel
     {
         private readonly EventManagementContext _context;

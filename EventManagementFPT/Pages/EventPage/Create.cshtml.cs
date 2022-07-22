@@ -11,21 +11,21 @@ using Microsoft.AspNetCore.Hosting;
 using System.Security.Claims;
 using EventManagementFPT.Modules.CategoryModule.Interface;
 using EventManagementFPT.Modules.VenueModule.Interface;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EventManagementFPT.Pages.EventPage
 {
+    [Authorize(Roles="Admin, Host")]
     public class CreateModel : PageModel
     {
-        private readonly EventManagementContext _context;
         private readonly IEventService _eventService;
         private readonly IWebHostEnvironment _env;
         private readonly ICategoryService _categoryService;
         private readonly IVenueService _venueService;
 
-        public CreateModel(EventManagementContext context, IEventService eventService,
+        public CreateModel(IEventService eventService,
             IWebHostEnvironment env, ICategoryService categoryService, IVenueService venueService)
         {
-            _context = context;
             _eventService = eventService;
             _env = env;
             _categoryService = categoryService;

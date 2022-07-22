@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using EventManagementFPT.Model;
 using EventManagementFPT.Modules.CategoryModule.Interface;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EventManagementFPT.Pages.CategoryPage
 {
+    [Authorize(Roles="Admin")]
     public class DetailsModel : PageModel
     {
         private readonly ICategoryService _categoryService;

@@ -1,23 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using System.Threading.Tasks;
 using EventManagementFPT.Model;
 using EventManagementFPT.Modules.CategoryModule.Interface;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace EventManagementFPT.Pages.CategoryPage
 {
+    [Authorize(Roles="Admin")]
     public class CreateModel : PageModel
     {
-        private readonly EventManagementFPT.Model.EventManagementContext _context;
         private readonly ICategoryService _categoryService;
 
-        public CreateModel(EventManagementFPT.Model.EventManagementContext context, ICategoryService categoryService)
+        public CreateModel(ICategoryService categoryService)
         {
-            _context = context;
             _categoryService = categoryService;
         }
 
