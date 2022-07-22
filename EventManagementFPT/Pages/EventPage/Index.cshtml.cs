@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using EventManagementFPT.Model;
 using EventManagementFPT.Modules.EventModule.Interface;
 using EventManagementFPT.Utils;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EventManagementFPT.Pages.EventPage
 {
+    [Authorize(Roles="Admin, Host")]
     public class IndexModel : PageModel
     {
         private readonly IEventService _eventService;
