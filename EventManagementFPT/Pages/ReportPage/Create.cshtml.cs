@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace EventManagementFPT.Pages.ReportPage
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "User, Host")]
     public class CreateModel : PageModel
     {
         private readonly IReportService _reportService;
@@ -20,11 +20,6 @@ namespace EventManagementFPT.Pages.ReportPage
         {
             _reportService = reportService;
             _userService = userService;
-        }
-
-        public IActionResult OnGet()
-        {
-            return Page();
         }
 
         [BindProperty]
