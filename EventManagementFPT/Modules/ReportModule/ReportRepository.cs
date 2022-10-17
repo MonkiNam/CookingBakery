@@ -1,8 +1,8 @@
-﻿using EventManagementFPT.Model;
-using EventManagementFPT.Modules.ReportModule.Interface;
-using EventManagementFPT.Utils.Repository;
+﻿using CookingBakery.Model;
+using CookingBakery.Modules.ReportModule.Interface;
+using CookingBakery.Utils.Repository;
 
-namespace EventManagementFPT.Modules.ReportModule
+namespace CookingBakery.Modules.ReportModule
 {
     public class ReportRepository : Repository<Report>, IReportRepository
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EventManagementFPT.Modules.EventLikeModule.Interface
+namespace CookingBakery.Modules.EventLikeModule.Interface
 {
     public interface IEventLikeService
     {

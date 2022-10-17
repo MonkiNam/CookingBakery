@@ -1,5 +1,5 @@
-using EventManagementFPT.Model;
-using EventManagementFPT.Modules.UserModule.Interface;
+using CookingBakery.Model;
+using CookingBakery.Modules.UserModule.Interface;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +8,7 @@ using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace EventManagementFPT.Pages.Home
+namespace CookingBakery.Pages.Home
 {
     public class UserProfileModel : PageModel
     {

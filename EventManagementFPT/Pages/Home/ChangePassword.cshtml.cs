@@ -1,10 +1,10 @@
-using EventManagementFPT.Modules.UserModule;
-using EventManagementFPT.Modules.UserModule.Interface;
+using CookingBakery.Modules.UserModule;
+using CookingBakery.Modules.UserModule.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Threading.Tasks;
 
-namespace EventManagementFPT.Pages.Home
+namespace CookingBakery.Pages.Home
 {
     public class ChangePasswordModel : PageModel
     {

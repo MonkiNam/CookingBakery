@@ -1,13 +1,13 @@
-﻿using EventManagementFPT.Model;
-using EventManagementFPT.Modules.EventLikeModule.Interface;
-using EventManagementFPT.Modules.UserModule.Interface;
+﻿using CookingBakery.Model;
+using CookingBakery.Modules.EventLikeModule.Interface;
+using CookingBakery.Modules.UserModule.Interface;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EventManagementFPT.Modules.UserModule
+namespace CookingBakery.Modules.UserModule
 {
     public class UserService : IUserService
     {

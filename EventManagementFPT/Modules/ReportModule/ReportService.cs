@@ -1,11 +1,11 @@
-﻿using EventManagementFPT.Model;
-using EventManagementFPT.Modules.ReportModule.Interface;
+﻿using CookingBakery.Model;
+using CookingBakery.Modules.ReportModule.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EventManagementFPT.Modules.ReportModule
+namespace CookingBakery.Modules.ReportModule
 {
     public class ReportService : IReportService
     {

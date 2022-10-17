@@ -1,9 +1,9 @@
 ﻿using System.Linq;
-using EventManagementFPT.Model;
-using EventManagementFPT.Modules.UserModule.Interface;
-using EventManagementFPT.Utils.Repository;
+using CookingBakery.Model;
+using CookingBakery.Modules.UserModule.Interface;
+using CookingBakery.Utils.Repository;
 
-namespace EventManagementFPT.Modules.UserModule
+namespace CookingBakery.Modules.UserModule
 {
     public class UserRepository : Repository<User>, IUserRepository
     {

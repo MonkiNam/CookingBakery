@@ -2,11 +2,11 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using EventManagementFPT.Model;
-using EventManagementFPT.Modules.VenueModule.Interface;
+using CookingBakery.Model;
+using CookingBakery.Modules.VenueModule.Interface;
 using Microsoft.AspNetCore.Authorization;
 
-namespace EventManagementFPT.Pages.VenuePage
+namespace CookingBakery.Pages.VenuePage
 {
     [Authorize(Roles = "Admin")]
     public class DeleteModel : PageModel

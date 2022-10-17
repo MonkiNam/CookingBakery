@@ -1,10 +1,10 @@
-﻿using EventManagementFPT.Modules.EventLikeModule.Interface;
+﻿using CookingBakery.Modules.EventLikeModule.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EventManagementFPT.Modules.EventLikeModule
+namespace CookingBakery.Modules.EventLikeModule
 {
     public class EventLikeService : IEventLikeService
     {

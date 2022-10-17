@@ -1,9 +1,9 @@
-﻿using EventManagementFPT.Model;
+﻿using CookingBakery.Model;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace EventManagementFPT.Modules.UserEventModule.Interface
+namespace CookingBakery.Modules.UserEventModule.Interface
 {
     public interface IUserEventService
     {

@@ -4,7 +4,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EventManagementFPT.Model
+namespace CookingBakery.Model
 {
     [Table("tblEventLike")]
     public partial class EventLike

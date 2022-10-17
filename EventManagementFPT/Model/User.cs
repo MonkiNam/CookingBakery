@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EventManagementFPT.Model
+namespace CookingBakery.Model
 {
     [Table("tblUser")]
     public partial class User

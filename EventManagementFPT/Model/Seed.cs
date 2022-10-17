@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EventManagementFPT.Model
+namespace CookingBakery.Model
 {
     public class Seed
     {

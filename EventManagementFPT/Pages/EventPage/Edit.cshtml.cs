@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
-using EventManagementFPT.Model;
-using EventManagementFPT.Modules.CategoryModule.Interface;
-using EventManagementFPT.Modules.EventModule.Interface;
-using EventManagementFPT.Modules.VenueModule.Interface;
-using EventManagementFPT.Utils;
+using CookingBakery.Model;
+using CookingBakery.Modules.CategoryModule.Interface;
+using CookingBakery.Modules.EventModule.Interface;
+using CookingBakery.Modules.VenueModule.Interface;
+using CookingBakery.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace EventManagementFPT.Pages.EventPage
+namespace CookingBakery.Pages.EventPage
 {
     [Authorize(Roles="Admin, Host")]
     public class EditModel : PageModel

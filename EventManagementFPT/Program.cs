@@ -1,11 +1,11 @@
 using System;
-using EventManagementFPT.Model;
+using CookingBakery.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace EventManagementFPT
+namespace CookingBakery
 {
     public class Program
     {
@@ -19,8 +19,7 @@ namespace EventManagementFPT
 
                 try
                 {
-                    var context = services.GetRequiredService<EventManagementContext>();
-                    Seed.SeedData(context).Wait();
+                    var context = services.GetRequiredService<CookingBakeryContext>();
                 }
                 catch (Exception e)
                 {
@@ -28,7 +27,7 @@ namespace EventManagementFPT
                     logger.LogError(e, "An error occured during migration");
                 }
             }
-            
+
             host.Run();
         }
 

@@ -2,13 +2,13 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using EventManagementFPT.Model;
-using EventManagementFPT.Modules.ReportModule.Interface;
+using CookingBakery.Model;
+using CookingBakery.Modules.ReportModule.Interface;
 using System.Security.Claims;
-using EventManagementFPT.Modules.UserModule.Interface;
+using CookingBakery.Modules.UserModule.Interface;
 using Microsoft.AspNetCore.Authorization;
 
-namespace EventManagementFPT.Pages.ReportPage
+namespace CookingBakery.Pages.ReportPage
 {
     [Authorize(Roles = "User, Host")]
     public class CreateModel : PageModel

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace EventManagementFPT.Pages
+namespace CookingBakery.Pages
 {
     public class DeniedModel : PageModel
     {

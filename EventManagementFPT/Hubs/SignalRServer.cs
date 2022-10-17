@@ -2,13 +2,13 @@
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using EventManagementFPT.Model;
-using EventManagementFPT.Modules.CommentModule.Interface;
-using EventManagementFPT.Modules.EventModule.Interface;
-using EventManagementFPT.Modules.UserModule.Interface;
+using CookingBakery.Model;
+using CookingBakery.Modules.CommentModule.Interface;
+using CookingBakery.Modules.EventModule.Interface;
+using CookingBakery.Modules.UserModule.Interface;
 using Microsoft.AspNetCore.SignalR;
 
-namespace EventManagementFPT.Hubs
+namespace CookingBakery.Hubs
 {
     public class SignalRServer : Hub
     {

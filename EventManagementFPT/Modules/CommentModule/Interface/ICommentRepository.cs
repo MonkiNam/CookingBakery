@@ -1,10 +1,10 @@
-﻿using EventManagementFPT.Model;
-using EventManagementFPT.Utils.Repository.Interface;
+﻿using CookingBakery.Model;
+using CookingBakery.Utils.BakeryRepository.Interface;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace EventManagementFPT.Modules.CommentModule.Interface
+namespace CookingBakery.Modules.CommentModule.Interface
 {
     public interface ICommentRepository : IRepository<Comment>
     {

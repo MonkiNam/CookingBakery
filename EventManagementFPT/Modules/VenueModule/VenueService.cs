@@ -1,12 +1,12 @@
-﻿using EventManagementFPT.Model;
-using EventManagementFPT.Modules.VenueModule.Interface;
+﻿using CookingBakery.Model;
+using CookingBakery.Modules.VenueModule.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace EventManagementFPT.Modules.VenueModule
+namespace CookingBakery.Modules.VenueModule
 {
     public class VenueService : IVenueService
     {

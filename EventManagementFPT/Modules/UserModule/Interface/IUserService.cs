@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EventManagementFPT.Model;
+using CookingBakery.Model;
 
-namespace EventManagementFPT.Modules.UserModule.Interface
+namespace CookingBakery.Modules.UserModule.Interface
 {
     public interface IUserService
     {

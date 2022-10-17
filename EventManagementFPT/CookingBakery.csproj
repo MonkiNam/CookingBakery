@@ -1,0 +1,54 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="BakeryModules\CategoryModule\CategoryRepository.cs" />
+    <Content Include="BakeryModules\CategoryModule\CategoryService.cs" />
+    <Content Include="BakeryModules\CategoryModule\Interface\ICategoryRepository.cs" />
+    <Content Include="BakeryModules\CategoryModule\Interface\ICategoryService.cs" />
+    <Content Include="BakeryModules\CommentModule\CommentRepository.cs" />
+    <Content Include="BakeryModules\CommentModule\CommentService.cs" />
+    <Content Include="BakeryModules\CommentModule\Interface\ICommentRepository.cs" />
+    <Content Include="BakeryModules\CommentModule\Interface\ICommentService.cs" />
+    <Content Include="BakeryModules\PostDetailModule\Interface\IPostDetailRepository.cs" />
+    <Content Include="BakeryModules\PostDetailModule\Interface\IPostDetailService.cs" />
+    <Content Include="BakeryModules\PostDetailModule\PostDetailRepository.cs" />
+    <Content Include="BakeryModules\PostDetailModule\PostDetailService.cs" />
+    <Content Include="BakeryModules\PostModule\Interface\IPostRepository.cs" />
+    <Content Include="BakeryModules\PostModule\Interface\IPostService.cs" />
+    <Content Include="BakeryModules\PostModule\PostRepository.cs" />
+    <Content Include="BakeryModules\PostModule\PostService.cs" />
+    <Content Include="BakeryModules\PostReactionModule\Interface\IPostReactionRepository.cs" />
+    <Content Include="BakeryModules\PostReactionModule\Interface\IPostReactionService.cs" />
+    <Content Include="BakeryModules\PostReactionModule\PostReactionRepository.cs" />
+    <Content Include="BakeryModules\PostReactionModule\PostReactionService.cs" />
+    <Content Include="BakeryModules\ProductModule\Interface\IProductRepository.cs" />
+    <Content Include="BakeryModules\ProductModule\Interface\IProductService.cs" />
+    <Content Include="BakeryModules\ProductModule\ProductRepository.cs" />
+    <Content Include="BakeryModules\ProductModule\ProductService.cs" />
+    <Content Include="BakeryModules\UserModule\Interface\IUserRepository.cs" />
+    <Content Include="BakeryModules\UserModule\Interface\IUserService.cs" />
+    <Content Include="BakeryModules\UserModule\UserRepository.cs" />
+    <Content Include="BakeryModules\UserModule\UserService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.17" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.17">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.17" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.17">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+    <PackageReference Include="X.PagedList" Version="8.4.3" />
+  </ItemGroup>
+
+</Project>
