@@ -1,11 +1,11 @@
 ﻿using System;
-using EventManagementFPT.Model;
-using EventManagementFPT.Modules.UserModule.Interface;
+using CookingBakery.Model;
+using CookingBakery.Modules.UserModule.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace EventManagementFPT.Pages.UserPage
+namespace CookingBakery.Pages.UserPage
 {
     [Authorize(Roles = "Admin")]
     public class DetailsModel : PageModel

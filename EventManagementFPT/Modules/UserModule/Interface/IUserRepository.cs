@@ -1,7 +1,7 @@
-﻿using EventManagementFPT.Model;
-using EventManagementFPT.Utils.Repository.Interface;
+﻿using CookingBakery.Model;
+using CookingBakery.Utils.Repository.Interface;
 
-namespace EventManagementFPT.Modules.UserModule.Interface
+namespace CookingBakery.Modules.UserModule.Interface
 {
     public interface IUserRepository : IRepository<User>
     {

@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using EventManagementFPT.Model;
-using EventManagementFPT.Modules.EventModule.Interface;
-using EventManagementFPT.Utils.Repository;
+using CookingBakery.Model;
+using CookingBakery.Modules.EventModule.Interface;
+using CookingBakery.Utils.Repository;
 using Microsoft.EntityFrameworkCore;
 
-namespace EventManagementFPT.Modules.EventModule
+namespace CookingBakery.Modules.EventModule
 {
     public class EventRepository : Repository<Event>, IEventRepository
     {

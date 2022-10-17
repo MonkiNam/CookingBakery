@@ -1,5 +1,5 @@
-using EventManagementFPT.Model;
-using EventManagementFPT.Modules.UserModule.Interface;
+using CookingBakery.BakeryModules.UserModule.Interface;
+using CookingBakery.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +12,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace EventManagementFPT.Pages.Authentication
+namespace CookingBakery.Pages.Authentication
 {
     [BindProperties]
     public class IndexModel : PageModel
@@ -65,7 +65,7 @@ namespace EventManagementFPT.Pages.Authentication
                     //}
                     //check user
                     var User = await _userService.Authenticate(email, password);
-                    if(User != null)
+                    if (User != null)
                     {
                         var claims = new List<Claim>
                         {
@@ -103,7 +103,7 @@ namespace EventManagementFPT.Pages.Authentication
                 {
                     bool isExist = _userService.isExist(emailData);
                     //create user if not exist
-                    if(!isExist)
+                    if (!isExist)
                     {
                         var nameData = jsonToken.Claims.First(claim => claim.Type == "name").Value;
                         var avatarData = jsonToken.Claims.First(claim => claim.Type == "picture").Value;

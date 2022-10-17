@@ -1,8 +1,8 @@
-﻿using EventManagementFPT.Model;
+﻿using CookingBakery.Model;
 using System;
 using System.Threading.Tasks;
 
-namespace EventManagementFPT.Modules.CommentModule.Interface
+namespace CookingBakery.Modules.CommentModule.Interface
 {
     public interface ICommentService
     {

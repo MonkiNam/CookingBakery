@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using EventManagementFPT.Model;
-using EventManagementFPT.Utils.Repository.Interface;
-using Microsoft.AspNetCore.Mvc;
+using CookingBakery.Model;
+using CookingBakery.Utils.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 
-namespace EventManagementFPT.Utils.Repository
+namespace CookingBakery.Utils.Repository
 {
     public class Repository<T> : IRepository<T> where T : class
     {

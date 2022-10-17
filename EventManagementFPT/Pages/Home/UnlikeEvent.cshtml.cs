@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Security.Claims;
-using EventManagementFPT.Modules.UserModule.Interface;
+using CookingBakery.Modules.UserModule.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace EventManagementFPT.Pages.Home
+namespace CookingBakery.Pages.Home
 {
     public class UnlikeEvent : PageModel
     {

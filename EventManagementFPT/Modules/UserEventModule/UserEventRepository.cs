@@ -1,6 +1,6 @@
-﻿using EventManagementFPT.Model;
-using EventManagementFPT.Modules.UserEventModule.Interface;
-using EventManagementFPT.Utils.Repository;
+﻿using CookingBakery.Model;
+using CookingBakery.Modules.UserEventModule.Interface;
+using CookingBakery.Utils.Repository;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace EventManagementFPT.Modules.UserEventModule
+namespace CookingBakery.Modules.UserEventModule
 {
     public class UserEventRepository : Repository<UserEvent>, IUserEventRepository
     {

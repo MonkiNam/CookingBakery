@@ -1,6 +1,6 @@
-﻿using EventManagementFPT.Model;
-using EventManagementFPT.Modules.VenueModule.Interface;
-using EventManagementFPT.Utils.Repository;
+﻿using CookingBakery.Model;
+using CookingBakery.Modules.VenueModule.Interface;
+using CookingBakery.Utils.Repository;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace EventManagementFPT.Modules.VenueModule
+namespace CookingBakery.Modules.VenueModule
 {
     public class VenueRepository : Repository<Venue>, IVenueRepository
     {

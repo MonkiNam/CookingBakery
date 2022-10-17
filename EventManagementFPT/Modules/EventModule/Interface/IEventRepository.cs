@@ -1,11 +1,11 @@
-﻿using EventManagementFPT.Utils.Repository.Interface;
+﻿using CookingBakery.Utils.Repository.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using EventManagementFPT.Model;
+using CookingBakery.Model;
 
-namespace EventManagementFPT.Modules.EventModule.Interface
+namespace CookingBakery.Modules.EventModule.Interface
 {
     public interface IEventRepository : IRepository<Event>
     {

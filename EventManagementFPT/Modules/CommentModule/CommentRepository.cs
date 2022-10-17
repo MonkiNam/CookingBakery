@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EventManagementFPT.Model;
-using EventManagementFPT.Modules.CommentModule.Interface;
-using EventManagementFPT.Utils.Repository;
+using CookingBakery.Model;
+using CookingBakery.Modules.CommentModule.Interface;
+using CookingBakery.Utils.Repository;
 using Microsoft.EntityFrameworkCore;
 
-namespace EventManagementFPT.Modules.CommentModule
+namespace CookingBakery.Modules.CommentModule
 {
     public class CommentRepository : Repository<Comment>, ICommentRepository
     {

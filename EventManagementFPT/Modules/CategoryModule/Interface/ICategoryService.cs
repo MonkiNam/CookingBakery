@@ -1,11 +1,11 @@
-﻿using EventManagementFPT.Model;
+﻿using CookingBakery.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace EventManagementFPT.Modules.CategoryModule.Interface
+namespace CookingBakery.Modules.CategoryModule.Interface
 {
     public interface ICategoryService
     {

@@ -4,7 +4,7 @@ using System.IO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
-namespace EventManagementFPT.Model
+namespace CookingBakery.Model
 {
     public partial class EventManagementContext : DbContext
     {

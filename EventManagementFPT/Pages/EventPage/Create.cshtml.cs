@@ -3,17 +3,17 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using EventManagementFPT.Model;
-using EventManagementFPT.Modules.EventModule.Interface;
+using CookingBakery.Model;
+using CookingBakery.Modules.EventModule.Interface;
 using Microsoft.AspNetCore.Http;
-using EventManagementFPT.Utils;
+using CookingBakery.Utils;
 using Microsoft.AspNetCore.Hosting;
 using System.Security.Claims;
-using EventManagementFPT.Modules.CategoryModule.Interface;
-using EventManagementFPT.Modules.VenueModule.Interface;
+using CookingBakery.Modules.CategoryModule.Interface;
+using CookingBakery.Modules.VenueModule.Interface;
 using Microsoft.AspNetCore.Authorization;
 
-namespace EventManagementFPT.Pages.EventPage
+namespace CookingBakery.Pages.EventPage
 {
     [Authorize(Roles="Admin, Host")]
     public class CreateModel : PageModel

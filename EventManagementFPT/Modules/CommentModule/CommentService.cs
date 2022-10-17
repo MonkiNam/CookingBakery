@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using EventManagementFPT.Model;
-using EventManagementFPT.Modules.CommentModule.Interface;
+using CookingBakery.Model;
+using CookingBakery.Modules.CommentModule.Interface;
 
-namespace EventManagementFPT.Modules.CommentModule
+namespace CookingBakery.Modules.CommentModule
 {
     public class CommentService : ICommentService
     {

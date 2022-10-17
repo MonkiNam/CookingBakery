@@ -1,14 +1,14 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using EventManagementFPT.Model;
-using EventManagementFPT.Modules.EventModule.Interface;
-using EventManagementFPT.Utils;
+using CookingBakery.Model;
+using CookingBakery.Modules.EventModule.Interface;
+using CookingBakery.Utils;
 using System.Linq;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EventManagementFPT.Pages.EventPage
+namespace CookingBakery.Pages.EventPage
 {
     [Authorize(Roles="Admin, Host")]
     public class IndexModel : PageModel

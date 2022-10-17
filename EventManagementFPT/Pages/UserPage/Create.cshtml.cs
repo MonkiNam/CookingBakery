@@ -1,14 +1,14 @@
 ﻿using System.Threading.Tasks;
-using EventManagementFPT.Model;
-using EventManagementFPT.Modules.UserModule.Interface;
-using EventManagementFPT.Utils;
+using CookingBakery.Model;
+using CookingBakery.Modules.UserModule.Interface;
+using CookingBakery.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace EventManagementFPT.Pages.UserPage
+namespace CookingBakery.Pages.UserPage
 {
     [Authorize(Roles = "Admin")]
     public class CreateModel : PageModel

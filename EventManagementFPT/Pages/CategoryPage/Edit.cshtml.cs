@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using EventManagementFPT.Model;
-using EventManagementFPT.Modules.CategoryModule.Interface;
+using CookingBakery.Model;
+using CookingBakery.Modules.CategoryModule.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace EventManagementFPT.Pages.CategoryPage
+namespace CookingBakery.Pages.CategoryPage
 {
     [Authorize(Roles="Admin")]
     public class EditModel : PageModel

@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using EventManagementFPT.Model;
-using EventManagementFPT.Modules.EventLikeModule.Interface;
-using EventManagementFPT.Modules.EventModule.Interface;
-using EventManagementFPT.Modules.UserEventModule.Interface;
+using CookingBakery.Model;
+using CookingBakery.Modules.EventLikeModule.Interface;
+using CookingBakery.Modules.EventModule.Interface;
+using CookingBakery.Modules.UserEventModule.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
-namespace EventManagementFPT.Pages.Home
+namespace CookingBakery.Pages.Home
 {
     public class Details : PageModel
     {

@@ -1,4 +1,4 @@
-﻿namespace EventManagementFPT.Model
+﻿namespace CookingBakery.Model
 {
     public enum RoleEnum
     {

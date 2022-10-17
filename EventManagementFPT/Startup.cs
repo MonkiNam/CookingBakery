@@ -1,6 +1,19 @@
-using System.Text.Json.Serialization;
-using EventManagementFPT.Hubs;
-using EventManagementFPT.Model;
+using CookingBakery.BakeryModules.CategoryModule;
+using CookingBakery.BakeryModules.CategoryModule.Interface;
+using CookingBakery.BakeryModules.CommentModule;
+using CookingBakery.BakeryModules.CommentModule.Interface;
+using CookingBakery.BakeryModules.PostDetailModule;
+using CookingBakery.BakeryModules.PostDetailModule.Interface;
+using CookingBakery.BakeryModules.PostModule;
+using CookingBakery.BakeryModules.PostModule.Interface;
+using CookingBakery.BakeryModules.PostReactionModule;
+using CookingBakery.BakeryModules.PostReactionModule.Interface;
+using CookingBakery.BakeryModules.ProductModule;
+using CookingBakery.BakeryModules.ProductModule.Interface;
+using CookingBakery.BakeryModules.UserModule;
+using CookingBakery.BakeryModules.UserModule.Interface;
+using CookingBakery.Hubs;
+using CookingBakery.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -8,25 +21,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using EventManagementFPT.Modules.CommentModule.Interface;
-using EventManagementFPT.Modules.CommentModule;
-using EventManagementFPT.Modules.EventModule.Interface;
-using EventManagementFPT.Modules.EventModule;
-using EventManagementFPT.Modules.UserModule.Interface;
-using EventManagementFPT.Modules.UserModule;
-using EventManagementFPT.Modules.CategoryModule.Interface;
-using EventManagementFPT.Modules.CategoryModule;
-using EventManagementFPT.Modules.EventLikeModule.Interface;
-using EventManagementFPT.Modules.EventLikeModule;
-using EventManagementFPT.Modules.UserEventModule.Interface;
-using EventManagementFPT.Modules.UserEventModule;
-using EventManagementFPT.Modules.VenueModule.Interface;
-using EventManagementFPT.Modules.VenueModule;
-using Newtonsoft.Json;
-using EventManagementFPT.Modules.ReportModule.Interface;
-using EventManagementFPT.Modules.ReportModule;
 
-namespace EventManagementFPT
+namespace CookingBakery
 {
     public class Startup
     {
@@ -43,7 +39,8 @@ namespace EventManagementFPT
             services.AddRazorPages();
             services.AddSession();
             services
-                .AddSignalR(e => {
+                .AddSignalR(e =>
+                {
                     e.EnableDetailedErrors = true;
                     e.MaximumReceiveMessageSize = 102400000;
                 });
@@ -54,26 +51,23 @@ namespace EventManagementFPT
             //Category Module
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ICategoryService, CategoryService>();
-            //UserEvent Module
-            services.AddScoped<IUserEventRepository, UserEventRepository>();
-            services.AddScoped<IUserEventService, UserEventService>();
-            //Venue Module
-            services.AddScoped<IVenueRepository, VenueRepository>();
-            services.AddScoped<IVenueService, VenueService>();
-            //Event Module
-            services.AddScoped<IEventRepository, EventRepository>();
-            services.AddScoped<IEventService, EventService>();
-            //EventLike Module
-            services.AddScoped<IEventLikeRepository, EventLikeRepository>();
-            services.AddScoped<IEventLikeService, EventLikeService>();
             //Comment Module
             services.AddScoped<ICommentRepository, CommentRepository>();
-            services.AddScoped<ICommentService, CommentService>(); 
-            //Report Module
-            services.AddScoped<IReportRepository, ReportRepository>();
-            services.AddScoped<IReportService, ReportService>();
+            services.AddScoped<ICommentService, CommentService>();
+            //Post Detail Module
+            services.AddScoped<IPostDetailRepository, PostDetailRepository>();
+            services.AddScoped<IPostDetailService, PostDetailService>();
+            //Post Module
+            services.AddScoped<IPostRepository, PostRepository>();
+            services.AddScoped<IPostService, PostService>();
+            //Post Reaction Module
+            services.AddScoped<IPostReactionRepository, PostReactionRepository>();
+            services.AddScoped<IPostReactionService, PostReactionService>();
+            //Product Module
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IProductService, ProductService>();
 
-            services.AddDbContext<EventManagementContext>(
+            services.AddDbContext<CookingBakeryContext>(
                 opt => opt.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")
                 )
@@ -105,7 +99,7 @@ namespace EventManagementFPT
 
             app.UseRouting();
 
-            app.UseAuthentication();    
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

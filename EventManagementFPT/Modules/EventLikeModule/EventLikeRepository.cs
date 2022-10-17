@@ -1,10 +1,10 @@
-﻿using EventManagementFPT.Model;
-using EventManagementFPT.Modules.EventLikeModule.Interface;
-using EventManagementFPT.Utils.Repository;
+﻿using CookingBakery.Model;
+using CookingBakery.Modules.EventLikeModule.Interface;
+using CookingBakery.Utils.Repository;
 using System;
 using System.Linq;
 
-namespace EventManagementFPT.Modules.EventLikeModule
+namespace CookingBakery.Modules.EventLikeModule
 {
     public class EventLikeRepository : Repository<EventLike>, IEventLikeRepository
     {

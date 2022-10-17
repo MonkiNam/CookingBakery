@@ -2,11 +2,11 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using EventManagementFPT.Model;
-using EventManagementFPT.Modules.EventModule.Interface;
+using CookingBakery.Model;
+using CookingBakery.Modules.EventModule.Interface;
 using Microsoft.AspNetCore.Authorization;
 
-namespace EventManagementFPT.Pages.EventPage
+namespace CookingBakery.Pages.EventPage
 {
     [Authorize(Roles="Admin, Host")]
     public class DetailsModel : PageModel

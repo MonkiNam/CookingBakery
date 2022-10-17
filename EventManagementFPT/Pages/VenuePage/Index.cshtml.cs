@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using EventManagementFPT.Model;
-using EventManagementFPT.Modules.VenueModule.Interface;
+using CookingBakery.Model;
+using CookingBakery.Modules.VenueModule.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace EventManagementFPT.Pages.VenuePage
+namespace CookingBakery.Pages.VenuePage
 {
     [Authorize(Roles = "Admin")]
     public class IndexModel : PageModel

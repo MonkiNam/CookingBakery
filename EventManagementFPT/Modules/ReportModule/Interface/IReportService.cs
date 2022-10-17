@@ -1,10 +1,10 @@
-﻿using EventManagementFPT.Model;
+﻿using CookingBakery.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EventManagementFPT.Modules.ReportModule.Interface
+namespace CookingBakery.Modules.ReportModule.Interface
 {
     public interface IReportService
     {

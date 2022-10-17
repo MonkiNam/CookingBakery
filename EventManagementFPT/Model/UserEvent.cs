@@ -3,7 +3,7 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EventManagementFPT.Model
+namespace CookingBakery.Model
 {
     [Table("tblUserEvent")]
     public partial class UserEvent

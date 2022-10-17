@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace EventManagementFPT.Utils.Repository.Interface
+namespace CookingBakery.Utils.Repository.Interface
 {
     public interface IRepository<T> where T : class
     {
@@ -27,7 +27,7 @@ namespace EventManagementFPT.Utils.Repository.Interface
         );
 
         Task UpdateAsync(T entity);
-        
+
         Task UpdateRangeAsync(IEnumerable<T> entities);
 
         Task RemoveAsync(string key);
