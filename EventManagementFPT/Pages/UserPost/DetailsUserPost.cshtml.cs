@@ -19,7 +19,7 @@ namespace CookingBakery.Pages.UserPost
         }
 
         public Post Post { get; set; }
-        public IEnumerable<PostDetail> Details { get; set; }
+        public IEnumerable<PostDetail> PostDetails { get; set; }
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
@@ -31,7 +31,7 @@ namespace CookingBakery.Pages.UserPost
             Post = await _context.Posts
              .Include(x=>x.Category).FirstOrDefaultAsync(m => m.PostId == id);
 
-            Details = await _context.PostDetails.Include(x=>x.Product).Where(x => x.PostId.Equals(id)).ToListAsync();
+            PostDetails = await _context.PostDetails.Include(x=>x.Product).Where(x => x.PostId.Equals(id)).ToListAsync();
 
             if (Post == null)
             {
