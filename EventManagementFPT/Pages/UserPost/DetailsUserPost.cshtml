@@ -25,6 +25,8 @@
                             <li>     - @item.Quantity @item.Product.Name</li>
                         }
                     </ul>
+                    <a  asp-page="./EditUserPost" asp-route-id="@Model.Post.PostId" class="btn btn-primary btn-rounded">Edit</a>
+                    <a  asp-page="./DeleteUserPost" asp-route-id="@Model.Post.PostId" class=" btn btn-danger btn-rounded">Delete</a>
                 </div>
             </div>
         </div>

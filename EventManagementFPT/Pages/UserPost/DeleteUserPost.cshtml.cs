@@ -20,6 +20,7 @@ namespace CookingBakery.Pages.UserPost
 
         [BindProperty]
         public Post Post { get; set; }
+        public IEnumerable<PostDetail> PostDetail { get; set; }
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
@@ -46,10 +47,15 @@ namespace CookingBakery.Pages.UserPost
             }
 
             Post = await _context.Posts.FindAsync(id);
+            PostDetail =  await _context.PostDetails.Where(x => x.PostId.Equals(id)).ToListAsync();
 
-            if (Post != null)
+            if (Post != null )
             {
                 _context.Posts.Remove(Post);
+                foreach(var item in PostDetail)
+                {
+                    _context.PostDetails.Remove(item);
+                }
                 await _context.SaveChangesAsync();
             }
 
