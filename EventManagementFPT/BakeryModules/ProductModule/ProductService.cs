@@ -33,5 +33,10 @@ namespace CookingBakery.BakeryModules.ProductModule
         {
             await _productRepository.UpdateAsync(productUpdate);
         }
+
+        Task<Product> IProductService.GetProductById(Guid? productId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

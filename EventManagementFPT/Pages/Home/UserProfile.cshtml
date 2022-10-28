@@ -1,5 +1,5 @@
 ﻿@page
-@model CookingBakery.Pages.Home.UserProfileModel
+@model CookingBakery.Pages.Home.UserProfile
 @{
 }
 
@@ -11,7 +11,7 @@
           <input type="hidden" asp-for="user.Email" value="@Model.user.Email" />
           <input type="hidden" asp-for="user.Password" value="@Model.user.Password" />
           <input type="hidden" asp-for="user.IsBlocked" value="@Model.user.IsBlocked" />
-          <input type="hidden" asp-for="user.IsGoogleAuthenticate" value="@Model.user.IsGoogleAuthenticate" />
+          @*<input type="hidden" asp-for="user.IsGoogleAuthenticate" value="@Model.user.IsGoogleAuthenticate" />*@
 
         <div class="shadow-sm p-3 user-info rounded border">
             <div class="row p-4">
@@ -37,10 +37,10 @@
                             <label for="Password">Password</label>
                             <input type="password" class="form-control" id="password" readonly value="thisisnotyourpassword" />
                         </div>
-                        <div class="form-group col-md-6">
+                  @*      <div class="form-group col-md-6">
                             <label for="PhoneNumber">Phone number</label>
                             <input asp-for="@Model.user.PhoneNumber" type="tel" class="form-control" id="PhoneNumber" value="@Model.user.PhoneNumber" />
-                        </div>
+                        </div>*@
                         <div class="form-group col-md-3">
                             <label for="Status">Status</label>
                             @if (Model.user.IsBlocked != true)
@@ -59,7 +59,7 @@
                                 </div>
                             }
                         </div>
-                        <div class="form-group col-md-3">
+@*                        <div class="form-group col-md-3">
                             <label for="Status">Google Authenticate</label>
                             @if (Model.user.IsGoogleAuthenticate != true)
                             {
@@ -75,7 +75,7 @@
                                     Yes
                                 </div>
                             }
-                        </div>
+                        </div>*@
                         <div class="col-md-12 d-flex" style="gap: 8px;">
                             <button id="register" type="submit" class="btn btn-primary d-flex align-items-center" style="gap: 8px;">Save profile</button>
                             <a href="#" class="btn btn-light">Cancel</a>

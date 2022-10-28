@@ -1,30 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
-using CookingBakery.Model;
-using CookingBakery.Models;
-using CookingBakery.Modules.EventLikeModule.Interface;
-using CookingBakery.Modules.EventModule.Interface;
-using CookingBakery.Modules.UserEventModule.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using CookingBakery.Models;
 
-namespace CookingBakery.Pages.Home
+namespace CookingBakery.Pages.UserPost
 {
-    public class Details : PageModel
+    public class DeleteModel : PageModel
     {
         private readonly CookingBakery.Models.CookingBakeryContext _context;
 
-        public Details(CookingBakery.Models.CookingBakeryContext context)
+        public DeleteModel(CookingBakery.Models.CookingBakeryContext context)
         {
             _context = context;
         }
 
+        [BindProperty]
         public Post Post { get; set; }
-        public IEnumerable<PostDetail> PostDetails { get; set; }
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
@@ -34,15 +29,31 @@ namespace CookingBakery.Pages.Home
             }
 
             Post = await _context.Posts
-             .Include(x => x.Category).FirstOrDefaultAsync(m => m.PostId == id);
-
-            PostDetails = await _context.PostDetails.Include(x => x.Product).Where(x => x.PostId.Equals(id)).ToListAsync();
+                .Include(p => p.Category).FirstOrDefaultAsync(m => m.PostId == id);
 
             if (Post == null)
             {
                 return NotFound();
             }
             return Page();
+        }
+
+        public async Task<IActionResult> OnPostAsync(Guid? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Post = await _context.Posts.FindAsync(id);
+
+            if (Post != null)
+            {
+                _context.Posts.Remove(Post);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToPage("./Index");
         }
     }
 }
