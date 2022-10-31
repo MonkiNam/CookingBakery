@@ -20,6 +20,7 @@ namespace CookingBakery.Models
         public Guid? ParentId { get; set; }
         public Guid? PostId { get; set; }
 
+        public virtual User User { get; set; }
         public virtual Comment Parent { get; set; }
         public virtual Post Post { get; set; }
         public virtual ICollection<Comment> InverseParent { get; set; }
