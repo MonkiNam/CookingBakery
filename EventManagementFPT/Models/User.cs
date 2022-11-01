@@ -39,6 +39,7 @@ namespace CookingBakery.Models
         public RoleEnum Role { get; set; }
         public bool IsGoogle { get; set; }
 
+        public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<FollowInfo> FollowInfoFollowingUsers { get; set; }
         public virtual ICollection<FollowInfo> FollowInfoUsers { get; set; }
         public virtual ICollection<PostReaction> PostReactions { get; set; }
