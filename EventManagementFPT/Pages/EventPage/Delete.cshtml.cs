@@ -2,31 +2,29 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using CookingBakery.Model;
-using CookingBakery.Modules.EventModule.Interface;
-using Microsoft.AspNetCore.Authorization;
+using CookingBakery.Models;
+using CookingBakery.BakeryModules.PostModule.Interface;
 
 namespace CookingBakery.Pages.EventPage
 {
-    [Authorize(Roles="Admin, Host")]
     public class DeleteModel : PageModel
     {
-        private readonly IEventService _eventService;
+        private readonly IPostService _postService;
 
-        public DeleteModel(IEventService eventService)
+        public DeleteModel(IPostService postService)
         {
-            _eventService = eventService;
+            _postService = postService;
         }
 
-        [BindProperty] public Event Event { get; set; }
+        [BindProperty] public Post Post { get; set; }
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
             if (id == null) return NotFound();
 
-            Event = await _eventService.GetEventByID(id);
+            Post = await _postService.GetPostByID(id);
 
-            if (Event == null) return NotFound();
+            if (Post == null) return NotFound();
 
             return Page();
         }
@@ -35,7 +33,7 @@ namespace CookingBakery.Pages.EventPage
         {
             if (id == null) return NotFound();
 
-            await _eventService.DeleteEvent(id);
+            await _postService.DeletePost(id);
 
             return RedirectToPage("./Index");
         }
