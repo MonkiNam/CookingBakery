@@ -11,5 +11,6 @@ namespace CookingBakery.BakeryModules.CommentModule.Interface
         public Task<Comment> AddNewComment(Comment newComment);
         public Task UpdateComment(Comment commentUpdate);
         public ICollection<Comment> GetListSubComment(Guid? oriCommentID);
+        public ICollection<Comment> GetListCommentByPostId(Guid? postId);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using CookingBakery.BakeryModules.CommentModule.Interface;
 using CookingBakery.Models;
@@ -47,6 +48,11 @@ namespace CookingBakery.BakeryModules.CommentModule
         public async Task UpdateComment(Comment commentUpdate)
         {
             await _commentRepository.UpdateAsync(commentUpdate);
+        }
+
+        public ICollection<Comment> GetListCommentByPostId(Guid? postId)
+        {
+            return _commentRepository.GetAll(includeProperties: "User").Where(x => x.PostId.Equals(postId)).ToList();
         }
     }
 }
