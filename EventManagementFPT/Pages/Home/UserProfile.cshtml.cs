@@ -1,5 +1,5 @@
-using CookingBakery.Model;
-using CookingBakery.Modules.UserModule.Interface;
+using CookingBakery.BakeryModules.UserModule.Interface;
+using CookingBakery.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,16 +10,19 @@ using System.Threading.Tasks;
 
 namespace CookingBakery.Pages.Home
 {
-    public class UserProfileModel : PageModel
+    public class UserProfile : PageModel
     {
         private readonly IUserService _userService;
 
+        private readonly CookingBakeryContext _context;
+
+
         private readonly IWebHostEnvironment _env;
 
-        public UserProfileModel(IUserService userService, IWebHostEnvironment env)
+        public UserProfile(IUserService userService, CookingBakeryContext context)
         {
             _userService = userService;
-            _env = env;
+            _context = context;
         }
 
         [BindProperty]
@@ -32,7 +35,7 @@ namespace CookingBakery.Pages.Home
 
         public async Task<IActionResult> OnPostAsync(IFormFile customFile)
         {
-            if(customFile != null)
+            if (customFile != null)
             {
                 string url = await Utils.UploadImage.UploadFile(customFile, _env);
                 user.Avatar = url;

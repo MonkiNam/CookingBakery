@@ -1,12 +1,14 @@
-﻿
+﻿ 
 using CookingBakery.BakeryModules.PostModule.Interface;
 using CookingBakery.Models;
 using CookingBakery.Utils;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CookingBakery.Pages.Home
 {
@@ -63,5 +65,6 @@ namespace CookingBakery.Pages.Home
 
             ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Name");
         }
+
     }
 }

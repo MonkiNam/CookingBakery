@@ -1,492 +1,133 @@
 ﻿@page
-@using System.Security.Claims
-@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model CookingBakery.Pages.Home.Details
 
 @{
-    ViewData["Title"] = "Event Details";
+    ViewData["Title"] = "Details";
 }
 
-<div class="container-fluid main-content pt-5 pl-5 pr-5">
-    <div class="row pl-5 pr-5">
-        <div class="col-8 pl-0">
-            <div class="header p-4 border shadow-sm rounded mb-4">
-                <div class="d-flex justify-content-between mb-3">
-                    <h2 class="mb-0">@Model.Event.Name</h2>
-                    <div class="btn-group" role="group" aria-label="Basic example">
-                        <a href="#" class="btn btn-primary d-flex align-items-center">
-                            <ion-icon name="heart" style="font-size: 16px" class="mr-1"></ion-icon>
-                            Like
-                        </a>
-                        <button class="btn border">@Model.EventLike</button>
-                    </div>
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-5 col-md-5 col-sm-6">
+                    <div class="white-box text-center"><img src="../image/@Model.Post.ImageUrl" class="img-responsive"></div>
                 </div>
-                <div class="d-flex algin-items-center mb-2">
-                    <ion-icon class="event-time" name="time-outline"></ion-icon>
-                    <span class="text-muted ml-2">@Model.Event.StartDate</span>
-                </div>
-                <div class="d-flex algin-items-center">
-                    <ion-icon
-                        class="event-location"
-                        name="location-outline">
-                    </ion-icon>
-                    <span class="text-muted ml-2">@Model.Event.Venue.VenueName</span>
+                <div class="col-lg-7 col-md-7 col-sm-6">
+                    <h4 class="box-title mt-5">@Model.Post.Title</h4>
+                    <p>@Model.Post.Description</p>
+                    <h2 class="mt-5">
+                        @Model.Post.Reaction Likes
+                    </h2>
+                    <h3 class="box-title mt-5">Ingredients</h3>
+                    <ul class="list-unstyled">
+                        @foreach (var item in @Model.PostDetails)
+                        {
+                            <li>     - @item.Quantity @item.Product.Name</li>
+                        }
+                    </ul>
                 </div>
             </div>
-            <img src="../image/@Model.Event.ImageUrl" alt="event-background" class="img-fluid w-100"
-                 onerror="this.onerror=null;this.src = '../image/event.jpg'"/>
-            <div class="content border shadow-sm rounded mt-4 p-4 mb-5">
-                <h2 class="mb-3 text-center">About this event</h2>
-                <p>@Model.Event.Description</p>
-                <div class="d-flex justify-content-between">
-                    <span class="tag d-inline-flex align-items-center rounded" id="category">
-                        <ion-icon name="pricetag-outline"></ion-icon>@Model.Event.CategoryNavigation.Name
-                    </span>
-                    @{
-                        var role = User.FindFirst(ClaimTypes.Role)?.Value;
-                        
-                        if (role is "Host" or "User")
-                        {
-                            <button
-                                class="btn btn-warning text-light d-inline-flex align-items-center rounded p-2" 
-                                id="report" data-toggle="modal" data-target="#reportModal">
-                                <ion-icon name="warning-outline"></ion-icon>
-                            </button>
-                        }
-                    }
-                </div>
-        
-                @{                    
-                    var uid = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-                    var avt = User.FindFirst("avatar-url")?.Value;
+            <div class="row">
+                <section class="gradient-custom w-100">
+                    <div class="container my-5 py-5 w-100">
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-md-12 col-lg-10 col-xl-8">
+                                <div class="card">
+                                    <div class="card-body p-4">
+                                        <h4 class="text-center mb-4 pb-2">Comments</h4>
 
-                    if (uid != null && Model.Event.CanComment)
-                    {   
-                        <h3 class="text-center mb-3">Event Discussion</h3>
-                        <form class="mb-2">
-                            <input type="hidden" id="uid" value="@uid">
-                            <input type="hidden" id="eventId" value="@Model.Event.EventId">
-                            <div class="media">
-                                <img src="@avt" onerror="this.onerror=null;this.src = '../image/default.png'"
-                                     width="38" height="38" alt="avatar" class="mr-2 rounded-circle border"/>
-                                <div class="media-body">
-                                    <input id="commentContent" type="text" 
-                                           class="form-control rounded-pill" 
-                                           placeholder="Write a comment..."/>
-                                    <small class="form-text text-muted ml-2">
-                                        Press 'Enter' to submit
-                                    </small>
-                                </div>
-                                <button id="btnSendComment" type="button" class="btn pl-2">
-                                    <ion-icon name="send-outline"></ion-icon>
-                                </button>
-                            </div>
-                        </form>
-                    }
-                }
-                <div id="commentSection">
-                    @if (Model.Event.Comments.Any())
-                    {
-                        <hr/>
+                                        <div class="row">
+                                            <div class="col">
+                                                @foreach (var parent in Model.Comments)
+                                                {
+                                                    @if (parent.ParentId == null)
+                                                    {
+                                                        @*Father comment*@
+                                                        <div class="d-flex flex-start">
+                                                            <img class="rounded-circle shadow-1-strong me-3"
+                                                         src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(10).webp" alt="avatar" width="65"
+                                                         height="65" />
+                                                            <div class="flex-grow-1 flex-shrink-1">
+                                                                <div>
+                                                                    <div class="d-flex justify-content-between align-items-center">
+                                                                        <p class="mb-1">
+                                                                            Maria Smantha <span class="small">- 2 hours ago</span>
+                                                                        </p>
+                                                                        <a href="#!"><i class="fas fa-reply fa-xs"></i><span class="small"> reply</span></a>
+                                                                    </div>
+                                                                    <p class="small mb-0">
+                                                                        It is a long established fact that a reader will be distracted by
+                                                                        the readable content of a page.
+                                                                    </p>
+                                                                </div>
+                                                                @foreach (var child in Model.Comments)
+                                                                {
+                                                                    @if (child.ParentId.Equals(parent.CommentId))
+                                                                    {
+                                                                        @*Child comment*@
+                                                                        <div class="d-flex flex-start mt-4">
+                                                                            <a class="me-3" href="#">
+                                                                                <img class="rounded-circle shadow-1-strong"
+                                                                     src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(11).webp" alt="avatar"
+                                                                     width="65" height="65" />
+                                                                            </a>
+                                                                            <div class="flex-grow-1 flex-shrink-1">
+                                                                                <div>
+                                                                                    <div class="d-flex justify-content-between align-items-center">
+                                                                                        <p class="mb-1">
+                                                                                            Simona Disa <span class="small">- 3 hours ago</span>
+                                                                                        </p>
+                                                                                    </div>
+                                                                                    <p class="small mb-0">
+                                                                                        letters, as opposed to using 'Content here, content here',
+                                                                                        making it look like readable English.
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        @*Child comment*@
+                                                                    }
 
-                        var comments = Model.Event.Comments.OrderBy(o => o.CreateDate);
-                        
-                        @foreach (var comment in comments.Where(o => o.IsParent))
-                        {
-                            var commentId = comment.CommentId;
-                            
-                            <div class="media comment pb-3 @commentId">
-                                <img src="@comment.User.Avatar"
-                                    onerror="this.onerror=null;this.src = '../image/default.png'"
-                                    width="38" height="38" class="mr-2 rounded-circle border"/>
-                                <div class="media-body comment-body ml-1">
-                                    <h5 class="mt-0">@comment.User.Name</h5>
-                                    <p class="mb-0">@comment.Content</p>
-                                    <small class="form-text text-muted d-flex" style="gap: 15px">
-                                        <span>
-                                            <button id="btnReply-@commentId" style="background: transparent; border: none; padding: 0; font-weight: 600;">
-                                                Reply
-                                            </button>
-                                        </span>
-                                        <span class="createDate-@commentId"></span>
-                                        <script>
-                                            $(".createDate-@Html.Raw(commentId)").html(
-                                                `<p>${moment("@Html.Raw(comment.CreateDate)").fromNow()}</p>`
-                                            );
-                                        </script>
-                                    </small>
-                                    <div id="replySection-@commentId"></div>
-                                    <div id="reply-@commentId" class="replyFrom"></div>
-                                    <script>
-                                        $("#btnReply-@commentId").click(function()
-                                        {
-                                            let listReplyField = document.querySelectorAll("[id^='reply-']");
-                                            
-                                            for (let i = 0; i < listReplyField.length; i++)
-                                            {
-                                                listReplyField[i].replaceChildren();
-                                            }
-                                            
-                                            $(`#reply-@commentId`).append(`
-                                                <form class="mb-2">
-                                                    <input type="hidden" id="parentId" value="@commentId">
-                                                    <div class="media">
-                                                        <img src="@avt" onerror="this.onerror=null;this.src = '../image/default.png'"
-                                                             width="38" height="38" alt="avatar" class="mr-2 rounded-circle border"/>
-                                                        <div class="media-body">
-                                                            <input id="replyContent" type="text" 
-                                                                   class="form-control rounded-pill" 
-                                                                   placeholder="Write a comment..."/>
+                                                                }
+
+
+
+
+                                                            </div>
                                                         </div>
-                                                        <button id="btnReplyComment" type="button" class="btn pl-2">
-                                                            <ion-icon name="send-outline"></ion-icon>
-                                                        </button>
-                                                    </div>
-                                                </form>
-                                            `);
-                                            
-                                            $("#replyContent").focus();
-                                        });
-                                    </script>
-                                </div>
-                            </div>
-                        }
-                        
-                        @foreach (var comment in comments.Where(o => !o.IsParent))
-                        {
-                            <script>
-                                $(`#replySection-@comment.ParentId`).append(`
-                                    <div class="media comment pb-3 @comment.CommentId">
-                                        <img src="@comment.User.Avatar"
-                                            onerror="this.onerror=null;this.src = '../image/default.png'"
-                                            width="38" height="38" class="mr-2 rounded-circle border"/>
-                                        <div class="media-body comment-body ml-1">
-                                            <h5 class="mt-0">@comment.User.Name</h5>
-                                            <p class="mb-0">@comment.Content</p>
-                                            <small class="form-text text-muted d-flex" style="gap: 15px">
-                                                <span class="createDate-@comment.CommentId"> 
-                                                    ${moment("@comment.CreateDate").fromNow()} 
-                                                </span>
-                                            </small>
+                                                        @*Father comment*@
+                                                    }
+
+                                                }
+
+
+
+
+                                            </div>
                                         </div>
                                     </div>
-                                `);
-                            </script>
-                        }
-                    }
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-4 pr-0">
-            <div class="border shadow-sm rounded p-4">
-                <div class="media">
-                    <img
-                        src="../image/default.png"
-                        width="90"
-                        height="90"
-                        class="mr-2 rounded-circle"
-                        alt="..."/>
-                    <div class="media-body">
-                        <h5 class="mt-0">@Model.HostUser.Name</h5>
-                        <div class="d-flex flex-wrap" style="gap: 5px">
-                            @{
-                                var phoneNumber = Model.HostUser.PhoneNumber;
-        
-                                if (!string.IsNullOrEmpty(phoneNumber))
-                                {
-                                    <span
-                                        class="tag d-flex align-items-center rounded"
-                                        id="location">
-                                        <ion-icon name="call-outline"></ion-icon>@phoneNumber
-                                    </span>
-                                }
-                                <span class="tag d-flex align-items-center rounded" id="category">
-                                    <ion-icon name="mail-open-outline"></ion-icon>
-                                    @Model.HostUser.Email
-                                </span>
-                            }
-                        </div>
-                    </div>
-                </div>
-                <hr/>
-                <div class="d-flex" style="gap: 16px">
-                    <div class="d-flex align-items-center">
-                        <ion-icon
-                            class="text-success mr-1"
-                            name="checkmark-circle-outline">
-                        </ion-icon>
-                        @Model.UserEvent.Count going
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <ion-icon
-                            class="text-warning mr-1"
-                            name="star-outline">
-                        </ion-icon>
-                        @Model.EventLike like
-                    </div>
-                </div>
-                @{
-                    if (uid != null)
-                    {
-                        <div class="row mt-3">
-                            @if (!(Model.HostUser.UserId == Guid.Parse(uid)))
-                            {
-                                @if (Model.Event.StartDate - TimeSpan.FromDays(7) <= DateTime.Now && Model.Event.EndDate >= DateTime.Now)
-                                {
-                                    <div class="col">
-                                        @if (Model.UserEvent.Any(o => o.UserId == Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!)))
-                                        {
-                                            <a asp-page="/Home/UnattendEvent" asp-route-id="@Model.Event.EventId"
-                                               class="btn btn-danger btn-block text-light d-flex align-items-center justify-content-center">
-                                                <ion-icon class="mr-1" name="close-circle-outline">
-                                                </ion-icon>
-                                                Cancel Going
-                                            </a>
-                                        }
-                                        else
-                                        {
-                                            @if (Model.UserEvent.Count >= Model.Event.Capacity)
-                                            {
-                                                <h4 class="text-warning text-center">Full Capacity</h4>
-                                            }
-                                            else
-                                            {
-                                                var disabled = role is "Admin" ? "disabled" : "";
-                                                
-                                                <a asp-page="/Home/JoinEvent" asp-route-id="@Model.Event.EventId"
-                                                   class="@disabled btn btn-success btn-block text-light d-flex align-items-center justify-content-center">
-                                                    <ion-icon class="mr-1" name="checkmark-circle-outline"></ion-icon>
-                                                    Going
-                                                </a>
-                                            }
-                                        }
-                                    </div>
-                                }
-                                else if (Model.Event.StartDate > DateTime.Now - TimeSpan.FromDays(7))
-                                {
-                                    <h4 class="text-center text-warning col">Event hasn't started yet!</h4>
-                                }
-                                else if (DateTime.Now > Model.Event.EndDate)
-                                {
-                                    <h4 class="text-center text-danger col">Event has ended!</h4>
-                                }
-                            }
-                            <div class="col d-flex align-items-center">
-                                @if (Model.IsLikeEvent)
-                                {
-                                    <a asp-page="/Home/UnlikeEvent" asp-route-id="@Model.Event.EventId"
-                                       class="btn btn-warning btn-block text-light d-flex justify-content-center align-items-center">
-                                        <ion-icon class="mr-1" name="star"></ion-icon>
-                                        Unlike
-                                    </a>
-                                }
-                                else
-                                {
-                                    <a asp-page="/Home/LikeEvent" asp-route-id="@Model.Event.EventId"
-                                       class="btn btn-warning btn-block text-light d-flex justify-content-center align-items-center">
-                                        <ion-icon class="mr-1" name="star-outline"></ion-icon>
-                                        Like
-                                    </a>
-                                }
+                                </div>
                             </div>
                         </div>
-                    }
-                }
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Change password modal -->
-<div
-    class="modal fade"
-    id="exampleModal"
-    tabindex="-1"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                    Change your password
-                </h5>
-                <button
-                    type="button"
-                    class="close"
-                    data-dismiss="modal"
-                    aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="currentPassword">Current password</label>
-                        <input
-                            type="password"
-                            class="form-control"
-                            id="currentPassword"/>
                     </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">New password</label>
-                        <input
-                            type="password"
-                            class="form-control"
-                            id="exampleInputPassword1"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Re-enter password</label>
-                        <input
-                            type="password"
-                            class="form-control"
-                            id="exampleInputPassword1"/>
-                    </div>
-                    <button
-                        type="submit"
-                        class="btn btn-outline-success btn-block mt-4">
-                        Submit
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script src="~/lib/signalr/dist/browser/signalr.min.js"></script>
-<script src="~/lib/date_fns/date_fns.min.js"></script>
-
-<script>
-    $(document).ready(function() {
-        $(window).keydown(function(event){
-            if (event.keyCode === 13) {
-                event.preventDefault();
-                return false;
-            }
-        });
-    });
-</script>
-
-<script>
-    let eventId;
-    
-    eventId = "@Html.Raw(Model.Event.EventId)";
-    
-    $(() => {
-        let connection = new signalR.HubConnectionBuilder().withUrl("/signalRServer").build();
-        connection
-            .start()
-            .then(() => console.log(connection))
-            .then(() => console.log(connection.state))
-            .then(() => {
-                console.log('Attempting to join group');
-                connection.invoke("AddToGroup", eventId);
-            })
-            .catch(error => console.log("Error establishing connection: ", error));
-    
-        connection.on("ReceiveComment", comment => {
-            let div = '';
-            
-            div += `
-                <div class="media comment pb-3 ${comment.commentId}">
-                    <img src="${comment.user.avatar}"
-                        onerror="this.onerror=null;this.src = '../image/default.png'"
-                        width="38" height="38" class="mr-2 rounded-circle border"/>
-                    <div class="media-body comment-body ml-1">
-                        <h5 class="mt-0">${comment.user.name}</h5>
-                        <p class="mb-0">${comment.content}</p>
-                        <small class="form-text text-muted d-flex" style="gap: 15px">
-                            <span class="createDate-${comment.commentId}"> ${moment(comment.createdDate).fromNow()} </span>
-                        </small>
-                    </div>
+                </section>
+                <div class="contact-form article-comment w-100">
+                    <h4>Leave a comment</h4>
+                    <form id="contact-form" method="POST">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <textarea name="message" id="message" placeholder="Your message *" rows="4" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="send">
+                                    <button class="px-btn theme"><span>Submit</span> <i class="arrow"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-            `;
-                
-            if (comment.isParent) {
-                $("#commentSection").append(div);    
-            } else {
-                $(`#replySection-${comment.parentId}`).append(div);    
-            }
-        });
-        
-        connection.onclose(() => {
-            connection.invoke("RemoveFromGroup", activityId)
-                .then(() => this.connection.stop())
-                .then(() => console.log("Connection stopped"))
-                .catch(err => console.log(err));
-        });
-        
-        $("#btnSendComment").click(function() {
-            let comment = $("#commentContent")
-            let content = comment.val().trim();
-            if (content.length > 0) {
-                connection.invoke("SendComment", eventId, content, true, '').catch(err => console.log(err));
-                comment.val('');
-            }
-        });
-        
-        $('#commentContent').keydown(function(e) {
-            if (e.which === 10 || e.which === 13) {
-                let comment = $("#commentContent")
-                let content = comment.val().trim();
-                if (content.length > 0) {
-                    connection.invoke("SendComment", eventId, content, true, '').catch(err => console.log(err));
-                    comment.val('');
-                }
-            }
-        });
-        
-        $(".replyFrom").on('click', "#btnReplyComment", function() {
-            let comment = $("#replyContent")
-            let content = comment.val().trim();
-            let commentId = $("#parentId").val();
-            if (content.length > 0) {
-                connection.invoke("SendComment", eventId, content, false, commentId).catch(err => console.log(err));
-                comment.val('');
-            }
-        });
-    });
-</script>
-
-<div class="modal fade"
-     id="reportModal"
-     tabindex="-1"
-     aria-labelledby="reportModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="reportModalLabel">
-                    Report
-                </h5>
-                <button
-                    type="button"
-                    class="close"
-                    data-dismiss="modal"
-                    aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form method="post" asp-page="/ReportPage/Create">
-                    <input type="hidden" value="@Model.Event.EventId" name="eventId"/>
-                    <div class="form-group">
-                        <label class="font-weight-bold" for="reportTitle" name="reportTitle">Title</label>
-                        <input
-                            type="text"
-                            class="form-control"
-                            id="reportName" name="reportName"/>
-                    </div>
-                    <div class="form-group">
-                        <label class="font-weight-bold" for="reportDescription">Description</label>
-                        <textarea rows="6" class="form-control" id="reportContent" name="reportContent">Please provide additional information here</textarea>
-                    </div>
-                    <button
-                        type="submit"
-                        class="btn btn-outline-success btn-block mt-4">
-                        Submit
-                    </button>
-                </form>
             </div>
         </div>
     </div>

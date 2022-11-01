@@ -1,0 +1,89 @@
+﻿@page
+@model CookingBakery.Pages.UserPost.IndexModel
+
+@{
+    ViewData["Title"] = "User post page";
+}
+
+<script src="js/moment/moment.js"></script>
+
+<div class="container-fluid mt-5 pl-5 pr-5 mb-5">
+    <div class="row mr-4 ml-4">
+        <div class="col-12">
+            <div class="border rounded shadow p-4">
+
+
+                <hr class="mt-4 mb-4" />
+
+                @if (Model.Post.Any())
+                {
+                    <!-- Event list -->
+                    <div class="row row-cols-1 row-cols-md-3">
+                        @foreach (var _post in Model.Post)
+                        {
+                            <div class="col mb-4 d-flex">
+                                <div class="card event flex-grow-1">
+                                    <img src="../image/@_post.ImageUrl" onerror="this.onerror=null;this.src = '../image/event.jpg'" class="card-img-top flex-grow-1" style="object-fit: cover" alt="...">
+                                    <div class="card-body flex-grow-0">
+                                        <h5 class="card-title mb-4">@_post.Title</h5>
+                                        <div class="d-flex align-items-center mb-2">
+                                            <ion-icon class="event-time" name="time-outline"></ion-icon>
+                                            <div class="d-flex align-items-center">
+                                                <ion-icon class="event-time" name="people-outline"></ion-icon>
+                                                <span class="font-weight-bold ml-2">
+                                                    Reaction: @_post.Reaction
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="tag d-flex align-items-center rounded w-100 text-truncate"  id="description">
+                                            @_post.Description
+                                        </div>
+
+                                    </div>
+                                    <a asp-page="./DetailsUserPost" asp-route-id="@_post.PostId" class="stretched-link"></a>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+
+                }
+                else
+                {
+                    <h4 class="text-center p-5">No post found!</h4>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Change your password</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="currentPassword">Current password</label>
+                        <input type="password" class="form-control" id="currentPassword" />
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">New password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Re-enter password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1">
+                    </div>
+                    <button type="submit" class="btn btn-outline-success btn-block mt-4">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -3,60 +3,67 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using CookingBakery.Model;
-using CookingBakery.Modules.EventLikeModule.Interface;
-using CookingBakery.Modules.EventModule.Interface;
-using CookingBakery.Modules.UserEventModule.Interface;
+using CookingBakery.BakeryModules.CommentModule.Interface;
+using CookingBakery.BakeryModules.PostModule.Interface;
+using CookingBakery.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace CookingBakery.Pages.Home
 {
     public class Details : PageModel
     {
-        private readonly IEventService _eventService;
-        private readonly IUserEventService _userEventService;
-        private readonly IEventLikeService _eventLikeService;
-        private readonly EventManagementContext _context;
+        private readonly CookingBakery.Models.CookingBakeryContext _context;
+        private readonly IPostService _postService;
+        private readonly ICommentService _commentService;
 
-        public Details(IEventService eventService,IUserEventService userEventService, IEventLikeService eventLikeService, EventManagementContext context)
+
+        public Details(CookingBakery.Models.CookingBakeryContext context, IPostService postService, ICommentService commentService)
         {
-            _eventService = eventService;
-            _userEventService = userEventService;
-            _eventLikeService = eventLikeService;
             _context = context;
+            _postService = postService;
+            _commentService = commentService;
         }
 
-        public Event Event { get; set; }
-        public ICollection<User> UserEvent { get; set; }
-        public int EventLike { get; set; }
-        public bool IsLikeEvent { get; set; }
-        public User HostUser { get; set; }
+        public Post Post { get; set; }
+        public IEnumerable<PostDetail> PostDetails { get; set; }
 
-        public async Task<IActionResult> OnGet(Guid id)
+        public IEnumerable<Models.Comment> Comments { get; set; }
+
+        public IQueryable<PostReaction> isLike { get; set; }
+
+        public async Task<IActionResult> OnGetAsync(Guid? id)
         {
-            var uid = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            
-            Event = await _eventService.GetEventByID(id);
-
-            if (Event?.Status ?? false)
+            if (id == null)
             {
-                UserEvent = _userEventService.GetUserGoingOfEvent(id);
-                EventLike = _eventLikeService.CountLikeOfEvent(id);
-                if (uid != null)
-                {
-                    var userId = Guid.Parse(uid);
-                    IsLikeEvent = _context.EventLikes.Any(o => o.UserId == userId && o.EventId == id);
-                }
-                HostUser = _context.UserEvents
-                    .Include(o => o.User)
-                    .FirstOrDefault(o => o.IsHost == true && o.EventId == id)?.User;
-            
-                return Page();
+                return NotFound();
             }
 
-            return NotFound();
+            Post = await _context.Posts
+             .Include(x => x.Category).FirstOrDefaultAsync(m => m.PostId == id);
+
+            PostDetails = await _context.PostDetails.Include(x => x.Product).Where(x => x.PostId.Equals(id)).ToListAsync();
+            Comments = await _context.Comments.Where(x=> x.PostId.Equals(id)).ToListAsync(); 
+
+            var loginUser = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+
+            isLike = _context.PostReactions.Where(x => x.PostId.Equals(id) && x.UserId.Equals(loginUser));
+
+
+
+
+            if (Post == null)
+            {
+                return NotFound();
+            }
+            return Page();
         }
+
+        //public async Task<IActionResult> OnPostAsync(Guid? userId, Guid? postId)
+        //{
+
+        //}
     }
 }
