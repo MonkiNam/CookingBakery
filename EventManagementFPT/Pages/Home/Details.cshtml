@@ -8,7 +8,7 @@
 <div class="container">
     <div class="card">
         <div class="card-body">
-            <div class="row"> 
+            <div class="row">
                 <div class="col-lg-5 col-md-5 col-sm-6">
                     <div class="white-box text-center"><img src="../image/@Model.Post.ImageUrl" class="img-responsive"></div>
                 </div>
@@ -20,11 +20,113 @@
                     </h2>
                     <h3 class="box-title mt-5">Ingredients</h3>
                     <ul class="list-unstyled">
-                        @foreach(var item in @Model.PostDetails)
+                        @foreach (var item in @Model.PostDetails)
                         {
                             <li>     - @item.Quantity @item.Product.Name</li>
                         }
                     </ul>
+                </div>
+            </div>
+            <div class="row">
+                <section class="gradient-custom w-100">
+                    <div class="container my-5 py-5 w-100">
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-md-12 col-lg-10 col-xl-8">
+                                <div class="card">
+                                    <div class="card-body p-4">
+                                        <h4 class="text-center mb-4 pb-2">Comments</h4>
+
+                                        <div class="row">
+                                            <div class="col">
+                                                @foreach (var parent in Model.Comments)
+                                                {
+                                                    @if (parent.ParentId == null)
+                                                    {
+                                                        @*Father comment*@
+                                                        <div class="d-flex flex-start">
+                                                            <img class="rounded-circle shadow-1-strong me-3"
+                                                         src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(10).webp" alt="avatar" width="65"
+                                                         height="65" />
+                                                            <div class="flex-grow-1 flex-shrink-1">
+                                                                <div>
+                                                                    <div class="d-flex justify-content-between align-items-center">
+                                                                        <p class="mb-1">
+                                                                            Maria Smantha <span class="small">- 2 hours ago</span>
+                                                                        </p>
+                                                                        <a href="#!"><i class="fas fa-reply fa-xs"></i><span class="small"> reply</span></a>
+                                                                    </div>
+                                                                    <p class="small mb-0">
+                                                                        It is a long established fact that a reader will be distracted by
+                                                                        the readable content of a page.
+                                                                    </p>
+                                                                </div>
+                                                                @foreach (var child in Model.Comments)
+                                                                {
+                                                                    @if (child.ParentId.Equals(parent.CommentId))
+                                                                    {
+                                                                        @*Child comment*@
+                                                                        <div class="d-flex flex-start mt-4">
+                                                                            <a class="me-3" href="#">
+                                                                                <img class="rounded-circle shadow-1-strong"
+                                                                     src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(11).webp" alt="avatar"
+                                                                     width="65" height="65" />
+                                                                            </a>
+                                                                            <div class="flex-grow-1 flex-shrink-1">
+                                                                                <div>
+                                                                                    <div class="d-flex justify-content-between align-items-center">
+                                                                                        <p class="mb-1">
+                                                                                            Simona Disa <span class="small">- 3 hours ago</span>
+                                                                                        </p>
+                                                                                    </div>
+                                                                                    <p class="small mb-0">
+                                                                                        letters, as opposed to using 'Content here, content here',
+                                                                                        making it look like readable English.
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        @*Child comment*@
+                                                                    }
+
+                                                                }
+
+
+
+
+                                                            </div>
+                                                        </div>
+                                                        @*Father comment*@
+                                                    }
+
+                                                }
+
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="contact-form article-comment w-100">
+                    <h4>Leave a comment</h4>
+                    <form id="contact-form" method="POST">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <textarea name="message" id="message" placeholder="Your message *" rows="4" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="send">
+                                    <button class="px-btn theme"><span>Submit</span> <i class="arrow"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
