@@ -63,7 +63,7 @@ namespace CookingBakery.Models
                     .ValueGeneratedNever()
                     .HasColumnName("commentId");
 
-                entity.Property(e => e.AuthorId).HasColumnName("authorId");
+                entity.Property(e => e.UserId).HasColumnName("authorId");
 
                 entity.Property(e => e.Content)
                     .HasMaxLength(50)

@@ -38,5 +38,11 @@ namespace CookingBakery.BakeryModules.ProductModule
         {
             throw new NotImplementedException();
         }
+
+        public ICollection<Product> GetAll()
+        {
+            ICollection<Product> products =  _productRepository.GetAll();
+            return products;
+        }
     }
 }

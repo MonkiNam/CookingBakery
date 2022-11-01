@@ -13,7 +13,7 @@ namespace CookingBakery.Models
         }
 
         public Guid CommentId { get; set; }
-        public Guid? AuthorId { get; set; }
+        public Guid? UserId { get; set; }
         public DateTime? CreatedDate { get; set; }
         public string Content { get; set; }
         public bool? Status { get; set; }

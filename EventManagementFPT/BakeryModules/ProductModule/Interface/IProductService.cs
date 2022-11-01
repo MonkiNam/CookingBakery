@@ -1,5 +1,6 @@
 ﻿using CookingBakery.Models;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CookingBakery.BakeryModules.ProductModule.Interface
@@ -13,6 +14,9 @@ namespace CookingBakery.BakeryModules.ProductModule.Interface
 
 
         public Task UpdateProduct(Product productUpdate);
+
+        public ICollection<Product> GetAll();
+
 
     }
 }

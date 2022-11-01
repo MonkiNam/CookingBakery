@@ -6,23 +6,26 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using CookingBakery.Models;
+using CookingBakery.BakeryModules.ProductModule.Interface;
 
 namespace CookingBakery.Pages.ProductPage
 {
     public class IndexModel : PageModel
     {
         private readonly CookingBakery.Models.CookingBakeryContext _context;
+        private readonly IProductService _productService;
 
-        public IndexModel(CookingBakery.Models.CookingBakeryContext context)
+        public IndexModel(CookingBakery.Models.CookingBakeryContext context, IProductService productService)
         {
             _context = context;
+            _productService = productService;
         }
 
-        public IList<Product> Product { get;set; }
+        public IEnumerable<Product> Product { get;set; }
 
-        public async Task OnGetAsync()
+        public void OnGet()
         {
-            Product = await _context.Products.ToListAsync();
+            Product = _productService.GetAll();
         }
     }
 }
