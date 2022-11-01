@@ -79,6 +79,11 @@ namespace CookingBakery.Models
 
                 entity.Property(e => e.Status).HasColumnName("status");
 
+                entity.HasOne(d => d.Author)
+                    .WithMany(p => p.Comments)
+                    .HasForeignKey(d => d.AuthorId)
+                    .HasConstraintName("FK_Comment_User");
+
                 entity.HasOne(d => d.Parent)
                     .WithMany(p => p.InverseParent)
                     .HasForeignKey(d => d.ParentId)
