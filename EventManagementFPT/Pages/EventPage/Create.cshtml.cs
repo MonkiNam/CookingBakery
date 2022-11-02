@@ -100,23 +100,31 @@ namespace CookingBakery.Pages.EventPage
 
         public async Task<IActionResult> OnPostCancel(Guid id)
         {
-            var details = Session.GetObjectFromJson<ICollection<PostDetail>>(HttpContext.Session, "DETAIL");
-            var loop = Session.GetObjectFromJson<ICollection<PostDetail>>(HttpContext.Session, "DETAIL");
-            foreach(var detail in loop)
+            ICollection<PostDetail> loop = Session.GetObjectFromJson<ICollection<PostDetail>>(HttpContext.Session, "DETAIL");
+            PostDetail detail = null;
+            foreach(var item in loop)
             {
-                if (detail.ProductId.Equals(id))
+                if (item.ProductId.Equals(id))
                 {
-                    details.Remove(detail);
+                    detail = item;
                 }
             }
-            if(details.Count>0 || details != null)
+            if (detail != null)
             {
-                Session.SetObjectAsJson(HttpContext.Session, "DETAIL", details);
+                ICollection<PostDetail> details = Session.GetObjectFromJson<ICollection<PostDetail>>(HttpContext.Session, "DETAIL");
+                details.Remove(detail);
+                if (details.Count > 0 || details != null)
+                {
+                    Session.SetObjectAsJson(HttpContext.Session, "DETAIL", details);
+                }
+                else
+                {
+                    Session.SetObjectAsJson(HttpContext.Session, "DETAIL", null);
+                }
+
             }
-            else
-            {
-                Session.SetObjectAsJson(HttpContext.Session, "DETAIL", null);
-            }
+
+          
 
             return OnGet();
         }
