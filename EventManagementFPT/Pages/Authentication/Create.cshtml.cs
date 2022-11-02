@@ -48,7 +48,7 @@ namespace CookingBakery.Pages.Authentication
                 if (!string.IsNullOrEmpty(NewUser.Email) && !string.IsNullOrEmpty(NewUser.Password) && !string.IsNullOrEmpty(NewUser.Name))
                 {
                     NewUser.Avatar = "~/image/default.png";
-
+                    NewUser.Role = RoleEnum.User;
 
                     await _userService.AddNewUser(NewUser);
                     TempData["noti"] = "Account created";
