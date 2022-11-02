@@ -5,18 +5,21 @@ using System.Threading.Tasks;
 using System;
 using CookingBakery.BakeryModules.CategoryModule.Interface;
 using CookingBakery.Models;
+using CookingBakery.BakeryModules.PostDetailModule.Interface;
 
 namespace CookingBakery.BakeryModules.PostModule
 {
     public class PostService : IPostService
     {
         private readonly IPostRepository _postRepository;
+        private readonly IPostDetailService _postDetailRepository;
         private readonly ICategoryRepository _categoryRepository;
 
-        public PostService(IPostRepository eventRepository, ICategoryRepository categoryRepository)
+        public PostService(IPostRepository eventRepository, ICategoryRepository categoryRepository, IPostDetailService postDetailRepository)
         {
             _postRepository = eventRepository;
             _categoryRepository = categoryRepository;
+            _postDetailRepository = postDetailRepository;
         }
 
         public ICollection<Post> GetNewestPosts(int quantity)
@@ -67,7 +70,7 @@ namespace CookingBakery.BakeryModules.PostModule
             return null;
         }
 
-        public async Task AddNewPost(Post newEvent, string uid)
+        public void AddNewPost(Post newEvent, string uid, ICollection<PostDetail> details)
         {
             Guid _uid = Guid.Parse(uid);
             newEvent.CreatedDate = DateTime.Now;
@@ -75,7 +78,14 @@ namespace CookingBakery.BakeryModules.PostModule
             newEvent.AuthorId = _uid;
             newEvent.Status = true;
             newEvent.Reaction = 0;
-            await _postRepository.AddAsync(newEvent);
+            _postRepository.Add(newEvent);
+            foreach(PostDetail detail in details)
+            {
+                detail.Product = null;
+                detail.PostId = newEvent.PostId;
+            }
+            _postDetailRepository.AddNewPostDetails(details);
+
         }
 
         public async Task UpdatePost(Post postUpdate)

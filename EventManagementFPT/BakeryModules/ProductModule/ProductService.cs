@@ -18,15 +18,12 @@ namespace CookingBakery.BakeryModules.ProductModule
         public async Task<Product> AddNewProduct(Product newProduct)
         {
             await _productRepository.AddAsync(newProduct);
-            return await GetProductById(newProduct.ProductId);
+            return  GetProductById(newProduct.ProductId);
         }
 
-        private async Task<Product> GetProductById(Guid? productId)
+        public Product GetProductById(Guid? productId)
         {
-            return await _productRepository
-                .GetFirstOrDefaultAsync(
-                    x => x.ProductId.Equals(productId)
-                );
+            return _productRepository.GetFirstOrDefaultAsync(x => x.ProductId.Equals(productId)).Result;
         }
 
         public async Task UpdateProduct(Product productUpdate)
@@ -34,15 +31,11 @@ namespace CookingBakery.BakeryModules.ProductModule
             await _productRepository.UpdateAsync(productUpdate);
         }
 
-        Task<Product> IProductService.GetProductById(Guid? productId)
-        {
-            throw new NotImplementedException();
-        }
-
         public ICollection<Product> GetAll()
         {
             ICollection<Product> products =  _productRepository.GetAll();
             return products;
         }
+
     }
 }

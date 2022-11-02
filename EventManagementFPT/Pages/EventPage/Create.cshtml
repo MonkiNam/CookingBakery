@@ -6,18 +6,17 @@
 }
 
 <div asp-validation-summary="All">
-
 </div>
 
 <div class="container-fluid mt-5 pl-5 pr-5 mb-5">
-    <form method="post" enctype="multipart/form-data">
+    <form asp-page-handler="create" method="post" enctype="multipart/form-data">
         <div class="row mr-4 ml-4">
             <div class="col-8">
                 <div class="border rounded shadow-sm p-4">
                     <h4 class="font-weight-bold d-flex align-items-center justify-content-center"><ion-icon class="mt-1 mr-1" name="cube-outline"></ion-icon>Post's data</h4>
                     <div class="form-group">
                         <label class="font-weight-bold" for="title">Title of the post</label>
-                        <input asp-for="Post.Title" type="text" class="form-control" id="title" placeholder="An eye-catching title..."/>
+                        <input asp-for="Post.Title" type="text" class="form-control" id="title" placeholder="An eye-catching title..." />
                         <span asp-validation-for="Post.Title" class="text-danger"></span>
                     </div>
                     <div class="form-group">
@@ -44,8 +43,42 @@
                         <select class="form-control" name="categoryId" asp-items="ViewBag.Category">
                         </select>
                     </div>
+                    <form method="post" asp-page-handler="add">
+                        <div class="form-group">
+                            <label class="font-weight-bold" for="category-select">Ingredients</label>
+                            <select class="form-control" name="productId" asp-items="ViewBag.Ingredient">
+                            </select>
+                            <input type="number" name="quantity">
+                            <input type="hidden" name="postId" value="@Model.Post?.PostId" />
+                            <input type="hidden" name="detail" value="@Model.Detail" />
+
+
+
+                            <button asp-page-handler="add" class="btn btn-default">Add Product</button>
+
+
+                        </div>
+                    </form>
+                    @if (Model.Detail != null)
+                    {
+                        <ul class="list-unstyled">
+                            @foreach(var detail in Model.Detail)
+                            {
+                            <li>     - @detail.Quantity @detail.Product.Name</li>
+
+                                <form method="post" asp-page-handler="cancel">
+                                    <input type="hidden" name="id" value="@detail.ProductId" />
+                            <button asp-page-handler="cancel" class="d-flex btn btn-default">X</button>
+
+                                </form>
+                            }
+                        </ul>
+
+                    }
+
                     <hr>
-                    <button class="btn btn-outline-primary btn-block" type="submit">Create</button>
+                    <input type="hidden" name="detail" value="@Model.Detail" />
+                    <button class="btn btn-outline-primary btn-block" asp-page-handler="create">Create</button>
                 </div>
             </div>
         </div>
@@ -53,5 +86,7 @@
 </div>
 
 @section Scripts {
-    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
-}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

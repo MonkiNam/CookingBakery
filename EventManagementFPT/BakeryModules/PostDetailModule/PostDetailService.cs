@@ -40,11 +40,6 @@ namespace CookingBakery.BakeryModules.PostDetailModule
             {
                 if (postDetails.ElementAt(i).PostId != postDetails.ElementAt(i + 1).PostId) return;
             }
-            if (_postRepository.GetFirstOrDefaultAsync(x => x.PostId == postDetails.First().PostId) == null) return;
-            foreach (var item in postDetails)
-            {
-                if (_productRepository.GetFirstOrDefaultAsync(x => x.ProductId == item.ProductId) == null) return;
-            }
             await _postDetailRepository.AddRangeAsync(postDetails);
         }
         public async Task UpdatePostDetail(ICollection<PostDetail> updatePostDetails)

@@ -10,7 +10,7 @@ namespace CookingBakery.BakeryModules.ProductModule.Interface
         public Task<Product> AddNewProduct(Product newProduct);
 
 
-        public Task<Product> GetProductById(Guid? productId);
+        public Product GetProductById(Guid? productId);
 
 
         public Task UpdateProduct(Product productUpdate);

@@ -13,5 +13,6 @@ namespace CookingBakery.Models
 
         public virtual Post Post { get; set; }
         public virtual Product Product { get; set; }
+
     }
 }

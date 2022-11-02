@@ -14,7 +14,7 @@ namespace CookingBakery.BakeryModules.PostModule.Interface
         public ICollection<Post> GetAll();
         public ICollection<Post> GetPostsByCategory(Guid? categoryID);
         public Task<Post> GetPostByID(Guid? ID);
-        public Task AddNewPost(Post newPost, string uid);
+        public void AddNewPost(Post newPost, string uid, ICollection<PostDetail> details);
         public Task UpdatePost(Post postUpdate);
         public Task DeletePost(Guid? ID);
     }
