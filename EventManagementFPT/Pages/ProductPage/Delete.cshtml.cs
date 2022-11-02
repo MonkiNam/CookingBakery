@@ -49,7 +49,7 @@ namespace CookingBakery.Pages.ProductPage
             }
 
             Product = await _context.Products.FindAsync(id);
-            var tmp = _context.PostDetails.Where(x => x.ProductId.Equals(id));
+            var tmp = _context.PostDetails.FirstOrDefault(x => x.ProductId.Equals(id));
 
             if (Product != null && tmp == null)
             {

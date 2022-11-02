@@ -39,6 +39,10 @@ namespace CookingBakery.Pages.ProductPage
             {
                 return Page();
             }
+
+            Product.ProductId = Guid.NewGuid();
+            Product.Status = false;
+            Product.CreatedDate = DateTime.Now;
             await _productService.AddNewProduct(Product);
 
             return RedirectToPage("./Index");
