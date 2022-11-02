@@ -144,6 +144,8 @@ namespace CookingBakery.Pages.EventPage
             Detail = Session.GetObjectFromJson<ICollection<PostDetail>>(HttpContext.Session, "DETAIL");
 
              _postService.AddNewPost(Post, uid, Detail);
+            Session.SetObjectAsJson(HttpContext.Session, "DETAIL", null);
+
             return RedirectToPage("/Home/Index");
         }
     }
