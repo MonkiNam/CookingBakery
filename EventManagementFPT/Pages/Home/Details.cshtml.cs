@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Http;
 using CookingBakery.BakeryModules.UserModule.Interface;
 using CookingBakery;
 
+
 namespace CookingBakery.Pages.Home
 {
     public class Details : PageModel
@@ -39,6 +40,7 @@ namespace CookingBakery.Pages.Home
         [BindProperty]
         public IEnumerable<Models.Comment> Comments { get; set; }
         public PostReaction isLike { get; set; }
+
 
 
         public async Task<IActionResult> OnGetAsync(Guid? id)

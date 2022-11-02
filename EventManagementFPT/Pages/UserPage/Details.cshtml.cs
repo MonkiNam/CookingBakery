@@ -1,6 +1,6 @@
 ﻿using System;
-using CookingBakery.Model;
-using CookingBakery.Modules.UserModule.Interface;
+using CookingBakery.Models;
+using CookingBakery.BakeryModules.UserModule.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;

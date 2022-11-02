@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using CookingBakery.Model;
-using CookingBakery.Modules.UserModule.Interface;
+using CookingBakery.Models;
+using CookingBakery.BakeryModules.UserModule.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -11,10 +11,10 @@ namespace CookingBakery.Pages.UserPage
     [Authorize(Roles = "Admin")]
     public class EditModel : PageModel
     {
-        private readonly EventManagementContext _context;
+        private readonly CookingBakeryContext _context;
         private IUserService _userService;
 
-        public EditModel(EventManagementContext context, IUserService userService)
+        public EditModel(CookingBakeryContext context, IUserService userService)
         {
             _context = context;
             _userService = userService;

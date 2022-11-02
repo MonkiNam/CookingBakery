@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using CookingBakery.Models;
 using CookingBakery.BakeryModules.ProductModule.Interface;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CookingBakery.Pages.ProductPage
 {
+    [Authorize(Roles = "Admin")]
+
     public class CreateModel : PageModel
     {
         private readonly CookingBakery.Models.CookingBakeryContext _context;

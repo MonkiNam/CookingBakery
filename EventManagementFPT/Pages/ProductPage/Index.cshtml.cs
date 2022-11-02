@@ -10,6 +10,7 @@ using CookingBakery.BakeryModules.ProductModule.Interface;
 
 namespace CookingBakery.Pages.ProductPage
 {
+
     public class IndexModel : PageModel
     {
         private readonly CookingBakery.Models.CookingBakeryContext _context;

@@ -8,9 +8,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CookingBakery.Models;
 using CookingBakery.BakeryModules.ProductModule.Interface;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CookingBakery.Pages.ProductPage
 {
+    [Authorize(Roles = "Admin")]
+
     public class EditModel : PageModel
     {
         private readonly CookingBakery.Models.CookingBakeryContext _context;

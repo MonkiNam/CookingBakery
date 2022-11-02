@@ -1,13 +1,12 @@
 ﻿using System.Linq;
-using CookingBakery.Model;
-using CookingBakery.Modules.UserModule.Interface;
+using CookingBakery.Models;
+using CookingBakery.BakeryModules.UserModule.Interface;
 using CookingBakery.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace CookingBakery.Pages.UserPage
 {
-    [Authorize(Roles = "Admin")]
     public class IndexModel : PageModel
     {
         private IUserService _userService;

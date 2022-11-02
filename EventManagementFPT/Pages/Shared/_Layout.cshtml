@@ -95,10 +95,8 @@
                         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                             <div class="navbar-nav">
                                 <a class="nav-link" asp-page="/UserPage/Index">User list</a>
-                                <a class="nav-link" asp-page="/EventPage/Index">Event list</a>
-                                <a class="nav-link" asp-page="/CategoryPage/Index">Category list</a>
-                                <a class="nav-link" asp-page="/VenuePage/Index">Venue list</a>
-                                <a class="nav-link" asp-page="/ReportPage/Index">Report list</a>
+                                <a class="nav-link" asp-page="/EventPage/Index">Post list</a>
+                                <a class="nav-link" asp-page="/ProductPage/Index">Product list</a>
                             </div>
                         </div>
                     }
@@ -109,15 +107,24 @@
                                 <a class="nav-link" asp-page="/EventPage/Index">Event list</a>
                             </div>
                         </div>
+                    } 
+                    @if (role is "User")
+                    {
+                            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                            <div class="navbar-nav">
+                                <a class="nav-link" asp-page="/UserPage/Index">User list</a>
+                                <a class="nav-link" asp-page="/ProductPage/Index">Product list</a>
+                                <a class="nav-link" asp-page="/UserPost/IndexUserPost">Owned post</a>
+
+                            </div>
+                        </div>
                     }
                     <div class="dropdown">
-                        @if (role is "Admin" or "Host")
-                        {
                             <a asp-page="/EventPage/Create" class="btn btn-outline-primary mr-2 d-inline-flex align-items-center" id="create-button">
                                 <ion-icon class="mr-1" name="add-circle-outline"></ion-icon>
                                 <span class="mb-1">Create event</span>
                             </a>
-                        }
+
                         <span href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             <img src="@avatarUrl" onerror="this.onerror=null;this.src = '../../image/default.png'" width="40" height="40" alt="avatar" class="rounded-circle border" />
                         </span>

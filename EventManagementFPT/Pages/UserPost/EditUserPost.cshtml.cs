@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CookingBakery.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CookingBakery.Pages.UserPost
 {
+    [Authorize(Roles = "User")]
+
     public class EditModel : PageModel
     {
         private readonly CookingBakery.Models.CookingBakeryContext _context;

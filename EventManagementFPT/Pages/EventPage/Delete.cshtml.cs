@@ -4,9 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using CookingBakery.Models;
 using CookingBakery.BakeryModules.PostModule.Interface;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CookingBakery.Pages.EventPage
 {
+    [Authorize(Roles = "Admin")]
+
     public class DeleteModel : PageModel
     {
         private readonly IPostService _postService;

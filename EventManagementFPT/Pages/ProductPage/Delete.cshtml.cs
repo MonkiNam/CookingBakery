@@ -6,11 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using CookingBakery.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CookingBakery.Pages.ProductPage
 {
+    [Authorize(Roles = "Admin")]
+
     public class DeleteModel : PageModel
     {
+
         private readonly CookingBakery.Models.CookingBakeryContext _context;
 
         public DeleteModel(CookingBakery.Models.CookingBakeryContext context)

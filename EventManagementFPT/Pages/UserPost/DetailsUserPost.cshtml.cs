@@ -12,9 +12,12 @@ using CookingBakery;
 using System.Security.Claims;
 using CookingBakery.BakeryModules.CommentModule.Interface;
 using CookingBakery.BakeryModules.PostModule.Interface;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CookingBakery.Pages.UserPost
 {
+    [Authorize(Roles = "User")]
+
     public class DetailsModel : PageModel
     {
         private readonly CookingBakery.Models.CookingBakeryContext _context;
