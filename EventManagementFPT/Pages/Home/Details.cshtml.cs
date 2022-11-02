@@ -93,8 +93,9 @@ namespace CookingBakery.Pages.Home
         public async Task<IActionResult> OnPostReply(Guid cmtId)
         {
             ReplyComment = _context.Comments.FirstOrDefault(x=>x.CommentId.Equals(cmtId));
-            Session.SetObjectAsJson(HttpContext.Session, "REPLY", ReplyComment);
-             return await OnGetAsync(Post.PostId);
+
+                Session.SetObjectAsJson(HttpContext.Session, "REPLY", ReplyComment);
+            return await OnGetAsync(Post.PostId);
 
 
 
@@ -123,6 +124,8 @@ namespace CookingBakery.Pages.Home
                 
             };
              await _commentService.AddNewComment(cmt);
+            Session.SetObjectAsJson(HttpContext.Session, "REPLY", null);
+            ReplyComment = null;
 
             return RedirectToPage(new { id = Post.PostId.ToString() });
 
