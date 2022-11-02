@@ -1,0 +1,22 @@
+﻿using BussinessObject.Models;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace Repositories.BakeryModules.ProductModule.Interface
+{
+    public interface IProductService
+    {
+        public Task<Product> AddNewProduct(Product newProduct);
+
+
+        public Task<Product> GetProductById(Guid? productId);
+
+
+        public Task UpdateProduct(Product productUpdate);
+
+        public ICollection<Product> GetAll();
+
+
+    }
+}

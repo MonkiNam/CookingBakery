@@ -5,15 +5,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using CookingBakery.Models;
+using BussinessObject.Models;
 
 namespace CookingBakery.Pages.ProductPage
 {
     public class DetailsModel : PageModel
     {
-        private readonly CookingBakery.Models.CookingBakeryContext _context;
+        private readonly BussinessObject.Models.CookingBakeryContext _context;
 
-        public DetailsModel(CookingBakery.Models.CookingBakeryContext context)
+        public DetailsModel(BussinessObject.Models.CookingBakeryContext context)
         {
             _context = context;
         }

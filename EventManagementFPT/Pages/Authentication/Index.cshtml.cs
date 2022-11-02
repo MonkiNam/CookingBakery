@@ -1,5 +1,5 @@
-using CookingBakery.BakeryModules.UserModule.Interface;
-using CookingBakery.Models;
+
+using BussinessObject.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Repositories.BakeryModules.UserModule.Interface;
 
 namespace CookingBakery.Pages.Authentication
 {

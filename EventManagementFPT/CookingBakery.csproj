@@ -6,34 +6,66 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="BakeryModules\CategoryModule\CategoryRepository.cs" />
-    <Content Include="BakeryModules\CategoryModule\CategoryService.cs" />
-    <Content Include="BakeryModules\CategoryModule\Interface\ICategoryRepository.cs" />
-    <Content Include="BakeryModules\CategoryModule\Interface\ICategoryService.cs" />
-    <Content Include="BakeryModules\CommentModule\CommentRepository.cs" />
-    <Content Include="BakeryModules\CommentModule\CommentService.cs" />
-    <Content Include="BakeryModules\CommentModule\Interface\ICommentRepository.cs" />
-    <Content Include="BakeryModules\CommentModule\Interface\ICommentService.cs" />
-    <Content Include="BakeryModules\PostDetailModule\Interface\IPostDetailRepository.cs" />
-    <Content Include="BakeryModules\PostDetailModule\Interface\IPostDetailService.cs" />
-    <Content Include="BakeryModules\PostDetailModule\PostDetailRepository.cs" />
-    <Content Include="BakeryModules\PostDetailModule\PostDetailService.cs" />
-    <Content Include="BakeryModules\PostModule\Interface\IPostRepository.cs" />
-    <Content Include="BakeryModules\PostModule\Interface\IPostService.cs" />
-    <Content Include="BakeryModules\PostModule\PostRepository.cs" />
-    <Content Include="BakeryModules\PostModule\PostService.cs" />
-    <Content Include="BakeryModules\PostReactionModule\Interface\IPostReactionRepository.cs" />
-    <Content Include="BakeryModules\PostReactionModule\Interface\IPostReactionService.cs" />
-    <Content Include="BakeryModules\PostReactionModule\PostReactionRepository.cs" />
-    <Content Include="BakeryModules\PostReactionModule\PostReactionService.cs" />
-    <Content Include="BakeryModules\ProductModule\Interface\IProductRepository.cs" />
-    <Content Include="BakeryModules\ProductModule\Interface\IProductService.cs" />
-    <Content Include="BakeryModules\ProductModule\ProductRepository.cs" />
-    <Content Include="BakeryModules\ProductModule\ProductService.cs" />
-    <Content Include="BakeryModules\UserModule\Interface\IUserRepository.cs" />
-    <Content Include="BakeryModules\UserModule\Interface\IUserService.cs" />
-    <Content Include="BakeryModules\UserModule\UserRepository.cs" />
-    <Content Include="BakeryModules\UserModule\UserService.cs" />
+    <Compile Remove="BakeryModules\**" />
+    <Compile Remove="Hubs\**" />
+    <Compile Remove="Models\**" />
+    <Compile Remove="Model\**" />
+    <Compile Remove="Modules\**" />
+    <Compile Remove="Pages\CategoryPage\**" />
+    <Compile Remove="Pages\EventPage\**" />
+    <Compile Remove="Pages\ReportPage\**" />
+    <Compile Remove="Pages\UserPage\**" />
+    <Compile Remove="Pages\VenuePage\**" />
+    <Compile Remove="Utils\**" />
+    <Content Remove="BakeryModules\**" />
+    <Content Remove="Hubs\**" />
+    <Content Remove="Models\**" />
+    <Content Remove="Model\**" />
+    <Content Remove="Modules\**" />
+    <Content Remove="Pages\CategoryPage\**" />
+    <Content Remove="Pages\EventPage\**" />
+    <Content Remove="Pages\ReportPage\**" />
+    <Content Remove="Pages\UserPage\**" />
+    <Content Remove="Pages\VenuePage\**" />
+    <Content Remove="Utils\**" />
+    <EmbeddedResource Remove="BakeryModules\**" />
+    <EmbeddedResource Remove="Hubs\**" />
+    <EmbeddedResource Remove="Models\**" />
+    <EmbeddedResource Remove="Model\**" />
+    <EmbeddedResource Remove="Modules\**" />
+    <EmbeddedResource Remove="Pages\CategoryPage\**" />
+    <EmbeddedResource Remove="Pages\EventPage\**" />
+    <EmbeddedResource Remove="Pages\ReportPage\**" />
+    <EmbeddedResource Remove="Pages\UserPage\**" />
+    <EmbeddedResource Remove="Pages\VenuePage\**" />
+    <EmbeddedResource Remove="Utils\**" />
+    <None Remove="BakeryModules\**" />
+    <None Remove="Hubs\**" />
+    <None Remove="Models\**" />
+    <None Remove="Model\**" />
+    <None Remove="Modules\**" />
+    <None Remove="Pages\CategoryPage\**" />
+    <None Remove="Pages\EventPage\**" />
+    <None Remove="Pages\ReportPage\**" />
+    <None Remove="Pages\UserPage\**" />
+    <None Remove="Pages\VenuePage\**" />
+    <None Remove="Utils\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Pages\Home\ChangePassword.cshtml.cs" />
+    <Compile Remove="Pages\Home\JoinEvent.cshtml.cs" />
+    <Compile Remove="Pages\Home\LikeEvent.cshtml.cs" />
+    <Compile Remove="Pages\Home\UnattendEvent.cshtml.cs" />
+    <Compile Remove="Pages\Home\UnlikeEvent.cshtml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Pages\Home\ChangePassword.cshtml" />
+    <Content Remove="Pages\Home\JoinEvent.cshtml" />
+    <Content Remove="Pages\Home\LikeEvent.cshtml" />
+    <Content Remove="Pages\Home\UnattendEvent.cshtml" />
+    <Content Remove="Pages\Home\UnlikeEvent.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -53,6 +85,11 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\NewFolder\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BusinessObject\BusinessObject.csproj" />
+    <ProjectReference Include="..\Repositories\Repositories.csproj" />
   </ItemGroup>
 
 </Project>

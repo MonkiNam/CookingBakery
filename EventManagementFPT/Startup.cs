@@ -1,19 +1,4 @@
-using CookingBakery.BakeryModules.CategoryModule;
-using CookingBakery.BakeryModules.CategoryModule.Interface;
-using CookingBakery.BakeryModules.CommentModule;
-using CookingBakery.BakeryModules.CommentModule.Interface;
-using CookingBakery.BakeryModules.PostDetailModule;
-using CookingBakery.BakeryModules.PostDetailModule.Interface;
-using CookingBakery.BakeryModules.PostModule;
-using CookingBakery.BakeryModules.PostModule.Interface;
-using CookingBakery.BakeryModules.PostReactionModule;
-using CookingBakery.BakeryModules.PostReactionModule.Interface;
-using CookingBakery.BakeryModules.ProductModule;
-using CookingBakery.BakeryModules.ProductModule.Interface;
-using CookingBakery.BakeryModules.UserModule;
-using CookingBakery.BakeryModules.UserModule.Interface;
-using CookingBakery.Hubs;
-using CookingBakery.Models;
+using BussinessObject.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -21,6 +6,20 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Repositories.BakeryModules.CategoryModule;
+using Repositories.BakeryModules.CategoryModule.Interface;
+using Repositories.BakeryModules.CommentModule;
+using Repositories.BakeryModules.CommentModule.Interface;
+using Repositories.BakeryModules.PostDetailModule;
+using Repositories.BakeryModules.PostDetailModule.Interface;
+using Repositories.BakeryModules.PostModule;
+using Repositories.BakeryModules.PostModule.Interface;
+using Repositories.BakeryModules.PostReactionModule;
+using Repositories.BakeryModules.PostReactionModule.Interface;
+using Repositories.BakeryModules.ProductModule;
+using Repositories.BakeryModules.ProductModule.Interface;
+using Repositories.BakeryModules.UserModule;
+using Repositories.BakeryModules.UserModule.Interface;
 
 namespace CookingBakery
 {
@@ -38,6 +37,8 @@ namespace CookingBakery
         {
             services.AddRazorPages();
             services.AddSession();
+            services.AddMemoryCache();
+            services.AddMvc();
             services
                 .AddSignalR(e =>
                 {
@@ -67,7 +68,7 @@ namespace CookingBakery
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProductService, ProductService>();
 
-            services.AddDbContext<CookingBakeryContext>(
+            services.AddDbContext<BussinessObject.Models.CookingBakeryContext>(
                 opt => opt.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")
                 )
@@ -96,6 +97,7 @@ namespace CookingBakery
             app.UseHttpsRedirection();
 
             app.UseStaticFiles();
+            app.UseSession();
 
             app.UseRouting();
 
@@ -106,7 +108,7 @@ namespace CookingBakery
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
-                endpoints.MapHub<SignalRServer>("/signalrServer");
+                //endpoints.MapHub<SignalRServer>("/signalrServer");
             });
         }
     }

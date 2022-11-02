@@ -3,14 +3,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using CookingBakery.Models;
+using BussinessObject.Models;
 using Microsoft.AspNetCore.Http;
-using CookingBakery.Utils;
 using Microsoft.AspNetCore.Hosting;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
-using CookingBakery.BakeryModules.PostModule.Interface;
-using CookingBakery.BakeryModules.CategoryModule.Interface;
+using Repositories.BakeryModules.PostModule.Interface;
+using Repositories.Utils;
 
 namespace CookingBakery.Pages.EventPage
 {
@@ -39,7 +38,7 @@ namespace CookingBakery.Pages.EventPage
         [BindProperty] public Post Post { get; set; }
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-        public async Task<IActionResult> OnPostAsync(IFormFile customFile)
+        public async Task<IActionResult> OnPostAsync(IFormFile customFile, Guid categoryId)
         {
             var uid = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (uid == null) return RedirectToPage("/Authentication/Index");
@@ -58,8 +57,9 @@ namespace CookingBakery.Pages.EventPage
                     string imageUrl = await UploadImage.UploadFile(customFile, _env);
                     Post.ImageUrl = imageUrl;
                 }
+            Post.CategoryId = categoryId;
                 await _postService.AddNewPost(Post, uid);
-                return RedirectToPage("./Index");
+                return RedirectToPage("/Home/Index");
         }
     }
 }

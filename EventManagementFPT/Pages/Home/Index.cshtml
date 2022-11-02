@@ -12,10 +12,11 @@
         <div class="col-3">
             <br />
             <a asp-page="/UserPost/IndexUserPost" class="btn btn-primary btn-rounded">Owned Post</a>
+             <a asp-page="/EventPage/Create" class=" btn btn-danger btn-rounded">Create</a>
             <br />
             <div class="border rounded shadow p-4">
                 <h3 class="d-flex align-items-center">
-                    New events
+                    Newest posts
                     <span class="badge badge-danger ml-2">
                         <ion-icon name="flame-outline"></ion-icon>
                     </span>
@@ -23,9 +24,13 @@
                 <div class="container-fluid mt-4">
                     <!-- New events -->
                     <div class="card-deck">
+                         @{int i = 0;}
                         @foreach (var _post in Model.NewestPost)
                         {
-                            <div class="card event d-flex">
+                            i++;
+                            if(i < 3)
+                            {
+                               <div class="card event d-flex">
                                 <img src="../image/@_post.ImageUrl" onerror="this.onerror=null;this.src = '../image/event.jpg'"
                                  class="card-img-top flex-grow-1" style="object-fit: cover" alt="...">
                                 <div class="card-body flex-grow-0">
@@ -44,7 +49,13 @@
                                     </div>
                                 </div>
                                 <a asp-page="./Details" asp-route-id="@_post.PostId" class="stretched-link"></a>
-                            </div>
+                                </div>
+                            }
+                            else
+                            {
+                                break;
+                            }
+
                         }
                     </div>
                 </div>
@@ -90,7 +101,7 @@
 
 
                 <hr class="mt-4 mb-4" />
-
+               
                 @if (Model.Post.Any())
                 {
                     <!-- Event list -->

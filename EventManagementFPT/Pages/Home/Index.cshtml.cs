@@ -1,7 +1,5 @@
 ﻿ 
-using CookingBakery.BakeryModules.PostModule.Interface;
-using CookingBakery.Models;
-using CookingBakery.Utils;
+using BussinessObject.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -9,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Repositories.Utils;
+using Repositories.BakeryModules.PostModule.Interface;
 
 namespace CookingBakery.Pages.Home
 {
@@ -34,7 +34,7 @@ namespace CookingBakery.Pages.Home
             int? pageIndex
         )
         {
-            NewestPost = _postService.GetNewestPosts(3);
+            NewestPost = _postService.GetNewestPosts(4);
 
             if (txtSearchName != null || filterCategory != null)
             {

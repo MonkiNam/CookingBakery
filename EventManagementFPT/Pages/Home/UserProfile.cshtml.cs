@@ -1,9 +1,10 @@
-using CookingBakery.BakeryModules.UserModule.Interface;
-using CookingBakery.Models;
+using BussinessObject.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Repositories.BakeryModules.UserModule.Interface;
+using Repositories.Utils;
 using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -37,7 +38,7 @@ namespace CookingBakery.Pages.Home
         {
             if (customFile != null)
             {
-                string url = await Utils.UploadImage.UploadFile(customFile, _env);
+                string url = await UploadImage.UploadFile(customFile, _env);
                 user.Avatar = url;
             }
             await _userService.UpdateUser(user);

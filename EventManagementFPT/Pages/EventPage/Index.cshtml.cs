@@ -1,12 +1,12 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using CookingBakery.Models;
-using CookingBakery.Utils;
+using BussinessObject.Models;
 using System.Linq;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using CookingBakery.BakeryModules.PostModule.Interface;
+using Repositories.Utils;
+using Repositories.BakeryModules.PostModule.Interface;
 
 namespace CookingBakery.Pages.EventPage
 {

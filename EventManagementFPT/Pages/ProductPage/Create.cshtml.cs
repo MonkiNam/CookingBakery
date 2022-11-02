@@ -5,17 +5,17 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using CookingBakery.Models;
-using CookingBakery.BakeryModules.ProductModule.Interface;
+using BussinessObject.Models;
+using Repositories.BakeryModules.ProductModule.Interface;
 
 namespace CookingBakery.Pages.ProductPage
 {
     public class CreateModel : PageModel
     {
-        private readonly CookingBakery.Models.CookingBakeryContext _context;
+        private readonly CookingBakeryContext _context;
         private readonly IProductService _productService;
 
-        public CreateModel(CookingBakery.Models.CookingBakeryContext context, IProductService productService)
+        public CreateModel(BussinessObject.Models.CookingBakeryContext context, IProductService productService)
         {
             _context = context;
             _productService = productService;

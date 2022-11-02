@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using CookingBakery.Model;
+using BussinessObject.Models;
 using CookingBakery.Modules.ReportModule.Interface;
 using Microsoft.AspNetCore.Authorization;
 

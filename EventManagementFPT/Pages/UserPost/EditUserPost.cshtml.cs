@@ -6,15 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using CookingBakery.Models;
+using BussinessObject.Models;
 
 namespace CookingBakery.Pages.UserPost
 {
     public class EditModel : PageModel
     {
-        private readonly CookingBakery.Models.CookingBakeryContext _context;
+        private readonly BussinessObject.Models.CookingBakeryContext _context;
 
-        public EditModel(CookingBakery.Models.CookingBakeryContext context)
+        public EditModel(BussinessObject.Models.CookingBakeryContext context)
         {
             _context = context;
         }

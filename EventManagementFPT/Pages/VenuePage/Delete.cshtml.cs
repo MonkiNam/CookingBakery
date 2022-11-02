@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using CookingBakery.Model;
+using BussinessObject.Models;
 using CookingBakery.Modules.VenueModule.Interface;
 using Microsoft.AspNetCore.Authorization;
 

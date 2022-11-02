@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using CookingBakery.Model;
+using BussinessObject.Models;
 using CookingBakery.Modules.CategoryModule.Interface;
 using Microsoft.AspNetCore.Authorization;
 

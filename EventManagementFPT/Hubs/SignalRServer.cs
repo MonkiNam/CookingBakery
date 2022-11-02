@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using CookingBakery.Model;
+using BussinessObject.Models;
 using CookingBakery.Modules.CommentModule.Interface;
 using CookingBakery.Modules.EventModule.Interface;
 using CookingBakery.Modules.UserModule.Interface;

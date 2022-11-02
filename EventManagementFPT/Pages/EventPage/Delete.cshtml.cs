@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using CookingBakery.Models;
+using BussinessObject.Models;
 using CookingBakery.BakeryModules.PostModule.Interface;
 
 namespace CookingBakery.Pages.EventPage

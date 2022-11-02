@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using CookingBakery.Model;
+using BussinessObject.Models;
 using CookingBakery.Modules.UserModule.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

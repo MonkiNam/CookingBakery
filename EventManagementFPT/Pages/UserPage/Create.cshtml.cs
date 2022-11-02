@@ -1,12 +1,11 @@
 ﻿using System.Threading.Tasks;
-using CookingBakery.Model;
-using CookingBakery.Modules.UserModule.Interface;
-using CookingBakery.Utils;
+using BussinessObject.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Repositories.BakeryModules.UserModule.Interface;
 
 namespace CookingBakery.Pages.UserPage
 {

@@ -3,9 +3,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using CookingBakery.BakeryModules.UserModule.Interface;
-using CookingBakery.Models;
-using CookingBakery.Utils;
+using BussinessObject.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -13,6 +11,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Repositories.BakeryModules.UserModule.Interface;
 
 namespace CookingBakery.Pages.Authentication
 {
@@ -48,7 +47,7 @@ namespace CookingBakery.Pages.Authentication
                 if (!string.IsNullOrEmpty(NewUser.Email) && !string.IsNullOrEmpty(NewUser.Password) && !string.IsNullOrEmpty(NewUser.Name))
                 {
                     NewUser.Avatar = "~/image/default.png";
-
+                    NewUser.Role = RoleEnum.User;
 
                     await _userService.AddNewUser(NewUser);
                     TempData["noti"] = "Account created";

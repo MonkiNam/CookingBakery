@@ -1,9 +1,9 @@
 ﻿using System.Linq;
-using CookingBakery.Model;
-using CookingBakery.Modules.UserModule.Interface;
-using CookingBakery.Utils;
+using BussinessObject.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Repositories.BakeryModules.UserModule.Interface;
+using Repositories.Utils;
 
 namespace CookingBakery.Pages.UserPage
 {

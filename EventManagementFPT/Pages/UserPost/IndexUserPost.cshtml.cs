@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using CookingBakery.Models;
-using CookingBakery.BakeryModules.PostModule.Interface;
+using BussinessObject.Models;
 using System.Security.Claims;
+using Repositories.BakeryModules.PostModule.Interface;
 
 namespace CookingBakery.Pages.UserPost
 {
