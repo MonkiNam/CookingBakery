@@ -9,8 +9,9 @@ using CookingBakery.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
 using CookingBakery.BakeryModules.UserModule.Interface;
+using CookingBakery;
 
 namespace CookingBakery.Pages.Home
 {
@@ -29,15 +30,14 @@ namespace CookingBakery.Pages.Home
             _commentService = commentService;
             _userService = userService;
         }
-
-        public Post Post { get; set; }
+        [BindProperty]
+        public  Post Post { get; set; }
+        [BindProperty]
         public IEnumerable<PostDetail> PostDetails { get; set; }
-
+        [BindProperty]
         public IEnumerable<Models.Comment> Comments { get; set; }
+        public PostReaction isLike { get; set; }
 
-        public IQueryable<PostReaction> isLike { get; set; }
-
-        public Comment ReplyComment { get; set; }
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
@@ -46,15 +46,14 @@ namespace CookingBakery.Pages.Home
                 return NotFound();
             }
 
-            Post = await _context.Posts
-             .Include(x => x.Category).FirstOrDefaultAsync(m => m.PostId == id);
+            Post = await _postService.GetPostByID(id);
 
             PostDetails = await _context.PostDetails.Include(x => x.Product).Where(x => x.PostId.Equals(Post.PostId)).ToListAsync();
-            //Comments = await _context.Comments.Where(x=> x.PostId.Equals(Post.PostId)).ToListAsync(); 
+            Comments =  _commentService.GetListCommentByPostId(id);
 
             var loginUser = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
 
-            isLike = _context.PostReactions.Where(x => x.PostId.Equals(Post.PostId) && x.UserId.Equals(loginUser));
+            isLike = _context.PostReactions.Where(x => x.PostId.Equals(Post.PostId) && x.UserId.Equals(loginUser)).FirstOrDefault();
 
 
 
@@ -66,39 +65,54 @@ namespace CookingBakery.Pages.Home
             return Page();
         }
 
-        private async Task<IActionResult> OnGetLike()
+        public async Task<IActionResult> OnPostLike()
         {
-            _userService.LikePost(Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value), Post.PostId);
-            return Page();
-        }
-        private async Task<IActionResult> OnGetUnlike()
-        {
-            _userService.UnlikePost(Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value), Post.PostId);
-            return Page();
-        }
+             _userService.LikePost(Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value), Post.PostId);
+            return RedirectToPage(new { id = Post.PostId.ToString()});
 
-        private RedirectToPageResult Reply(Comment cmt, Guid postId)
-        {
-            ReplyComment = cmt;
-            return RedirectToPage("?id={@postId}");
 
         }
-
-        public async Task<IActionResult> OnPostAsync(string message, Guid postId)
+        public async Task<IActionResult> OnPostUnlike()
         {
+             _userService.UnlikePost(Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value), Post.PostId);
+            return RedirectToPage(new { id = Post.PostId.ToString() });
+
+
+
+
+        }
+
+        public async Task<IActionResult> OnPostReply(Comment cmt)
+        {
+            Session.SetObjectAsJson(HttpContext.Session, "REPLY", cmt);
+            return RedirectToPage(new { id = Post.PostId.ToString() });
+
+
+
+        }
+
+        public async Task<IActionResult> OnPostAsync(string message)
+        {
+            Comment reply = Session.GetObjectFromJson<Comment>(HttpContext.Session, "REPLY");
             Comment cmt = new()
             {
                 UserId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value),
                 Content = message,
                 CreatedDate = DateTime.Now,
-                ParentId = ReplyComment?.CommentId,
-                PostId = postId,
-                Status = true
+                ParentId = reply?.CommentId,
+                PostId = Post.PostId,
+                Status = true,
+                CommentId = Guid.NewGuid()
                 
             };
              await _commentService.AddNewComment(cmt);
 
-            return Page();
+            return RedirectToPage(new { id = Post.PostId.ToString() });
+
+
+
+
+
         }
     }
 }

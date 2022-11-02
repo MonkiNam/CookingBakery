@@ -15,7 +15,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace CookingBakery.Pages.EventPage
 {
-    [Authorize(Roles="Admin, Host")]
     public class CreateModel : PageModel
     {
         private readonly IEventService _eventService;

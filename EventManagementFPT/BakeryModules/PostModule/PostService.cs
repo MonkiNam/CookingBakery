@@ -56,7 +56,7 @@ namespace CookingBakery.BakeryModules.PostModule
         {
             return await _postRepository.GetFirstOrDefaultAsync(
                 x => x.PostId.Equals(postId),
-                includeProperties: "CategoryNavigation,Comments"
+                includeProperties: "Category,Comments"
             );
         }
 

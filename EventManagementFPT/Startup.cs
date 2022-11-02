@@ -38,6 +38,8 @@ namespace CookingBakery
         {
             services.AddRazorPages();
             services.AddSession();
+            services.AddMemoryCache();
+            services.AddMvc();
             services
                 .AddSignalR(e =>
                 {
@@ -96,6 +98,7 @@ namespace CookingBakery
             app.UseHttpsRedirection();
 
             app.UseStaticFiles();
+            app.UseSession();
 
             app.UseRouting();
 

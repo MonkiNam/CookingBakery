@@ -41,7 +41,7 @@ namespace CookingBakery.BakeryModules.CommentModule
             return await _commentRepository
                 .GetFirstOrDefaultAsync(
                     x => x.CommentId.Equals(commentId),
-                    includeProperties: "User"
+                    includeProperties: "Author"
                 );
         }
 
@@ -52,7 +52,7 @@ namespace CookingBakery.BakeryModules.CommentModule
 
         public ICollection<Comment> GetListCommentByPostId(Guid? postId)
         {
-            return _commentRepository.GetAll(includeProperties: "User").Where(x => x.PostId.Equals(postId)).ToList();
+            return _commentRepository.GetAll(includeProperties: "Author").Where(x => x.PostId.Equals(postId)).ToList();
         }
     }
 }

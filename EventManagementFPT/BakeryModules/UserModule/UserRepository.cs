@@ -16,12 +16,20 @@ namespace CookingBakery.BakeryModules.UserModule
 
         public void LikePost(PostReaction likeInfo)
         {
+            var post = _db.Posts.Where(x => x.PostId.Equals(likeInfo.PostId)).FirstOrDefault();
+            post.Reaction = post.Reaction + 1;
+            _db.Posts.Attach(post);
+            _db.Entry(post).Property(x => x.Reaction).IsModified = true;
             _db.PostReactions.Add(likeInfo);
             _db.SaveChanges();
         }
 
         public void UnlikePost(PostReaction likeInfo)
         {
+            var post = _db.Posts.Where(x => x.PostId.Equals(likeInfo.PostId)).FirstOrDefault();
+            post.Reaction = post.Reaction - 1;
+            _db.Posts.Attach(post);
+            _db.Entry(post).Property(x => x.Reaction).IsModified = true;
             _db.PostReactions.Remove(likeInfo);
             _db.SaveChanges();
         }
