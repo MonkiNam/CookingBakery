@@ -31,7 +31,9 @@ namespace CookingBakery.Pages.Home
             _userService = userService;
         }
         [BindProperty]
-        public  Post Post { get; set; }
+        public  Post Post { get; set; } 
+        [BindProperty]
+        public  Comment ReplyComment { get; set; }
         [BindProperty]
         public IEnumerable<PostDetail> PostDetails { get; set; }
         [BindProperty]
@@ -82,16 +84,25 @@ namespace CookingBakery.Pages.Home
 
         }
 
-        public async Task<IActionResult> OnPostReply(Comment cmt)
+        public async Task<IActionResult> OnPostReply(Guid cmtId)
         {
-            Session.SetObjectAsJson(HttpContext.Session, "REPLY", cmt);
-            return RedirectToPage(new { id = Post.PostId.ToString() });
+            ReplyComment = _context.Comments.FirstOrDefault(x=>x.CommentId.Equals(cmtId));
+            Session.SetObjectAsJson(HttpContext.Session, "REPLY", ReplyComment);
+             return await OnGetAsync(Post.PostId);
 
 
 
         }
 
-        public async Task<IActionResult> OnPostAsync(string message)
+        public async Task<IActionResult> OnPostCancel()
+        {
+            Session.SetObjectAsJson(HttpContext.Session, "REPLY", null);
+            ReplyComment = null;
+            return await OnGetAsync(Post.PostId);
+
+        }
+
+        public async Task<IActionResult> OnPostAdd(string message)
         {
             Comment reply = Session.GetObjectFromJson<Comment>(HttpContext.Session, "REPLY");
             Comment cmt = new()

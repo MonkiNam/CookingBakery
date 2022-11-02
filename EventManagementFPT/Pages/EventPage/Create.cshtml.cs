@@ -59,7 +59,7 @@ namespace CookingBakery.Pages.EventPage
                     Post.ImageUrl = imageUrl;
                 }
                 await _postService.AddNewPost(Post, uid);
-                return RedirectToPage("./Index");
+                return RedirectToPage("Home/Index");
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿@page "{handler?}"
+﻿@page
+@addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
 @model CookingBakery.Pages.Home.Details
 
 @{
@@ -77,8 +78,9 @@
                                                                             </p>
                                                                             <form asp-page-handler="reply" method="post">
                                                                                 <input type="hidden" name="postId" value="@Model.Post.PostId" />
-                                                                                <input type="hidden" name="cmt" value="@parent" />
-                                                                                <button class="btn btn-default" >Reply</button>
+
+                                                                                <input type="hidden" name="cmtId" value="@parent.CommentId" />
+                                                                                <button class="btn btn-default">Reply</button>
 
                                                                             </form>
                                                                         </div>
@@ -139,8 +141,21 @@
                     </div>
                 </section>
                 <div class="contact-form article-comment w-100">
+                    @if (Model.ReplyComment != null)
+                    {
+
+                        <div>Reply to @Model.ReplyComment.Author.Name</div>
+
+                        <form method="post" asp-page-handler="cancel">
+                            <input type="hidden" name="postId" value="@Model.Post.PostId" />
+
+                            <button>X</button>
+
+                        </form>
+                    }
+
                     <h4>Leave a comment</h4>
-                    <form id="contact-form" method="POST">
+                    <form id="contact-form" method="POST" asp-page-handler="add">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
