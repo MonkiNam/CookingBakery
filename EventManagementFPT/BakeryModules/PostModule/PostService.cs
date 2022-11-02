@@ -72,6 +72,9 @@ namespace CookingBakery.BakeryModules.PostModule
             Guid _uid = Guid.Parse(uid);
             newEvent.CreatedDate = DateTime.Now;
             newEvent.PostId = Guid.NewGuid();
+            newEvent.AuthorId = _uid;
+            newEvent.Status = true;
+            newEvent.Reaction = 0;
             await _postRepository.AddAsync(newEvent);
         }
 

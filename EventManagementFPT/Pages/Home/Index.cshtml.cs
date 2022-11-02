@@ -34,7 +34,7 @@ namespace CookingBakery.Pages.Home
             int? pageIndex
         )
         {
-            NewestPost = _postService.GetNewestPosts(3);
+            NewestPost = _postService.GetNewestPosts(4);
 
             if (txtSearchName != null || filterCategory != null)
             {

@@ -39,7 +39,7 @@ namespace CookingBakery.Pages.EventPage
         [BindProperty] public Post Post { get; set; }
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-        public async Task<IActionResult> OnPostAsync(IFormFile customFile)
+        public async Task<IActionResult> OnPostAsync(IFormFile customFile, Guid categoryId)
         {
             var uid = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (uid == null) return RedirectToPage("/Authentication/Index");
@@ -58,8 +58,9 @@ namespace CookingBakery.Pages.EventPage
                     string imageUrl = await UploadImage.UploadFile(customFile, _env);
                     Post.ImageUrl = imageUrl;
                 }
+            Post.CategoryId = categoryId;
                 await _postService.AddNewPost(Post, uid);
-                return RedirectToPage("Home/Index");
+                return RedirectToPage("/Home/Index");
         }
     }
 }
