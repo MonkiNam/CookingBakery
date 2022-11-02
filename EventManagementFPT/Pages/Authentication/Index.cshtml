@@ -1,5 +1,5 @@
 ﻿@page
-@model             CookingBakery.Pages.Authentication.IndexModel
+@model CookingBakery.Pages.Authentication.IndexModel
 @{
     Layout = "";
     ViewData["title"] = "Login";
@@ -12,16 +12,15 @@
     <meta charset="utf-8" />
     <meta name="google-signin-client_id"
           content="352453563794-m2rghllfstg46t78nji3huoi5urk0dvq.apps.googleusercontent.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@200&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/css/login.css" />
     <link rel="stylesheet" href="~/css/shared.css" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 </head>
 
-<style>
-    ion-icon {
-        font-size: 24px;
-    }
-</style>
+
 @if (TempData["noti"] != null)
 {
     <div style="position: absolute; top: 20px; right: 20px; min-width: 300px; z-index: 2000;">
@@ -73,41 +72,68 @@
         </div>
     </div>
 }
-<body class="d-flex justify-content-center align-items-center">
-    <form method="post" class="rounded border p-5 position-relative" id="login-form">
-        <input type="hidden" asp-for="token" value="" id="token"/>
-        <h3 class="font-weight-bold text-center mt-3 mb-3">Welcome</h3>
-        <ion-icon class="login-icon" name="person-circle" style="color: #78d8ff;"></ion-icon>
-        <div class="form-group">
-            <label for="email">Email address</label>
-            <input type="email" class="form-control" id="email" asp-for="email">
-        </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" asp-for="password">
-        </div>
-        <button type="submit" class="btn btn-primary btn-block">Login</button>
-        <hr class="mt-4 mb-4">
-        <div id="g_id_onload"
-             data-client_id="352453563794-m2rghllfstg46t78nji3huoi5urk0dvq.apps.googleusercontent.com"
-             data-auto_prompt="false" data-callback="onSuccess">
-        </div>
-        <div class="g_id_signin" data-type="standard" data-size="large" data-theme="filled_blue" data-text="signin_with"
-             data-shape="rectangular" data-width="277" data-height="38" data-logo_alignment="left">
-        </div>
-    </form>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <script>
-        function onSuccess(googleUser) {
-            var token = googleUser.credential;
-            document.getElementById("token").value = token;
-            document.getElementById("login-form").submit();
-        }
-    </script>
+<body class="d-flex justify-content-center align-items-center bg-image">
+        <form method="post" class="rounded p-5 position-relative bg-secondary" id="login-form">
+            <input type="hidden" asp-for="token" value="" id="token" />
+            <h2 class="font-weight-bold text-center mt-3 mb-3 align-top">Sign in</h2>
+            <h4 class="font-weight-light text-center">
+                Welcome to 1 more time bakery
+            </h4>
+            @*<ion-icon class="login-icon" name="person-circle" style="color: #78d8ff;"></ion-icon>*@
+            <div class="form-group">
+                @*<label for="email">Email address</label>*@
+                <input type="email" class="form-control" id="email" placeholder="Username" asp-for="email">
+            </div>
+            <div class="form-group">
+                @*<label for="password">Password</label>*@
+                <input type="password" class="form-control" id="password" placeholder="Password" asp-for="password">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Login</button>
+            <hr class="mt-4 mb-4 bg-transparent">
+            <div id="g_id_onload"
+                 data-client_id="352453563794-m2rghllfstg46t78nji3huoi5urk0dvq.apps.googleusercontent.com"
+                 data-auto_prompt="false" data-callback="onSuccess">
+            </div>
+            <div class="g_id_signin"  data-type="standard" data-size="large" data-theme="filled_blue" data-text="signin_with"
+                 data-shape="rectangular" data-width="320" data-height="38" data-logo_alignment="left">
+            </div>
+            <div class="mt-4 mb-4 bg-transparent">
+                <button class="btn btn-secondary btn-block" asp-page="./Create">Sign up</button>
+            </div>
+        </form>
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="https://accounts.google.com/gsi/client" async defer></script>
+        <script>
+            function onSuccess(googleUser) {
+                var token = googleUser.credential;
+                document.getElementById("token").value = token;
+                document.getElementById("login-form").submit();
+            }
+        </script>
 </body>
 </html>
+<style>
+    ion-icon {
+        font-size: 24px;
+    }
+
+    body {
+        background-color: #4D6017;
+        background-blend-mode: lighten;
+        background: url('https://images.unsplash.com/photo-1574085733277-851d9d856a3a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80') no-repeat center center fixed;
+        background-size: cover;
+    }
+
+    .btn-primary {
+        background-color: #9CAA00
+    }
+
+    .btn-secondary {
+        background-color: #5E6600
+    }
+
+</style>

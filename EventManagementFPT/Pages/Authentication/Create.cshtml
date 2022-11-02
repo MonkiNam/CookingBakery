@@ -1,0 +1,90 @@
+﻿@page
+@using CookingBakery.Models
+@model CookingBakery.Pages.Authentication.CreateModel
+
+@{
+    Layout = "";
+    ViewData["title"] = "Signup";
+}
+
+<head>
+    <title>Signup page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta name="google-signin-client_id"
+          content="352453563794-m2rghllfstg46t78nji3huoi5urk0dvq.apps.googleusercontent.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@200&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/login.css" />
+    <link rel="stylesheet" href="~/css/shared.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+
+<body class="d-flex justify-content-center align-items-center bg-image">
+    <form method="post" class="rounded p-5 position-relative bg-secondary" id="signup-form">
+        <h2 class="font-weight-bold text-center mt-3 mb-3 align-top">Create new account</h2>
+        <input type="hidden" asp-for="token" value="" id="token" />
+
+        <div class="form-group">
+            <label  asp-for="NewUser.Name" class="control-label"> Your Email </label><br />
+            <input type="email" class="form-control" id="email" asp-for="NewUser.Email">
+        </div>
+        <div class="form-group">
+            <label asp-for="NewUser.Name" class="control-label"> Your Name</label><br />
+            <input class="form-control" id="email" asp-for="NewUser.Name">
+        </div>
+        <div class="form-group">
+            <label asp-for="NewUser.Password" class="control-label"> Password </label><br />
+            <input type="password" class="form-control" id="password" asp-for="NewUser.Password">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Create</button>
+        <hr class="mt-4 mb-4 bg-transparent">
+        <div id="g_id_onload"
+             data-client_id="352453563794-m2rghllfstg46t78nji3huoi5urk0dvq.apps.googleusercontent.com"
+             data-auto_prompt="false" data-callback="onSuccess">
+        </div>
+        <div class="g_id_signin mt-4 mb-4" data-type="standard" data-size="large" data-theme="filled_blue" data-text="signin_with"
+             data-shape="rectangular" data-width="320" data-height="38" data-logo_alignment="left">
+        </div>
+        <div class="mt-4 mb-4 bg-transparent">
+            <a class="mb-2" asp-page="./Index">Alreay have account?</a>
+        </div>
+    </form>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script>
+        function onSuccess(googleUser) {
+            var token = googleUser.credential;
+            document.getElementById("token").value = token;
+            document.getElementById("login-form").submit();
+        }
+    </script>
+</body>
+
+
+
+
+<style>
+
+    body {
+        background-color: #4D6017;
+        background: url('https://images.unsplash.com/photo-1574085733277-851d9d856a3a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80') no-repeat center center fixed;
+        background-size: cover;
+    }
+
+    .btn-primary {
+        background-color: #9CAA00
+    }
+
+    .bg-secondary {
+    }
+
+    button {
+    }
+</style>
+
