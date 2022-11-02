@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
@@ -108,6 +109,8 @@ namespace CookingBakery.Pages.Authentication
                         var nameData = jsonToken.Claims.First(claim => claim.Type == "name").Value;
                         var avatarData = jsonToken.Claims.First(claim => claim.Type == "picture").Value;
                         var newUser = new User(nameData, emailData, avatarData, true, RoleEnum.User);
+                        newUser.IsGoogle = true;
+                        newUser.CreatedDate = DateTime.Now;
                         await _userService.AddNewUser(newUser);
                     }
                     User user = await _userService.GetUserByEmail(emailData);

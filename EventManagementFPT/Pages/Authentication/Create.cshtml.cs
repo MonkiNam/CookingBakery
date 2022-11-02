@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -48,7 +49,8 @@ namespace CookingBakery.Pages.Authentication
                 if (!string.IsNullOrEmpty(NewUser.Email) && !string.IsNullOrEmpty(NewUser.Password) && !string.IsNullOrEmpty(NewUser.Name))
                 {
                     NewUser.Avatar = "~/image/default.png";
-
+                    NewUser.Role = RoleEnum.User;
+                    NewUser.CreatedDate = DateTime.Now;
 
                     await _userService.AddNewUser(NewUser);
                     TempData["noti"] = "Account created";

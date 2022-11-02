@@ -57,6 +57,7 @@ namespace CookingBakery.Pages.ProductPage
 
             try
             {
+                Product.UpdatedDate = DateTime.Now;
                 await _productService.UpdateProduct(Product);
             }
             catch (DbUpdateConcurrencyException)
