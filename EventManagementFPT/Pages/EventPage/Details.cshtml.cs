@@ -2,31 +2,30 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using CookingBakery.Model;
-using CookingBakery.Modules.EventModule.Interface;
+using CookingBakery.Models;
 using Microsoft.AspNetCore.Authorization;
+using CookingBakery.BakeryModules.PostModule.Interface;
 
 namespace CookingBakery.Pages.EventPage
 {
-    [Authorize(Roles="Admin, Host")]
     public class DetailsModel : PageModel
     {
-        private readonly IEventService _eventService;
+        private readonly IPostService _postService;
 
-        public DetailsModel(IEventService eventService)
+        public DetailsModel(IPostService postService)
         {
-            _eventService = eventService;
+            _postService = postService;
         }
 
-        public Event Event { get; set; }
+        public Post Post { get; set; }
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
             if (id == null) return NotFound();
 
-            Event = await _eventService.GetEventByID(id);
+            Post = await _postService.GetPostByID(id);
 
-            if (Event == null) return NotFound();
+            if (Post == null) return NotFound();
             
             return Page();
         }

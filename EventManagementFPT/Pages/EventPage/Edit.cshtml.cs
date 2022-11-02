@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using CookingBakery.Model;
-using CookingBakery.Modules.CategoryModule.Interface;
-using CookingBakery.Modules.EventModule.Interface;
-using CookingBakery.Modules.VenueModule.Interface;
+using CookingBakery.BakeryModules.CategoryModule.Interface;
+using CookingBakery.BakeryModules.PostModule.Interface;
+using CookingBakery.Models;
 using CookingBakery.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -14,36 +13,32 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CookingBakery.Pages.EventPage
 {
-    [Authorize(Roles="Admin, Host")]
     public class EditModel : PageModel
     {
-        private readonly EventManagementContext _context;
-        private readonly IEventService _eventService;
+        private readonly CookingBakeryContext _context;
+        private readonly IPostService _postService;
         private readonly IWebHostEnvironment _env;
         private readonly ICategoryService _categoryService;
-        private readonly IVenueService _venueService;
 
-        public EditModel(EventManagementContext context, IEventService eventService, IWebHostEnvironment env, ICategoryService categoryService, IVenueService venueService)
+        public EditModel(CookingBakeryContext context, IPostService postService, IWebHostEnvironment env, ICategoryService categoryService)
         {
             _context = context;
-            _eventService = eventService;
+            _postService = postService;
             _env = env;
             _categoryService = categoryService;
-            _venueService = venueService;
         }
 
         [BindProperty]
-        public Event Event { get; set; }
+        public Post Post { get; set; }
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
             if (id == null) return NotFound();
 
-            Event = await _eventService.GetEventByID(id);
+            Post = await _postService.GetPostByID(id);
 
-            if (Event == null) return NotFound();
-            
-            ViewData["Venue"] = new SelectList(_venueService.GetVenuesBy(x => x.Status != false), "VenueId", "VenueName");
+            if (Post == null) return NotFound();
+
             ViewData["Category"] = new SelectList(_categoryService.GetCategoriesBy(x => x.Status != false), "CategoryId", "Name");
             return Page();
         }
@@ -54,32 +49,17 @@ namespace CookingBakery.Pages.EventPage
         {
             if (!ModelState.IsValid)
             {
-                ViewData["Venue"] = new SelectList(_venueService.GetVenuesBy(x => x.Status != false), "VenueId", "VenueName");
                 ViewData["Category"] = new SelectList(_categoryService.GetCategoriesBy(x => x.Status != false), "CategoryId", "Name");
-                return Page();
-            }
-            if (Event.StartDate < (DateTime.Now - TimeSpan.FromMinutes(15)) || Event.EndDate < (DateTime.Now - TimeSpan.FromMinutes(15)))
-            {
-                TempData["error"] = "Start date and End date cannot be less than now";
-                ViewData["Category"] = new SelectList(_categoryService.GetCategoriesBy(x => x.Status != false), "CategoryId", "Name");
-                ViewData["Venue"] = new SelectList(_venueService.GetVenuesBy(x => x.Status != false), "VenueId", "VenueName");
                 return Page();
             }
 
-            if (DateTime.Compare(Event.StartDate, Event.EndDate) >= 0)
-            {
-                TempData["error"] = "Start date cannot be greater than end date";
-                ViewData["Category"] = new SelectList(_categoryService.GetCategoriesBy(x => x.Status != false), "CategoryId", "Name");
-                ViewData["Venue"] = new SelectList(_venueService.GetVenuesBy(x => x.Status != false), "VenueId", "VenueName");
-                return Page();
-            }
             if (customFile != null)
             {
                 string NewImageUrl = await UploadImage.UploadFile(customFile, _env);
-                Event.ImageUrl = NewImageUrl;
+                Post.ImageUrl = NewImageUrl;
             }
 
-            await _eventService.UpdateEvent(_context.Attach(Event).Entity);
+            await _postService.UpdatePost(_context.Attach(Post).Entity);
 
             return RedirectToPage("./Index");
         }

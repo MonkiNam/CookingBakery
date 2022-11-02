@@ -14,46 +14,37 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Event[0].Name)
+                @Html.DisplayNameFor(model => model.Post[0].Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Event[0].ImageUrl)
+                @Html.DisplayNameFor(model => model.Post[0].ImageUrl)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Event[0].Description)
+                @Html.DisplayNameFor(model => model.Post[0].Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Event[0].CreateDate)
+                @Html.DisplayNameFor(model => model.Post[0].CreatedDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Event[0].StartDate)
+                @Html.DisplayNameFor(model => model.Post[0].UpdatedDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Event[0].EndDate)
+                @Html.DisplayNameFor(model => model.Post[0].Status)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Event[0].Venue.VenueName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Event[0].Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Event[0].CanComment)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Event[0].CategoryNavigation)
+                @Html.DisplayNameFor(model => model.Post[0].Category)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @if (Model.Event != null)
+        @if (Model.Post != null)
         {
-            @foreach (var item in Model.Event)
+            @foreach (var item in Model.Post)
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Name)
+                        @Html.DisplayFor(modelItem => item.Title)
                     </td>
                     <td>
                         <img width="200" src="~/image/@item.ImageUrl" alt="event-banner" />
@@ -62,30 +53,21 @@
                         @Html.DisplayFor(modelItem => item.Description)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.CreateDate)
+                        @Html.DisplayFor(modelItem => item.CreatedDate)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.StartDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.EndDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Venue.VenueName)
+                        @Html.DisplayFor(modelItem => item.UpdatedDate)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Status)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.CanComment)
+                        @Html.DisplayFor(modelItem => item.Category.Name)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.CategoryNavigation.Name)
-                    </td>
-                    <td>
-                        <a asp-page="./Edit" asp-route-id="@item.EventId">Edit</a> |
-                        <a asp-page="./Details" asp-route-id="@item.EventId">Details</a> |
-                        <a asp-page="./Delete" asp-route-id="@item.EventId">Delete</a>
+                        <a asp-page="./Edit" asp-route-id="@item.PostId">Edit</a> |
+                        <a asp-page="./Details" asp-route-id="@item.PostId">Details</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.PostId">Delete</a>
                     </td>
                 </tr>
             }
@@ -93,14 +75,14 @@
     </tbody>
 </table>
 @{
-    var prevDisabled = !Model.Event.HasPreviousPage ? "disabled" : "";
-    var nextDisabled = !Model.Event.HasNextPage ? "disabled" : "";
+    var prevDisabled = !Model.Post.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.Post.HasNextPage ? "disabled" : "";
 
     <nav>
         <ul class="pagination justify-content-center pagination-lg">
             <li class="page-item btn-lg">
                 <a asp-page="./Index"
-               asp-route-pageIndex="@(Model.Event.PageIndex - 1)"
+               asp-route-pageIndex="@(Model.Post.PageIndex - 1)"
                class="btn btn-primary page-link @prevDisabled">
                     Previous
                 </a>
@@ -108,7 +90,7 @@
 
             <li class="page-item btn-lg" style="width: 156px">
                 <a asp-page="./Index"
-               asp-route-pageIndex="@(Model.Event.PageIndex + 1)"
+               asp-route-pageIndex="@(Model.Post.PageIndex + 1)"
                class="btn btn-primary page-link @nextDisabled">
                     Next
                 </a>
