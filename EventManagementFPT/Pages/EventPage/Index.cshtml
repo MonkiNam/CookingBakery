@@ -65,8 +65,7 @@
                         @Html.DisplayFor(modelItem => item.Category.Name)
                     </td>
                     <td>
-                        <a asp-page="./Edit" asp-route-id="@item.PostId">Edit</a> |
-                        <a asp-page="./Details" asp-route-id="@item.PostId">Details</a> |
+                        <a asp-page="/Home/Details" asp-route-id="@item.PostId">Details</a> |
                         <a asp-page="./Delete" asp-route-id="@item.PostId">Delete</a>
                     </td>
                 </tr>

@@ -41,6 +41,8 @@ namespace CookingBakery.Pages.Home
         public IEnumerable<Models.Comment> Comments { get; set; }
         public PostReaction isLike { get; set; }
 
+        [BindProperty]
+        public string Role { get; set; }
 
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
@@ -56,6 +58,8 @@ namespace CookingBakery.Pages.Home
             Comments =  _commentService.GetListCommentByPostId(id);
 
             var loginUser = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            Role = User.FindFirst(ClaimTypes.Role)?.Value;
+
 
             isLike = _context.PostReactions.Where(x => x.PostId.Equals(Post.PostId) && x.UserId.Equals(loginUser)).FirstOrDefault();
 
