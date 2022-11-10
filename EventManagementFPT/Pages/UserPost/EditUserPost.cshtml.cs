@@ -52,7 +52,13 @@ namespace CookingBakery.Pages.UserPost
                 return Page();
             }
 
-            _context.Attach(Post).State = EntityState.Modified;
+            var post = _context.Posts.FirstOrDefault(x => x.PostId == Post.PostId);
+            post.Title = Post.Title;
+            post.Description = Post.Description;
+            post.CategoryId = Post.CategoryId;
+            post.ImageUrl = Post.ImageUrl;
+
+            _context.Attach(post).State = EntityState.Modified;
 
             try
             {
@@ -70,7 +76,7 @@ namespace CookingBakery.Pages.UserPost
                 }
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./IndexUserPost");
         }
 
         private bool PostExists(Guid id)
